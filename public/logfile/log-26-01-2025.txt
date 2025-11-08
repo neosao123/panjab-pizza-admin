@@ -1,0 +1,10 @@
+2025-01-26 17:58:39	69.159.41.134	USR_1	special offer line entries SOL_86 is deleted.
+2025-01-26 17:58:56	69.159.41.134	USR_1	special offer line entries - is deleted.
+2025-01-26 17:59:09	69.159.41.134	USR_1	Side Offer Line Entries SOL_84 is updated
+2025-01-26 17:59:09	69.159.41.134	USR_1	Side Offer Line Entries SOL_85 is updated
+2025-01-26 17:59:09	69.159.41.134	USR_1	Side Offer Line Entries SOL_87 is updated
+2025-01-26 17:59:09	69.159.41.134	USR_1	Side Offer Line Entries SOL_88 is updated
+2025-01-26 17:59:09	69.159.41.134	USR_1	Side Offer Line Entries SOL_89 is updated
+2025-01-26 17:59:09	69.159.41.134	USR_1	Side Offer Line Entries SOL_90 is updated
+2025-01-26 17:59:09	69.159.41.134	USR_1	Side Offer Line Entries SPO_78 is added
+2025-01-26 17:59:09	69.159.41.134	USR_1	 Special Offer SPO_78 is updated.

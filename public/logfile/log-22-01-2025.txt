@@ -1,0 +1,159 @@
+2025-01-22 14:08:51	99.209.138.179	USR_1	 Special Offer SPO_6 is updated.
+2025-01-22 15:40:56	99.209.138.179	USR_1	 Special Offer SPO_6 is updated.
+2025-01-22 15:45:39	99.209.138.179	USR_1	Special Offer SPO_82 is added
+2025-01-22 15:49:32	99.209.138.179	USR_1	Special Offer SPO_83 is added
+2025-01-22 15:50:43	99.209.138.179	USR_1	Special Offer SPO_84 is added
+2025-01-22 15:51:13	99.209.138.179	USR_1	 Special Offer SPO_82 is updated.
+2025-01-22 15:51:28	99.209.138.179	USR_1	 Special Offer SPO_83 is updated.
+2025-01-22 15:52:25	99.209.138.179	USR_1	Special Offer SPO_85 is added
+2025-01-22 15:54:11	99.209.138.179	USR_1	Special Offer SPO_86 is added
+2025-01-22 15:57:26	99.209.138.179	USR_1	Side Offer Line Entries SOL_94 is added
+2025-01-22 15:57:26	99.209.138.179	USR_1	Side Offer Line Entries SOL_95 is added
+2025-01-22 15:57:26	99.209.138.179	USR_1	Side Offer Line Entries SOL_96 is added
+2025-01-22 15:57:26	99.209.138.179	USR_1	Side Offer Line Entries SOL_97 is added
+2025-01-22 15:57:26	99.209.138.179	USR_1	Special Offer SPO_87 is added
+2025-01-22 15:57:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_94 is updated
+2025-01-22 15:57:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_95 is updated
+2025-01-22 15:57:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_96 is updated
+2025-01-22 15:57:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_97 is updated
+2025-01-22 15:57:42	99.209.138.179	USR_1	 Special Offer SPO_87 is updated.
+2025-01-22 15:58:54	99.209.138.179	USR_1	Special Offer SPO_88 is added
+2025-01-22 16:00:11	99.209.138.179	USR_1	Special Offer SPO_89 is added
+2025-01-22 16:02:08	99.209.138.179	USR_1	 Special Offer SPO_89 is updated.
+2025-01-22 16:02:46	99.209.138.179	USR_1	Side Offer Line Entries SOL_82 is updated
+2025-01-22 16:02:46	99.209.138.179	USR_1	Side Offer Line Entries SOL_83 is updated
+2025-01-22 16:02:46	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-22 16:03:25	99.209.138.179	USR_1	 Signature Pizza SP_11 is updated.
+2025-01-22 16:03:39	99.209.138.179	USR_1	 Signature Pizza SP_9 is updated.
+2025-01-22 16:03:55	99.209.138.179	USR_1	 Signature Pizza SP_4 is updated.
+2025-01-22 16:05:04	99.209.138.179	USR_1	 Soft Drink SFD_7 is updated.
+2025-01-22 16:05:26	99.209.138.179	USR_1	 Soft Drink SFD_6 is updated.
+2025-01-22 16:05:48	99.209.138.179	USR_1	 Soft Drink SFD_6 is updated.
+2025-01-22 16:06:10	99.209.138.179	USR_1	 Soft Drink SFD_3 is updated.
+2025-01-22 16:06:19	99.209.138.179	USR_1	 Soft Drink SFD_2 is updated.
+2025-01-22 16:28:19	69.159.41.134	USR_1	 Special Offer SPO_82 is updated.
+2025-01-22 16:28:53	69.159.41.134	USR_1	Side Offer Line Entries SOL_94 is updated
+2025-01-22 16:28:53	69.159.41.134	USR_1	Side Offer Line Entries SOL_95 is updated
+2025-01-22 16:28:53	69.159.41.134	USR_1	Side Offer Line Entries SOL_96 is updated
+2025-01-22 16:28:53	69.159.41.134	USR_1	Side Offer Line Entries SOL_97 is updated
+2025-01-22 16:28:53	69.159.41.134	USR_1	 Special Offer SPO_87 is updated.
+2025-01-22 16:29:02	69.159.41.134	USR_1	 Special Offer SPO_86 is updated.
+2025-01-22 16:29:46	69.159.41.134	USR_1	 Special Offer SPO_84 is updated.
+2025-01-22 16:29:53	69.159.41.134	USR_1	Special Offer SPO_83  is deleted.
+2025-01-22 16:31:34	69.159.41.134	USR_1	Side Offer Line Entries SOL_94 is updated
+2025-01-22 16:31:34	69.159.41.134	USR_1	Side Offer Line Entries SOL_95 is updated
+2025-01-22 16:31:34	69.159.41.134	USR_1	Side Offer Line Entries SOL_96 is updated
+2025-01-22 16:31:34	69.159.41.134	USR_1	Side Offer Line Entries SOL_97 is updated
+2025-01-22 16:31:34	69.159.41.134	USR_1	 Special Offer SPO_87 is updated.
+2025-01-22 16:31:55	69.159.41.134	USR_1	 Special Offer SPO_86 is updated.
+2025-01-22 16:44:17	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 16:44:35	69.159.41.134	USR_1	 Signature Pizza SP_7 is updated.
+2025-01-22 17:03:11	69.159.41.134	USR_1	Side SD_2 is updated
+2025-01-22 17:03:29	69.159.41.134	USR_1	Side SD_15 is updated
+2025-01-22 17:03:37	69.159.41.134	USR_1	Side SD_14 is updated
+2025-01-22 17:04:18	69.159.41.134	USR_1	Side SD_11 is updated
+2025-01-22 17:04:27	69.159.41.134	USR_1	Side SD_1 is updated
+2025-01-22 17:10:43 69.159.41.134 USR_1 Signature Pizza SP_12 is added
+2025-01-22 17:11:25	69.159.41.134	USR_1	 Signature Pizza SP_12 is updated.
+2025-01-22 17:12:49 69.159.41.134 USR_1 Signature Pizza SP_13 is added
+2025-01-22 17:14:05	69.159.41.134	USR_1	 Pizza Price 1 is updated.
+2025-01-22 17:14:16	69.159.41.134	USR_1	 Pizza Price 2 is updated.
+2025-01-22 17:14:29	69.159.41.134	USR_1	 Pizza Price 3 is updated.
+2025-01-22 17:29:22	69.159.41.134	USR_1	 Signature Pizza SP_1 is updated.
+2025-01-22 17:29:29	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 17:29:36	69.159.41.134	USR_1	 Signature Pizza SP_4 is updated.
+2025-01-22 17:29:42	69.159.41.134	USR_1	 Signature Pizza SP_6 is updated.
+2025-01-22 17:29:49	69.159.41.134	USR_1	 Signature Pizza SP_7 is updated.
+2025-01-22 17:29:55	69.159.41.134	USR_1	 Signature Pizza SP_9 is updated.
+2025-01-22 17:30:02	69.159.41.134	USR_1	 Signature Pizza SP_10 is updated.
+2025-01-22 17:30:10	69.159.41.134	USR_1	 Signature Pizza SP_11 is updated.
+2025-01-22 17:30:16	69.159.41.134	USR_1	 Signature Pizza SP_12 is updated.
+2025-01-22 17:30:23	69.159.41.134	USR_1	 Signature Pizza SP_13 is updated.
+2025-01-22 17:31:06	69.159.41.134	USR_1	 Signature Pizza SP_12 is updated.
+2025-01-22 17:32:11	69.159.41.134	USR_1	 Signature Pizza SP_1 is updated.
+2025-01-22 17:32:18	69.159.41.134	USR_1	 Signature Pizza SP_12 is updated.
+2025-01-22 17:39:59	69.159.41.134	USR_1	 Signature Pizza SP_10 is updated.
+2025-01-22 17:40:49	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 17:41:00	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 17:41:14	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 17:41:33	69.159.41.134	USR_1	 Signature Pizza SP_12 is updated.
+2025-01-22 17:45:12	69.159.41.134	USR_1	 Signature Pizza SP_10 is updated.
+2025-01-22 18:46:12	69.159.41.134	USR_1	 Signature Pizza SP_10 is updated.
+2025-01-22 18:46:22	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 18:47:09	69.159.41.134	USR_1	 Signature Pizza SP_10 is updated.
+2025-01-22 18:47:56	69.159.41.134	USR_1	 Signature Pizza SP_10 is updated.
+2025-01-22 18:48:38	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 18:49:25	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 18:49:40	69.159.41.134	USR_1	 Signature Pizza SP_10 is updated.
+2025-01-22 18:51:09	69.159.41.134	USR_1	 Special Offer SPO_6 is updated.
+2025-01-22 18:51:36	69.159.41.134	USR_1	 Special Offer SPO_6 is updated.
+2025-01-22 19:07:57	69.159.41.134	USR_1	 Special Offer SPO_81 is updated.
+2025-01-22 19:40:04	69.159.41.134	USR_1	Side SD_26 is updated
+2025-01-22 19:43:29	69.159.41.134	USR_1	Side SD_12 is updated
+2025-01-22 19:53:56	69.159.41.134	USR_1	 Special Offer SPO_89 is updated.
+2025-01-22 19:54:08	69.159.41.134	USR_1	 Special Offer SPO_88 is updated.
+2025-01-22 19:54:32	69.159.41.134	USR_1	Side Offer Line Entries SOL_94 is updated
+2025-01-22 19:54:32	69.159.41.134	USR_1	Side Offer Line Entries SOL_95 is updated
+2025-01-22 19:54:32	69.159.41.134	USR_1	Side Offer Line Entries SOL_96 is updated
+2025-01-22 19:54:32	69.159.41.134	USR_1	Side Offer Line Entries SOL_97 is updated
+2025-01-22 19:54:32	69.159.41.134	USR_1	 Special Offer SPO_87 is updated.
+2025-01-22 19:54:51	69.159.41.134	USR_1	Side Offer Line Entries SOL_94 is updated
+2025-01-22 19:54:51	69.159.41.134	USR_1	Side Offer Line Entries SOL_95 is updated
+2025-01-22 19:54:51	69.159.41.134	USR_1	Side Offer Line Entries SOL_96 is updated
+2025-01-22 19:54:51	69.159.41.134	USR_1	Side Offer Line Entries SOL_97 is updated
+2025-01-22 19:54:51	69.159.41.134	USR_1	 Special Offer SPO_87 is updated.
+2025-01-22 19:56:11	69.159.41.134	USR_1	 Special Offer SPO_81 is updated.
+2025-01-22 19:56:40	69.159.41.134	USR_1	 Special Offer SPO_81 is updated.
+2025-01-22 19:57:12	69.159.41.134	USR_1	 Special Offer SPO_86 is updated.
+2025-01-22 19:57:33	69.159.41.134	USR_1	 Special Offer SPO_85 is updated.
+2025-01-22 19:57:58	69.159.41.134	USR_1	 Special Offer SPO_84 is updated.
+2025-01-22 19:58:09	69.159.41.134	USR_1	 Special Offer SPO_82 is updated.
+2025-01-22 19:58:28	69.159.41.134	USR_1	Side Offer Line Entries SOL_91 is updated
+2025-01-22 19:58:28	69.159.41.134	USR_1	Side Offer Line Entries SOL_92 is updated
+2025-01-22 19:58:28	69.159.41.134	USR_1	Side Offer Line Entries SOL_93 is updated
+2025-01-22 19:58:28	69.159.41.134	USR_1	 Special Offer SPO_80 is updated.
+2025-01-22 19:58:48	69.159.41.134	USR_1	 Special Offer SPO_79 is updated.
+2025-01-22 19:58:58	69.159.41.134	USR_1	Side Offer Line Entries SOL_91 is updated
+2025-01-22 19:58:58	69.159.41.134	USR_1	Side Offer Line Entries SOL_92 is updated
+2025-01-22 19:58:58	69.159.41.134	USR_1	Side Offer Line Entries SOL_93 is updated
+2025-01-22 19:58:58	69.159.41.134	USR_1	 Special Offer SPO_80 is updated.
+2025-01-22 19:59:17	69.159.41.134	USR_1	Side Offer Line Entries SOL_84 is updated
+2025-01-22 19:59:17	69.159.41.134	USR_1	Side Offer Line Entries SOL_85 is updated
+2025-01-22 19:59:17	69.159.41.134	USR_1	Side Offer Line Entries SOL_86 is updated
+2025-01-22 19:59:17	69.159.41.134	USR_1	Side Offer Line Entries SOL_87 is updated
+2025-01-22 19:59:17	69.159.41.134	USR_1	Side Offer Line Entries SOL_88 is updated
+2025-01-22 19:59:17	69.159.41.134	USR_1	Side Offer Line Entries SOL_89 is updated
+2025-01-22 19:59:17	69.159.41.134	USR_1	Side Offer Line Entries SOL_90 is updated
+2025-01-22 19:59:17	69.159.41.134	USR_1	 Special Offer SPO_78 is updated.
+2025-01-22 19:59:30	69.159.41.134	USR_1	Side Offer Line Entries SOL_82 is updated
+2025-01-22 19:59:30	69.159.41.134	USR_1	Side Offer Line Entries SOL_83 is updated
+2025-01-22 19:59:30	69.159.41.134	USR_1	 Special Offer SPO_77 is updated.
+2025-01-22 20:00:14	69.159.41.134	USR_1	 Signature Pizza SP_10 is updated.
+2025-01-22 20:00:33	69.159.41.134	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-22 20:02:24	69.159.41.134	USR_1	 Special Offer SPO_6 is updated.
+2025-01-22 20:20:35	69.159.41.134	USR_1	Side SD_1 is updated
+2025-01-22 20:22:22	69.159.41.134	USR_1	Side SD_1 is updated
+2025-01-22 20:26:10	69.159.41.134	USR_1	Side SD_1 is updated
+2025-01-22 20:27:54	69.159.41.134	USR_1	Side SD_1 is updated
+2025-01-22 20:29:44	69.159.41.134	USR_1	Side SD_19 is updated
+2025-01-22 20:31:02	69.159.41.134	USR_1	Side SD_20 is updated
+2025-01-22 20:31:45	69.159.41.134	USR_1	Side SD_21 is updated
+2025-01-22 20:33:23	69.159.41.134	USR_1	Side SD_18 is updated
+2025-01-22 20:33:50	69.159.41.134	USR_1	Side SD_7 is updated
+2025-01-22 20:34:14	69.159.41.134	USR_1	Side SD_8 is updated
+2025-01-22 20:34:46	69.159.41.134	USR_1	Side SD_17 is updated
+2025-01-22 20:34:51	69.159.41.134	USR_1	Side SD_26 is updated
+2025-01-22 20:35:04	69.159.41.134	USR_1	Side SD_17 is updated
+2025-01-22 20:35:50	69.159.41.134	USR_1	Side SD_24 is updated
+2025-01-22 20:36:24	69.159.41.134	USR_1	Side SD_9 is updated
+2025-01-22 20:36:50	69.159.41.134	USR_1	Side SD_15 is updated
+2025-01-22 20:37:50	69.159.41.134	USR_1	Side SD_5 is updated
+2025-01-22 20:38:17	69.159.41.134	USR_1	Side SD_11 is updated
+2025-01-22 20:38:38	69.159.41.134	USR_1	Side SD_13 is updated
+2025-01-22 20:43:35	69.159.41.134	USR_1	Side SD_18 is updated
+2025-01-22 20:44:43	69.159.41.134	USR_1	Side SD_18 is updated
+2025-01-22 20:45:36	69.159.41.134	USR_1	Side SD_23 is updated
+2025-01-22 20:53:04	99.209.138.179	USR_1	Side SD_12 is updated
+2025-01-22 20:53:56	69.159.41.134	USR_1	Side SD_12 is updated
+2025-01-22 20:54:21	99.209.138.179	USR_1	 Pizza PI_2 is updated.
+2025-01-22 20:55:42	99.209.138.179	USR_1	 Pizza PI_2 is updated.

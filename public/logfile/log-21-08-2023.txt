@@ -1,0 +1,8 @@
+2023-08-21 05:25:52	2405:201:1002:40b0:54bf:1741:a097:22c2	USR_1	Side SD_25 is updated
+2023-08-21 05:27:33	2405:201:1002:40b0:54bf:1741:a097:22c2	USR_1	Side SD_25 is updated
+2023-08-21 12:34:01	49.36.40.40	USR_1	Order statusORD_226 is updated.
+2023-08-21 12:38:19	49.36.40.40	USR_1	 Special Offer SPO_3 is updated.
+2023-08-21 12:39:01	49.36.40.40	USR_1	 Special Offer SPO_4 is updated.
+2023-08-21 12:53:15	49.36.40.40	USR_1	Side Offer Line Entries SOL_26 is updated
+2023-08-21 12:53:15	49.36.40.40	USR_1	 Special Offer SPO_4 is updated.
+2023-08-21 12:56:38	49.36.40.40	USR_1	special offer line entries - is deleted.

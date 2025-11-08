@@ -1,0 +1,21 @@
+2025-09-01 02:13:15	106.76.78.105	USR_1	Profile USR_1 is updated.
+2025-09-01 02:29:35	49.36.42.50	USR_1	Settings STG_5 Setting name & value  Toppings Label For Count 2Premium is updated
+2025-09-01 02:29:52	49.36.42.50	USR_1	Settings STG_6 Setting name & value  Toppings Label For Count 1Regular is updated
+2025-09-01 02:34:59	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-01 02:49:13	49.36.42.50	USR_1	Settings STG_5 Setting name & value  Non Regular ToppingsPremium Toppings is updated
+2025-09-01 02:52:25	49.36.42.50	USR_1	Settings STG_5 Setting name & value  Non Regular ToppingsPremium Toppings is updated
+2025-09-01 02:53:41	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-01 02:54:07	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-01 02:58:23	49.36.42.50	USR_1	Settings STG_6 Setting name & value  Regular ToppingsRegular is updated
+2025-09-01 03:09:11	49.36.42.50	USR_1	Settings STG_6 Setting name & value  Regular ToppingsRegular Toppings is updated
+2025-09-01 03:18:29	49.36.42.50	USR_1	 Topping TOP_72 is updated.
+2025-09-01 03:20:54	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-01 03:21:02	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-01 03:32:46	49.36.42.50	USR_1	 Signature Pizza SP_11 is updated.
+2025-09-01 03:46:37	49.36.42.50	USR_1	 Signature Pizza SP_13 is updated.
+2025-09-01 04:04:37	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-01 04:30:49	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-01 05:10:49	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-01 05:28:40	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-01 05:32:44	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-01 05:53:23	49.36.42.50	USR_1	 Topping TOP_72 is updated.

@@ -1,0 +1,100 @@
+2025-01-21 06:32:59	99.209.138.179	USR_1	Special Offer SPO_77 is added
+2025-01-21 06:36:27	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-21 06:37:27	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-21 06:45:44	99.209.138.179	USR_1	Side Offer Line Entries SOL_71 is updated
+2025-01-21 06:45:44	99.209.138.179	USR_1	Side Offer Line Entries SOL_73 is updated
+2025-01-21 06:45:44	99.209.138.179	USR_1	 Special Offer SPO_47 is updated.
+2025-01-21 06:47:19	99.209.138.179	USR_1	 Special Offer SPO_6 is updated.
+2025-01-21 07:47:17	49.36.41.229	USR_18	Side SD_8 is updated
+2025-01-21 07:48:34	49.36.41.229	USR_18	Side SD_8 is updated
+2025-01-21 07:49:06	49.36.41.229	USR_18	Side SD_9 is updated
+2025-01-21 07:51:20	49.36.41.229	USR_18	Side SD_9 is updated
+2025-01-21 09:07:51	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-21 09:07:56	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-21 17:08:08	99.209.138.179	USR_1	 Signature Pizza SP_7 is updated.
+2025-01-21 21:27:06	99.209.138.179	USR_1	 Signature Pizza SP_7 is updated.
+2025-01-21 21:30:50	99.209.138.179	USR_1	 Signature Pizza SP_4 is updated.
+2025-01-21 21:35:45	99.209.138.179	USR_1	 Signature Pizza SP_6 is updated.
+2025-01-21 21:36:34	99.209.138.179	USR_1	 Signature Pizza SP_1 is updated.
+2025-01-21 21:36:59	99.209.138.179	USR_1	 Signature Pizza SP_4 is updated.
+2025-01-21 21:40:05	99.209.138.179	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-21 21:40:28	99.209.138.179	USR_1	 Signature Pizza SP_1 is updated.
+2025-01-21 21:40:42	99.209.138.179	USR_1	Signature Pizza SP_5  is deleted.
+2025-01-21 21:43:05 99.209.138.179 USR_1 Signature Pizza SP_9 is added
+2025-01-21 21:43:21	99.209.138.179	USR_1	Signature Pizza SP_8  is deleted.
+2025-01-21 21:44:17	99.209.138.179	USR_1	 Signature Pizza SP_7 is updated.
+2025-01-21 21:44:45	99.209.138.179	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-21 21:51:49 99.209.138.179 USR_1 Signature Pizza SP_10 is added
+2025-01-21 21:54:54 99.209.138.179 USR_1 Signature Pizza SP_11 is added
+2025-01-21 21:55:38	99.209.138.179	USR_1	 Signature Pizza SP_3 is updated.
+2025-01-21 21:56:31	99.209.138.179	USR_1	 Pizza PI_6 is updated.
+2025-01-21 21:56:37	99.209.138.179	USR_1	 Pizza PI_5 is updated.
+2025-01-21 21:56:43	99.209.138.179	USR_1	 Pizza PI_4 is updated.
+2025-01-21 21:56:49	99.209.138.179	USR_1	 Pizza PI_3 is updated.
+2025-01-21 21:58:19	99.209.138.179	USR_1	 Pizza PI_2 is updated.
+2025-01-21 22:07:19	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-21 22:11:19	99.209.138.179	USR_1	Side Offer Line Entries SPO_77 is added
+2025-01-21 22:11:19	99.209.138.179	USR_1	Side Offer Line Entries SPO_77 is added
+2025-01-21 22:11:19	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-21 22:11:57	99.209.138.179	USR_1	Side Offer Line Entries SOL_82 is updated
+2025-01-21 22:11:57	99.209.138.179	USR_1	Side Offer Line Entries SOL_83 is updated
+2025-01-21 22:11:57	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-21 22:13:12	99.209.138.179	USR_1	Side Offer Line Entries SOL_82 is updated
+2025-01-21 22:13:12	99.209.138.179	USR_1	Side Offer Line Entries SOL_83 is updated
+2025-01-21 22:13:12	99.209.138.179	USR_1	 Special Offer SPO_77 is updated.
+2025-01-21 22:14:04	99.209.138.179	USR_1	Special Offer SPO_76  is deleted.
+2025-01-21 22:14:09	99.209.138.179	USR_1	Special Offer SPO_73  is deleted.
+2025-01-21 22:14:15	99.209.138.179	USR_1	Special Offer SPO_72  is deleted.
+2025-01-21 22:14:19	99.209.138.179	USR_1	Special Offer SPO_68  is deleted.
+2025-01-21 22:14:24	99.209.138.179	USR_1	Special Offer SPO_67  is deleted.
+2025-01-21 22:14:29	99.209.138.179	USR_1	Special Offer SPO_66  is deleted.
+2025-01-21 22:14:34	99.209.138.179	USR_1	Special Offer SPO_65  is deleted.
+2025-01-21 22:14:38	99.209.138.179	USR_1	Special Offer SPO_64  is deleted.
+2025-01-21 22:14:42	99.209.138.179	USR_1	Special Offer SPO_62  is deleted.
+2025-01-21 22:14:49	99.209.138.179	USR_1	Special Offer SPO_57  is deleted.
+2025-01-21 22:14:54	99.209.138.179	USR_1	Special Offer SPO_56  is deleted.
+2025-01-21 22:15:00	99.209.138.179	USR_1	Special Offer SPO_55  is deleted.
+2025-01-21 22:15:04	99.209.138.179	USR_1	Special Offer SPO_53  is deleted.
+2025-01-21 22:15:09	99.209.138.179	USR_1	Special Offer SPO_49  is deleted.
+2025-01-21 22:15:13	99.209.138.179	USR_1	Special Offer SPO_47  is deleted.
+2025-01-21 22:15:17	99.209.138.179	USR_1	Special Offer SPO_46  is deleted.
+2025-01-21 22:15:21	99.209.138.179	USR_1	Special Offer SPO_40  is deleted.
+2025-01-21 22:15:25	99.209.138.179	USR_1	Special Offer SPO_39  is deleted.
+2025-01-21 22:15:29	99.209.138.179	USR_1	Special Offer SPO_37  is deleted.
+2025-01-21 22:15:33	99.209.138.179	USR_1	Special Offer SPO_36  is deleted.
+2025-01-21 22:15:36	99.209.138.179	USR_1	Special Offer SPO_35  is deleted.
+2025-01-21 22:15:40	99.209.138.179	USR_1	Special Offer SPO_27  is deleted.
+2025-01-21 22:15:45	99.209.138.179	USR_1	Special Offer SPO_25  is deleted.
+2025-01-21 22:15:48	99.209.138.179	USR_1	Special Offer SPO_23  is deleted.
+2025-01-21 22:15:52	99.209.138.179	USR_1	Special Offer SPO_10  is deleted.
+2025-01-21 22:15:56	99.209.138.179	USR_1	Special Offer SPO_9  is deleted.
+2025-01-21 22:20:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_84 is added
+2025-01-21 22:20:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_85 is added
+2025-01-21 22:20:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_86 is added
+2025-01-21 22:20:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_87 is added
+2025-01-21 22:20:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_88 is added
+2025-01-21 22:20:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_89 is added
+2025-01-21 22:20:42	99.209.138.179	USR_1	Side Offer Line Entries SOL_90 is added
+2025-01-21 22:20:42	99.209.138.179	USR_1	Special Offer SPO_78 is added
+2025-01-21 22:21:40	99.209.138.179	USR_1	 Soft Drink SFD_1 is updated.
+2025-01-21 22:28:37	99.209.138.179	USR_1	Special Offer SPO_79 is added
+2025-01-21 22:33:46	99.209.138.179	USR_1	Side Offer Line Entries SOL_91 is added
+2025-01-21 22:33:46	99.209.138.179	USR_1	Side Offer Line Entries SOL_92 is added
+2025-01-21 22:33:46	99.209.138.179	USR_1	Side Offer Line Entries SOL_93 is added
+2025-01-21 22:33:46	99.209.138.179	USR_1	Special Offer SPO_80 is added
+2025-01-21 22:35:49	99.209.138.179	USR_1	Special Offer SPO_81 is added
+2025-01-21 22:37:22	99.209.138.179	USR_1	 Special Offer SPO_6 is updated.
+2025-01-21 22:38:04	99.209.138.179	USR_1	 Special Offer SPO_81 is updated.
+2025-01-21 22:38:14	99.209.138.179	USR_1	Side Offer Line Entries SOL_91 is updated
+2025-01-21 22:38:14	99.209.138.179	USR_1	Side Offer Line Entries SOL_92 is updated
+2025-01-21 22:38:14	99.209.138.179	USR_1	Side Offer Line Entries SOL_93 is updated
+2025-01-21 22:38:14	99.209.138.179	USR_1	 Special Offer SPO_80 is updated.
+2025-01-21 22:38:28	99.209.138.179	USR_1	 Special Offer SPO_79 is updated.
+2025-01-21 22:38:38	99.209.138.179	USR_1	Side Offer Line Entries SOL_84 is updated
+2025-01-21 22:38:38	99.209.138.179	USR_1	Side Offer Line Entries SOL_85 is updated
+2025-01-21 22:38:38	99.209.138.179	USR_1	Side Offer Line Entries SOL_86 is updated
+2025-01-21 22:38:38	99.209.138.179	USR_1	Side Offer Line Entries SOL_87 is updated
+2025-01-21 22:38:38	99.209.138.179	USR_1	Side Offer Line Entries SOL_88 is updated
+2025-01-21 22:38:38	99.209.138.179	USR_1	Side Offer Line Entries SOL_89 is updated
+2025-01-21 22:38:38	99.209.138.179	USR_1	Side Offer Line Entries SOL_90 is updated
+2025-01-21 22:38:38	99.209.138.179	USR_1	 Special Offer SPO_78 is updated.

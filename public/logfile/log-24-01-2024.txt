@@ -1,0 +1,7 @@
+2024-01-24 10:55:45	2405:201:1002:4923:1b6:1e5:ccc2:1dd	USR_1	Side Offer Line Entries SOL_58 is updated
+2024-01-24 10:55:45	2405:201:1002:4923:1b6:1e5:ccc2:1dd	USR_1	 Special Offer SPO_40 is updated.
+2024-01-24 15:24:50	2401:4900:1c44:6d47:d167:7cbe:476d:ba78	USR_1	 Special Offer SPO_50 is updated.
+2024-01-24 15:31:02	2401:4900:1c44:6d47:d167:7cbe:476d:ba78	USR_1	Side Offer Line Entries SOL_57 is updated
+2024-01-24 15:31:02	2401:4900:1c44:6d47:d167:7cbe:476d:ba78	USR_1	 Special Offer SPO_47 is updated.
+2024-01-24 15:32:34	2401:4900:1c44:6d47:d167:7cbe:476d:ba78	USR_1	Side Offer Line Entries SOL_57 is updated
+2024-01-24 15:32:34	2401:4900:1c44:6d47:d167:7cbe:476d:ba78	USR_1	 Special Offer SPO_47 is updated.

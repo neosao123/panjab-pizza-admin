@@ -1,0 +1,33 @@
+2023-10-05 06:24:27	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_37 is added
+2023-10-05 06:24:27	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Special Offer SPO_28 is added
+2023-10-05 06:26:00	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Special Offer SPO_28  is deleted.
+2023-10-05 06:26:53	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_38 is added
+2023-10-05 06:26:53	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Special Offer SPO_29 is added
+2023-10-05 06:35:30	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_39 is added
+2023-10-05 06:35:30	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Special Offer SPO_30 is added
+2023-10-05 06:36:27	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Special Offer SPO_30  is deleted.
+2023-10-05 06:37:00	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_40 is added
+2023-10-05 06:37:00	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Special Offer SPO_31 is added
+2023-10-05 06:38:19	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Special Offer SPO_31  is deleted.
+2023-10-05 06:42:12	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_41 is added
+2023-10-05 06:42:12	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Special Offer SPO_32 is added
+2023-10-05 07:00:14	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_41 is updated
+2023-10-05 07:00:14	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_32 is updated.
+2023-10-05 07:01:20	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_41 is updated
+2023-10-05 07:01:20	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_32 is updated.
+2023-10-05 07:01:38	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_41 is updated
+2023-10-05 07:01:38	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_32 is updated.
+2023-10-05 07:02:04	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_41 is updated
+2023-10-05 07:02:04	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_32 is updated.
+2023-10-05 07:02:13	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_41 is updated
+2023-10-05 07:02:13	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_32 is updated.
+2023-10-05 07:37:25	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_23 is updated.
+2023-10-05 07:37:48	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_41 is updated
+2023-10-05 07:37:48	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_32 is updated.
+2023-10-05 07:38:12	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_23 is updated.
+2023-10-05 07:40:27	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_10 is updated.
+2023-10-05 07:41:06	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	Side Offer Line Entries SOL_41 is updated
+2023-10-05 07:41:06	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_32 is updated.
+2023-10-05 07:41:26	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_9 is updated.
+2023-10-05 07:42:07	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_25 is updated.
+2023-10-05 07:47:33	2405:201:1002:404c:d09d:c982:8e41:91c	USR_1	 Special Offer SPO_6 is updated.

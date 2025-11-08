@@ -1,0 +1,56 @@
+2023-08-03 14:32:40	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Crust CR_5 is updated.
+2023-08-03 14:33:47	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_42 is updated.
+2023-08-03 14:34:00	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_41 is updated.
+2023-08-03 14:34:09	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_40 is updated.
+2023-08-03 14:34:23	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_39 is updated.
+2023-08-03 14:34:55	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_38 is updated.
+2023-08-03 14:35:11	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_37 is updated.
+2023-08-03 14:35:23	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_36 is updated.
+2023-08-03 14:35:34	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_35 is updated.
+2023-08-03 14:35:48	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_34 is updated.
+2023-08-03 14:36:20	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_33 is updated.
+2023-08-03 14:36:32	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_32 is updated.
+2023-08-03 14:36:42	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_31 is updated.
+2023-08-03 14:36:55	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_30 is updated.
+2023-08-03 14:37:08	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_29 is updated.
+2023-08-03 14:37:23	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_28 is updated.
+2023-08-03 14:37:37	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_27 is updated.
+2023-08-03 14:39:04	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_26 is updated.
+2023-08-03 14:39:20	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_25 is updated.
+2023-08-03 14:39:43	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_24 is updated.
+2023-08-03 14:39:55	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_23 is updated.
+2023-08-03 14:40:07	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_22 is updated.
+2023-08-03 14:40:20	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_21 is updated.
+2023-08-03 14:40:31	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_20 is updated.
+2023-08-03 14:40:46	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_10 is updated.
+2023-08-03 14:40:59	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_11 is updated.
+2023-08-03 14:41:10	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_12 is updated.
+2023-08-03 14:41:22	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_13 is updated.
+2023-08-03 14:41:37	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_14 is updated.
+2023-08-03 14:41:48	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_15 is updated.
+2023-08-03 14:42:02	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_16 is updated.
+2023-08-03 14:42:16	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_17 is updated.
+2023-08-03 14:42:27	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_18 is updated.
+2023-08-03 14:42:39	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_19 is updated.
+2023-08-03 14:42:57	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_1 is updated.
+2023-08-03 14:43:08	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_2 is updated.
+2023-08-03 14:43:23	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_4 is updated.
+2023-08-03 14:43:36	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_3 is updated.
+2023-08-03 14:43:47	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_5 is updated.
+2023-08-03 14:43:59	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_6 is updated.
+2023-08-03 14:44:13	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_7 is updated.
+2023-08-03 14:44:25	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_8 is updated.
+2023-08-03 14:44:36	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Topping TOP_9 is updated.
+2023-08-03 14:48:33	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Soft Drink SFD_4 is updated.
+2023-08-03 14:49:02	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Soft Drink SFD_3 is updated.
+2023-08-03 15:15:12	99.234.158.151	USR_1	 Special Offer SPO_1 is updated.
+2023-08-03 15:59:09	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Special Offer SPO_2 is updated.
+2023-08-03 15:59:57	99.234.158.151	USR_1	Special Offer SPO_7  is deleted.
+2023-08-03 16:00:09	99.234.158.151	USR_1	Special Offer SPO_8  is deleted.
+2023-08-03 16:00:26	99.234.158.151	USR_1	 Special Offer SPO_11 is updated.
+2023-08-03 16:01:57	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Special Offer SPO_3 is updated.
+2023-08-03 16:03:15	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	Special Offer SPO_12 is added
+2023-08-03 16:03:55	2607:fea8:d62:1f00:d1a5:5f52:2dd2:693	USR_1	 Special Offer SPO_4 is updated.
+2023-08-03 16:04:40	99.234.158.151	USR_1	 Special Offer SPO_5 is updated.
+2023-08-03 16:05:00	99.234.158.151	USR_1	 Special Offer SPO_4 is updated.
+2023-08-03 16:05:35	99.234.158.151	USR_1	 Special Offer SPO_6 is updated.

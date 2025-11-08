@@ -1,0 +1,82 @@
+2025-10-02 15:49:28	162.158.167.158	USR_1	Side SD_47 is updated
+2025-10-02 16:02:13	108.162.241.30	USR_1	User USR_2 is updated.
+2025-10-02 16:03:05	108.162.241.30	USR_1	User USR_2 is updated.
+2025-10-02 16:03:57	108.162.241.30	USR_1	 Store Location STR_5 is updated.
+2025-10-02 16:09:14	108.162.241.31	USR_1	Store Location STR_6 is deleted.
+2025-10-02 16:09:46	108.162.241.31	USR_1	 Store Location STR_5 is updated.
+2025-10-02 16:20:16	172.70.80.89	USR_1	 Signature Pizza Category SCAT_1 is updated.
+2025-10-02 16:21:52	172.70.80.89	USR_1	 Signature Pizza SP_6 is updated.
+2025-10-02 16:24:07	172.70.80.88	USR_1	 Signature Pizza SP_5 is updated.
+2025-10-02 16:25:28	172.71.120.7	USR_1	 Signature Pizza SP_8 is updated.
+2025-10-02 16:27:26	108.162.241.31	USR_1	 Signature Pizza SP_9 is updated.
+2025-10-02 16:29:10	108.162.241.30	USR_1	 Signature Pizza SP_11 is updated.
+2025-10-02 16:32:55	108.162.241.30	USR_1	 Signature Pizza SP_12 is updated.
+2025-10-02 16:33:45	108.162.241.30	USR_1	 Signature Pizza SP_13 is updated.
+2025-10-02 16:35:54	108.162.241.30	USR_1	 Signature Pizza SP_1 is updated.
+2025-10-02 16:37:21	108.162.241.30	USR_1	 Signature Pizza SP_2 is updated.
+2025-10-02 16:38:21	108.162.241.30	USR_1	 Topping TOP_69 is updated.
+2025-10-02 16:38:56	108.162.241.30	USR_1	 Topping TOP_9 is updated.
+2025-10-02 16:39:13	108.162.241.30	USR_1	 Topping TOP_8 is updated.
+2025-10-02 16:39:24	108.162.241.30	USR_1	 Topping TOP_8 is updated.
+2025-10-02 16:41:01	108.162.241.30	USR_1	 Signature Pizza SP_1 is updated.
+2025-10-02 16:41:08	108.162.241.30	USR_1	 Signature Pizza SP_15 is updated.
+2025-10-02 16:41:15	108.162.241.30	USR_1	 Signature Pizza SP_10 is updated.
+2025-10-02 16:41:33	108.162.241.30	USR_1	 Signature Pizza SP_3 is updated.
+2025-10-02 16:43:48	108.162.241.31	USR_1	 Signature Pizza SP_11 is updated.
+2025-10-02 16:49:50	172.71.120.8	USR_1	 Signature Pizza SP_6 is updated.
+2025-10-02 16:50:08	172.71.120.8	USR_1	 Signature Pizza SP_5 is updated.
+2025-10-02 16:50:27	172.71.120.8	USR_1	 Signature Pizza SP_8 is updated.
+2025-10-02 16:50:47	172.71.120.8	USR_1	 Signature Pizza SP_9 is updated.
+2025-10-02 16:51:45	172.71.120.8	USR_1	 Signature Pizza SP_12 is updated.
+2025-10-02 16:52:20	172.71.120.8	USR_1	 Signature Pizza SP_13 is updated.
+2025-10-02 16:52:53	172.71.120.8	USR_1	 Signature Pizza SP_13 is updated.
+2025-10-02 16:53:46	172.71.120.8	USR_1	 Signature Pizza SP_2 is updated.
+2025-10-02 16:54:26	172.71.120.8	USR_1	 Signature Pizza SP_1 is updated.
+2025-10-02 16:56:17	172.71.120.8	USR_1	 Pizza PI_1 is updated.
+2025-10-02 16:56:25	172.71.120.8	USR_1	 Pizza PI_1 is updated.
+2025-10-02 16:58:03	172.71.120.8	USR_1	 Pizza PI_4 is updated.
+2025-10-02 16:58:22	172.71.120.8	USR_1	 Topping TOP_26 is updated.
+2025-10-02 16:59:06	172.71.120.8	USR_1	 Pizza PI_4 is updated.
+2025-10-02 17:00:23	172.71.120.8	USR_1	 Pizza PI_2 is updated.
+2025-10-02 17:03:52	172.71.120.8	USR_1	 Pizza PI_2 is updated.
+2025-10-02 17:04:19	172.71.120.8	USR_1	 Pizza PI_8 is updated.
+2025-10-02 17:05:10	172.71.120.8	USR_1	 Pizza PI_3 is updated.
+2025-10-02 17:05:33	172.71.120.8	USR_1	 Pizza PI_3 is updated.
+2025-10-02 17:06:14	172.71.120.8	USR_1	Pizzas PI_5  is deleted.
+2025-10-02 17:06:22	172.71.120.8	USR_1	Pizzas PI_7  is deleted.
+2025-10-02 17:37:29	172.70.80.88	USR_1	 Pizza PI_6 is updated.
+2025-10-02 17:38:18	172.70.80.88	USR_1	Side SD_19 is updated
+2025-10-02 17:38:26	172.70.80.88	USR_1	Side SD_18 is updated
+2025-10-02 17:38:33	172.70.80.88	USR_1	Side SD_17 is updated
+2025-10-02 17:39:08	172.70.80.88	USR_1	Side SD_15 is updated
+2025-10-02 17:39:25	172.70.80.88	USR_1	Side SD_16 is updated
+2025-10-02 17:39:35	172.70.80.88	USR_1	Side SD_14 is updated
+2025-10-02 17:40:04	172.70.80.88	USR_1 Sides SD_47 is deleted.
+2025-10-02 17:40:33	172.70.80.88	USR_1 Sides SD_13 is deleted.
+2025-10-02 17:40:54	172.70.80.88	USR_1	Side SD_12 is updated
+2025-10-02 17:41:03	172.70.80.88	USR_1	Side SD_11 is updated
+2025-10-02 17:41:37	172.70.80.88	USR_1 Side SD_48 is added.
+2025-10-02 17:41:53	172.70.80.88	USR_1	Side SD_48 is updated
+2025-10-02 17:42:14	172.70.80.88	USR_1 Sides SD_10 is deleted.
+2025-10-02 17:43:10	172.70.80.88	USR_1	Side SD_7 is updated
+2025-10-02 17:43:43	172.70.80.88	USR_1	Side SD_6 is updated
+2025-10-02 17:43:54	172.70.80.88	USR_1	Side SD_6 is updated
+2025-10-02 17:44:15	172.70.80.88	USR_1	Side SD_1 is updated
+2025-10-02 17:44:28	172.70.80.88	USR_1	Side SD_2 is updated
+2025-10-02 17:44:37	172.70.80.88	USR_1	Side SD_2 is updated
+2025-10-02 17:44:54	172.70.80.88	USR_1	Side SD_3 is updated
+2025-10-02 17:45:06	172.70.80.88	USR_1	Side SD_4 is updated
+2025-10-02 17:46:44	172.70.80.88	USR_1 Side SD_49 is added.
+2025-10-02 17:46:58	172.70.80.88	USR_1 Sides SD_9 is deleted.
+2025-10-02 17:47:04	172.70.80.88	USR_1 Sides SD_8 is deleted.
+2025-10-02 17:47:51	172.70.80.88	USR_1	 Dips DI_4 is updated.
+2025-10-02 17:48:04	172.70.80.88	USR_1	 Dips DI_3 is updated.
+2025-10-02 17:48:16	172.69.214.231	USR_1	 Dips DI_2 is updated.
+2025-10-02 17:48:35	172.69.214.231	USR_1	 Dips DI_1 is updated.
+2025-10-02 17:48:51	172.69.214.231	USR_1 Dips DIP_8 is added.
+2025-10-02 17:49:16	172.69.214.231	USR_1 Dips DIP_9 is added.
+2025-10-02 17:50:17	172.70.80.88	USR_1	Settings STG_2 Setting name & value  Tax Percentage5 is updated
+2025-10-02 17:51:49	172.70.80.89	USR_1	 Store Location STR_5 is updated.
+2025-10-02 17:52:25	172.70.80.88	USR_1	Store Location STR_3 is deleted.
+2025-10-02 17:53:34	172.70.80.88	USR_1	 Store Location STR_5 is updated.
+2025-10-02 18:20:31	108.162.241.31	USR_1	User USR_3 is updated.

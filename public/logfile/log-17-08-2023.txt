@@ -1,0 +1,103 @@
+2023-08-17 05:52:16	106.220.95.36	USR_1	special offer line entries SOL_3 is deleted.
+2023-08-17 06:09:26	106.220.95.36	USR_1	special offer line entries  is deleted.
+2023-08-17 06:10:11	106.220.95.36	USR_1	special offer line entries  is deleted.
+2023-08-17 06:11:54	106.220.95.36	USR_1	special offer line entries  is deleted.
+2023-08-17 06:12:56	106.220.95.36	USR_1	special offer line entries SPO_13 is deleted.
+2023-08-17 06:14:03	106.220.95.36	USR_1	Side Offer Line Entries SOL_4 is added
+2023-08-17 06:14:03	106.220.95.36	USR_1	Side Offer Line Entries SOL_5 is added
+2023-08-17 06:14:03	106.220.95.36	USR_1	 Special Offer SOL_5 is updated.
+2023-08-17 06:14:21	106.220.95.36	USR_1	Side Offer Line Entries SOL_4 is updated
+2023-08-17 06:14:21	106.220.95.36	USR_1	Side Offer Line Entries SOL_6 is added
+2023-08-17 06:14:21	106.220.95.36	USR_1	 Special Offer SOL_6 is updated.
+2023-08-17 06:14:30	106.220.95.36	USR_1	special offer line entries SOL_6 is deleted.
+2023-08-17 06:14:32	106.220.95.36	USR_1	special offer line entries SOL_4 is deleted.
+2023-08-17 06:14:47	106.220.95.36	USR_1	Side Offer Line Entries SOL_7 is added
+2023-08-17 06:14:47	106.220.95.36	USR_1	Side Offer Line Entries SOL_8 is added
+2023-08-17 06:14:47	106.220.95.36	USR_1	 Special Offer SOL_8 is updated.
+2023-08-17 06:17:21	106.210.223.206	USR_1	Side Offer Line Entries SOL_7 is updated
+2023-08-17 06:17:21	106.210.223.206	USR_1	Side Offer Line Entries SOL_1 is added
+2023-08-17 06:17:21	106.210.223.206	USR_1	 Special Offer SOL_1 is updated.
+2023-08-17 06:18:38	106.210.223.206	USR_1	Side Offer Line Entries SOL_1 is updated
+2023-08-17 06:18:38	106.210.223.206	USR_1	Side Offer Line Entries SOL_2 is added
+2023-08-17 06:18:38	106.210.223.206	USR_1	 Special Offer SOL_2 is updated.
+2023-08-17 06:18:57	106.210.223.206	USR_1	special offer line entries SOL_2 is deleted.
+2023-08-17 06:19:01	106.210.223.206	USR_1	special offer line entries SOL_2 is deleted.
+2023-08-17 06:19:06	106.210.223.206	USR_1	special offer line entries SOL_1 is deleted.
+2023-08-17 06:19:21	106.210.223.206	USR_1	Side Offer Line Entries SOL_3 is added
+2023-08-17 06:19:21	106.210.223.206	USR_1	Side Offer Line Entries SOL_4 is added
+2023-08-17 06:19:21	106.210.223.206	USR_1	 Special Offer SOL_4 is updated.
+2023-08-17 06:19:36	106.210.223.206	USR_1	special offer line entries SOL_3 is deleted.
+2023-08-17 06:21:08	106.210.223.206	USR_1	Side Offer Line Entries SOL_1 is added
+2023-08-17 06:21:08	106.210.223.206	USR_1	Side Offer Line Entries SOL_2 is added
+2023-08-17 06:21:08	106.210.223.206	USR_1	 Special Offer SOL_2 is updated.
+2023-08-17 06:22:50	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 06:22:50	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 06:22:50	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 06:23:02	106.210.223.206	USR_1	special offer line entries SOL_2 is deleted.
+2023-08-17 06:23:47	106.210.223.206	USR_1	Side Offer Line Entries SOL_1 is updated
+2023-08-17 06:23:47	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 06:23:47	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 07:24:28	106.210.223.206	USR_1	special offer line entries - is deleted.
+2023-08-17 07:24:30	106.210.223.206	USR_1	special offer line entries - is deleted.
+2023-08-17 07:28:49	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:39:25	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:39:32	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:40:00	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:40:22	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:41:07	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:41:44	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:41:52	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:42:03	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:45:04	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 07:45:28	106.210.223.206	USR_1	special offer line entries SPO_12 is deleted.
+2023-08-17 09:56:57	106.210.223.206	USR_1	special offer line entries - is deleted.
+2023-08-17 09:57:00	106.210.223.206	USR_1	special offer line entries - is deleted.
+2023-08-17 09:57:07	106.210.223.206	USR_1	special offer line entries SPO_13 is deleted.
+2023-08-17 10:00:28	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 10:00:28	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 10:00:28	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 10:50:52	2405:201:1002:40b0:3900:6365:993e:11b1	USR_1	Side Offer Line Entries SPO_3 is added
+2023-08-17 10:50:52	2405:201:1002:40b0:3900:6365:993e:11b1	USR_1	 Special Offer SPO_3 is updated.
+2023-08-17 12:06:26	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Side SD_25 is updated
+2023-08-17 12:07:20	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Side SD_25 is updated
+2023-08-17 12:07:54	106.210.223.206	USR_1	Side Offer Line Entries SOL_4 is updated
+2023-08-17 12:07:54	106.210.223.206	USR_1	Side Offer Line Entries SOL_5 is updated
+2023-08-17 12:07:54	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 12:08:10	106.210.223.206	USR_1	Side Offer Line Entries SOL_4 is updated
+2023-08-17 12:08:10	106.210.223.206	USR_1	Side Offer Line Entries SOL_5 is updated
+2023-08-17 12:08:10	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 12:08:25	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Side SD_25 is updated
+2023-08-17 12:09:00	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Side SD_25 is updated
+2023-08-17 12:09:01	106.210.223.206	USR_1	Side Offer Line Entries SOL_4 is updated
+2023-08-17 12:09:01	106.210.223.206	USR_1	Side Offer Line Entries SOL_5 is updated
+2023-08-17 12:09:01	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 12:09:01	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 12:11:08	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Dips DI_2 is updated.
+2023-08-17 12:11:47	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Dips DI_2 is updated.
+2023-08-17 12:12:07	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Soft Drink SFD_4 is updated.
+2023-08-17 12:12:31	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Soft Drink SFD_4 is updated.
+2023-08-17 12:15:37	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Zipcode ZIP_8 is added.
+2023-08-17 12:16:13	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Zipcode ZIP_8 is updated.
+2023-08-17 12:16:17	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Zipcode ZIP_8 is deleted.
+2023-08-17 12:18:58	106.210.223.206	USR_1	Side Offer Line Entries SOL_4 is updated
+2023-08-17 12:18:58	106.210.223.206	USR_1	Side Offer Line Entries SOL_5 is updated
+2023-08-17 12:18:58	106.210.223.206	USR_1	Side Offer Line Entries SOL_7 is updated
+2023-08-17 12:18:58	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 12:19:24	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 12:19:24	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 12:19:24	106.210.223.206	USR_1	Side Offer Line Entries SPO_13 is added
+2023-08-17 12:19:24	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 12:29:58	106.210.223.206	USR_1	special offer line entries - is deleted.
+2023-08-17 12:31:36	106.210.223.206	USR_1	Side Offer Line Entries SOL_8 is updated
+2023-08-17 12:31:36	106.210.223.206	USR_1	Side Offer Line Entries SOL_9 is updated
+2023-08-17 12:31:36	106.210.223.206	USR_1	Side Offer Line Entries SOL_10 is updated
+2023-08-17 12:31:36	106.210.223.206	USR_1	 Special Offer SPO_13 is updated.
+2023-08-17 12:48:19	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Side Offer Line Entries SOL_11 is added
+2023-08-17 12:48:19	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Special Offer SPO_21 is added
+2023-08-17 13:12:19	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Side Offer Line Entries SOL_11 is updated
+2023-08-17 13:12:19	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Special Offer SPO_21 is updated.
+2023-08-17 13:12:54	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Side Offer Line Entries SOL_11 is updated
+2023-08-17 13:12:54	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Special Offer SPO_21 is updated.
+2023-08-17 13:15:18	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	special offer line entries SOL_11 is deleted.
+2023-08-17 13:15:29	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	Side Offer Line Entries SPO_21 is added
+2023-08-17 13:15:29	2409:40c2:1011:a33b:c5d2:6ac1:8a27:1f9a	USR_1	 Special Offer SPO_21 is updated.

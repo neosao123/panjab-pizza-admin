@@ -1,0 +1,15 @@
+2023-07-01 07:58:11	127.0.0.1	USR_1	Users USR_2 is added
+2023-07-01 09:06:25	127.0.0.1	USR_1	Users CST_6 is added
+2023-07-01 09:15:25	127.0.0.1	USR_1	User CST_6 is updated.
+2023-07-01 09:19:00	127.0.0.1	USR_1	User CST_6 is updated.
+2023-07-01 09:45:53	127.0.0.1	USR_1	Users CST_7 is added
+2023-07-01 09:47:57	127.0.0.1	USR_1	User CST_7 is updated.
+2023-07-01 09:51:36	127.0.0.1	USR_1	User CST_6 is deleted.
+2023-07-01 11:10:54	127.0.0.1	USR_1	Category CAT_1 is added
+2023-07-01 11:14:16	127.0.0.1	USR_1	Category CAT_2 is added
+2023-07-01 11:19:16	127.0.0.1	USR_1	Category CAT_3 is added
+2023-07-01 11:28:49	127.0.0.1	USR_1	 Category CAT_3 is updated.
+2023-07-01 11:35:20	127.0.0.1	USR_1	 Category CAT_3 is updated.
+2023-07-01 11:35:34	127.0.0.1	USR_1	Category CAT_1  is deleted.
+2023-07-01 11:38:59	127.0.0.1	USR_1	Profile USR_1 is updated.
+2023-07-01 11:48:58	127.0.0.1	USR_1	User CST_7 is updated.

@@ -1,0 +1,38 @@
+2023-07-10 05:32:40	2409:40c2:16:8990:a9af:9b7d:a2c2:24de	USR_1	Special Offer SPO_2 is added
+2023-07-10 05:33:23	2409:40c2:16:8990:a9af:9b7d:a2c2:24de	USR_1	 Special Offer SPO_2 is updated.
+2023-07-10 05:34:38	2409:40c2:16:8990:a9af:9b7d:a2c2:24de	USR_1	Special Offer SPO_3 is added
+2023-07-10 05:42:35	2409:40c2:16:8990:a9af:9b7d:a2c2:24de	USR_1	Special Offer SPO_4 is added
+2023-07-10 05:43:25	2409:40c2:16:8990:a9af:9b7d:a2c2:24de	USR_1	 Special Offer SPO_4 is updated.
+2023-07-10 07:01:52	2409:40c2:16:8990:a9af:9b7d:a2c2:24de	USR_1	 Cheese CHE_5 is updated.
+2023-07-10 07:02:03	2409:40c2:16:8990:a9af:9b7d:a2c2:24de	USR_1	 Cheese CHE_5 is updated.
+2023-07-10 08:24:31	49.36.42.15	USR_1	 Special Offer SPO_4 is updated.
+2023-07-10 08:24:48	49.36.42.15	USR_1	 Special Offer SPO_4 is updated.
+2023-07-10 08:38:23	49.36.42.15	USR_1	 Soft Drink SFD_3 is updated.
+2023-07-10 08:38:31	49.36.42.15	USR_1	 Soft Drink SFD_2 is updated.
+2023-07-10 08:38:40	49.36.42.15	USR_1	 Soft Drink SFD_1 is updated.
+2023-07-10 09:44:55	49.36.42.15	USR_1	 Special Offer SPO_4 is updated.
+2023-07-10 09:46:04	49.36.42.15	USR_1	 Special Offer SPO_4 is updated.
+2023-07-10 10:18:02	49.36.42.15	USR_1	 Special Offer SPO_3 is updated.
+2023-07-10 10:18:16	49.36.42.15	USR_1	 Special Offer SPO_2 is updated.
+2023-07-10 10:30:48	49.36.42.15	USR_1	Side SD_25 is updated
+2023-07-10 10:55:45	49.36.42.15	USR_1	Special Offer SPO_1 is added
+2023-07-10 10:59:24	49.36.42.15	USR_1	Special Offer SPO_2 is added
+2023-07-10 11:39:57	49.36.42.15	USR_1	 Special Offer SPO_2 is updated.
+2023-07-10 11:43:29	49.36.42.15	USR_1	Special Offer SPO_3 is added
+2023-07-10 11:46:13	49.36.42.15	USR_1	Special Offer SPO_4 is added
+2023-07-10 11:47:41	49.36.42.15	USR_1	Special Offer SPO_5 is added
+2023-07-10 11:49:00	49.36.42.15	USR_1	Special Offer SPO_6 is added
+2023-07-10 11:49:53	49.36.42.15	USR_1	 Special Offer SPO_1 is updated.
+2023-07-10 11:51:26	2409:40c2:1059:7a89:19e7:4499:e24c:2bb1	USR_1	 Special Offer SPO_1 is updated.
+2023-07-10 11:53:48	49.36.42.15	USR_1	 Special Offer SPO_1 is updated.
+2023-07-10 12:00:35	49.36.42.15	USR_1	Side SD_9 is updated
+2023-07-10 12:01:35	2409:40c2:1059:7a89:19e7:4499:e24c:2bb1	USR_1	 Special Offer SPO_2 is updated.
+2023-07-10 12:02:15	2409:40c2:1059:7a89:19e7:4499:e24c:2bb1	USR_1	 Special Offer SPO_3 is updated.
+2023-07-10 12:02:26	49.36.42.15	USR_1	Side SD_9 is updated
+2023-07-10 12:02:30	2409:40c2:1059:7a89:19e7:4499:e24c:2bb1	USR_1	 Special Offer SPO_6 is updated.
+2023-07-10 12:02:43	2409:40c2:1059:7a89:19e7:4499:e24c:2bb1	USR_1	 Special Offer SPO_5 is updated.
+2023-07-10 12:07:38	49.36.42.15	USR_1	Side SD_8 is updated
+2023-07-10 12:07:53	49.36.42.15	USR_1	Side SD_9 is updated
+2023-07-10 12:09:08	2409:40c2:1059:7a89:19e7:4499:e24c:2bb1	USR_1	Special Offer SPO_7 is added
+2023-07-10 12:27:23	49.36.42.15	USR_1	 Special Offer SPO_1 is updated.
+2023-07-10 12:27:32	49.36.42.15	USR_1	 Special Offer SPO_1 is updated.

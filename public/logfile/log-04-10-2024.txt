@@ -1,0 +1,75 @@
+2024-10-04 02:42:42	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_6 SLIL_22 is added.
+2024-10-04 02:42:42	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_6 is added.
+2024-10-04 02:53:45 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_6 is deleted.
+2024-10-04 03:00:19	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_7 SLIL_23 is added.
+2024-10-04 03:00:19	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_7 is added.
+2024-10-04 03:00:24 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_7 is deleted.
+2024-10-04 03:32:02	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_8 SLIL_24 is added.
+2024-10-04 03:32:02	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_8 is added.
+2024-10-04 03:32:16 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_8 is deleted.
+2024-10-04 03:37:23	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_9 SLIL_25 is added.
+2024-10-04 03:37:23	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_9 is added.
+2024-10-04 03:37:33 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_9 is deleted.
+2024-10-04 03:42:03	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_10 SLIL_26 is added.
+2024-10-04 03:42:03	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_10 is added.
+2024-10-04 03:42:07 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_10 is deleted.
+2024-10-04 04:15:29	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_11 SLIL_27 is added.
+2024-10-04 04:15:29	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_11 is added.
+2024-10-04 05:42:16 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_11 is deleted.
+2024-10-04 05:42:31	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_12 SLIL_28 is added.
+2024-10-04 05:42:31	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_12 is added.
+2024-10-04 05:45:29 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_12 is deleted.
+2024-10-04 05:45:43	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_13 SLIL_29 is added.
+2024-10-04 05:45:43	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_13 is added.
+2024-10-04 05:47:56	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_14 SLIL_30 is added.
+2024-10-04 05:47:56	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_14 is added.
+2024-10-04 05:49:22 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_13 is deleted.
+2024-10-04 05:49:25 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_14 is deleted.
+2024-10-04 05:49:39	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_15 SLIL_31 is added.
+2024-10-04 05:49:39	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_15 is added.
+2024-10-04 05:54:44	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 SLIL_32 is added.
+2024-10-04 05:54:44	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is added.
+2024-10-04 05:54:48 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_15 is deleted.
+2024-10-04 06:24:22	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Special Offer SPO_55 is added
+2024-10-04 06:24:44	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	special offer line entries - is deleted.
+2024-10-04 06:24:45	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	 Special Offer SPO_55 is updated.
+2024-10-04 06:34:16	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:34:16	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:34:28	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:34:28	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:46:21	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:46:21	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:47:56	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:47:56	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:49:54	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:49:54	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:50:48	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:50:48	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:51:02	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:51:02	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:51:12	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:51:12	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:52:23	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:52:23	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:55:41	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:55:41	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:55:53	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:55:53	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:56:05	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:56:05	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:56:13	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:56:13	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 06:56:24	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_16 1 is updated.
+2024-10-04 06:56:24	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_16 is updated.
+2024-10-04 07:19:16	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_17 SLIL_33 is added.
+2024-10-04 07:19:16	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_17 is added.
+2024-10-04 07:22:08	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_17 1 is updated.
+2024-10-04 07:22:08	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_17 is updated.
+2024-10-04 07:22:22	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_17 1 is updated.
+2024-10-04 07:22:22	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_17 is updated.
+2024-10-04 07:26:32	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_18 SLIL_34 is added.
+2024-10-04 07:26:32	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_18 is added.
+2024-10-04 07:26:38	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider Lineentries SLI_18 1 is updated.
+2024-10-04 07:26:38	2405:201:1002:409e:59b9:43e4:97af:70b1	USR_1	Dynamic Slider SLI_18 is updated.
+2024-10-04 07:27:07 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_18 is deleted.
+2024-10-04 07:27:09 2405:201:1002:409e:59b9:43e4:97af:70b1 USR_1Dynamic Slider SLI_17 is deleted.

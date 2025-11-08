@@ -1,0 +1,19 @@
+   .dataTables_length {
+      float: left !important;
+    }
+
+    .invalid-feedback {
+      display: none;
+      width: 100%;
+      margin-top: .25rem;
+      font-size: 75%;
+      color: #e63757;
+    }
+
+    .was-invalid .invalid-feedback {
+      display: block;
+    }
+
+    .was-invalid .form-control {
+      border: 1px solid #e63757;
+    }

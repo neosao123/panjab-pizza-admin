@@ -1,0 +1,14 @@
+2025-08-30 04:26:23	49.36.42.50	USR_1	Settings STG_5 Setting name & value  Toppings Label For Count 2Premium Topping is updated
+2025-08-30 04:26:32	49.36.42.50	USR_1	Settings STG_6 Setting name & value  Toppings Label For Count 1Regular Topping is updated
+2025-08-30 08:02:20	49.36.42.50	USR_1	 Topping TOP_72 is updated.
+2025-08-30 08:02:29	49.36.42.50	USR_1	 Topping TOP_72 is updated.
+2025-08-30 08:02:50	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-08-30 08:03:12	49.36.42.50	USR_1	 Topping TOP_72 is updated.
+2025-08-30 08:53:25	49.36.42.50	USR_1	 Topping TOP_72 is updated.
+2025-08-30 08:54:52	49.36.42.50	USR_1	 Topping TOP_71 is updated.
+2025-08-30 08:55:00	49.36.42.50	USR_1	 Topping TOP_71 is updated.
+2025-08-30 08:55:15	49.36.42.50	USR_1	 Topping TOP_70 is updated.
+2025-08-30 09:19:46	49.36.42.50	USR_1	 Topping TOP_72 is updated.
+2025-08-30 09:20:36	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-08-30 10:36:03	49.36.42.50	USR_1	 Topping TOP_71 is updated.
+2025-08-30 10:36:17	49.36.42.50	USR_1	 Topping TOP_70 is updated.

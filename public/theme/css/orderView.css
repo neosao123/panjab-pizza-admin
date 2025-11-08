@@ -1,0 +1,36 @@
+.product-columns {
+  font-weight: 700;
+}
+
+.product-columns .proCol,
+.product-columns .quantityCol,
+.product-columns .amountCol {
+  font-size: 0.9rem;
+}
+
+.product-columns .proCol {
+  width: 500px;
+}
+.product-columns .quantityCol {
+  width: 100px;
+}
+.product-columns .amountCol {
+  width: 150px;
+}
+
+.product-columns .proRows,
+.product-columns .quantityRows,
+.product-columns .amountRows {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.product-columns .proRows {
+  width: 500px;
+}
+.product-columns .quantityRows {
+  width: 100px;
+}
+.product-columns .amountRows {
+  width: 150px;
+}

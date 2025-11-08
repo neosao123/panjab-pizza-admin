@@ -1,0 +1,5 @@
+2024-11-12 07:45:17	49.36.33.127	USR_1	 Signature Pizza Category TOP_1 is updated.
+2024-11-12 07:47:04	49.36.33.127	USR_1	 Signature Pizza Category TOP_1 is updated.
+2024-11-12 07:53:39	49.36.33.127	USR_1	 Signature Pizza Category TOP_2 is updated.
+2024-11-12 07:53:57	49.36.33.127	USR_1	 Signature Pizza Category TOP_2 is updated.
+2024-11-12 08:29:32	49.36.33.127	USR_1	Special Offer SPO_57 is added

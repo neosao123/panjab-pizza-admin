@@ -1,0 +1,16 @@
+2023-08-19 05:10:29	110.227.3.153	USR_1	special offer line entries SPO_21 is deleted.
+2023-08-19 06:03:54	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	 Topping TOP_54 is updated.
+2023-08-19 06:06:55	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	 Crust CR_4 is updated.
+2023-08-19 06:07:03	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	 Crust CR_4 is updated.
+2023-08-19 06:09:22	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	User USR_21 is updated.
+2023-08-19 06:14:40	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	Users USR_22 is added
+2023-08-19 06:33:59	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	Profile USR_1 is updated.
+2023-08-19 08:52:16	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	User USR_22 is updated.
+2023-08-19 08:52:37	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	User USR_19 is deleted.
+2023-08-19 13:55:50	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	Order statusORD_188 is updated.
+2023-08-19 13:56:00	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	Order statusORD_188 is updated.
+2023-08-19 13:56:21	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	Order statusORD_187 is updated.
+2023-08-19 13:59:52	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	Order statusORD_186 is updated.
+2023-08-19 13:59:56	2409:40c2:35:b392:74cd:339:94df:8683	USR_1	Order statusORD_186 is updated.
+2023-08-19 17:53:11	2402:8100:22d5:d562:21fe:fb18:a28e:9c19	USR_1	Side Offer Line Entries SPO_4 is added
+2023-08-19 17:53:11	2402:8100:22d5:d562:21fe:fb18:a28e:9c19	USR_1	 Special Offer SPO_4 is updated.

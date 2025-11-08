@@ -1,0 +1,6 @@
+2023-08-08 12:31:38	49.36.41.49	USR_1	 Zipcode ZIP_1 is added.
+2023-08-08 12:36:35	49.36.41.49	USR_1	 Zipcode ZIP_1 is updated.
+2023-08-08 12:39:05	49.36.41.49	USR_1	 Zipcode ZIP_2 is added.
+2023-08-08 12:39:38	49.36.41.49	USR_1	 Zipcode ZIP_3 is added.
+2023-08-08 12:39:42	49.36.41.49	USR_1	 Zipcode ZIP_3 is deleted.
+2023-08-08 12:40:15	49.36.41.49	USR_1	 Zipcode ZIP_3 is deleted.

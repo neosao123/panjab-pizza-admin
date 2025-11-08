@@ -1,0 +1,106 @@
+2025-10-03 09:29:16	172.69.214.230	USR_1	 Store Location STR_5 is updated.
+2025-10-03 09:38:59	172.70.80.89	USR_1	 Soft Drink SFD_5 is updated.
+2025-10-03 09:42:01	172.70.80.88	USR_1	 Soft Drink SFD_4 is updated.
+2025-10-03 09:42:13	172.70.80.88	USR_1	 Soft Drink SFD_3 is updated.
+2025-10-03 09:42:33	172.70.80.88	USR_1	 Soft Drink SFD_2 is updated.
+2025-10-03 09:43:00	172.70.80.88	USR_1	 Soft Drink SFD_1 is updated.
+2025-10-03 09:43:24	172.70.80.88	USR_1 Soft Drink SFD_13 is added.
+2025-10-03 09:43:35	172.70.80.88	USR_1	 Soft Drink SFD_2 is updated.
+2025-10-03 09:44:01	172.70.80.88	USR_1 Soft Drink SFD_14 is added.
+2025-10-03 09:44:24	172.70.80.88	USR_1 Soft Drink SFD_15 is added.
+2025-10-03 09:44:42	172.70.80.88	USR_1 Soft Drink SFD_16 is added.
+2025-10-03 09:44:59	172.70.80.88	USR_1 Soft Drink SFD_17 is added.
+2025-10-03 09:45:26	172.70.80.88	USR_1 Soft Drink SFD_18 is added.
+2025-10-03 09:45:41	172.70.80.88	USR_1 Soft Drink SFD_19 is added.
+2025-10-03 09:47:24	172.70.80.89	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-10-03 09:48:29	172.70.80.89	USR_1	 Pizza Price 1 is updated.
+2025-10-03 09:51:11	104.23.172.12	USR_1	 Special Offer SPO_12 is updated.
+2025-10-03 09:54:14	172.70.80.88	USR_1 topping TOP_73 is deleted.
+2025-10-03 09:54:24	172.70.80.88	USR_1 topping TOP_72 is deleted.
+2025-10-03 09:55:10	172.69.214.230	USR_1	 Pizza Price 3 is updated.
+2025-10-03 09:55:36	172.69.214.230	USR_1	 Pizza Price 2 is updated.
+2025-10-03 09:56:11	172.69.214.230	USR_1	 Pizza Price 4 is updated.
+2025-10-03 10:04:18	172.69.214.230	USR_1	 Topping TOP_70 is updated.
+2025-10-03 10:04:25	172.69.214.230	USR_1	 Topping TOP_69 is updated.
+2025-10-03 10:04:35	172.69.214.230	USR_1	 Topping TOP_67 is updated.
+2025-10-03 10:04:43	172.69.214.230	USR_1	 Topping TOP_66 is updated.
+2025-10-03 10:05:06	172.69.214.230	USR_1	 Topping TOP_65 is updated.
+2025-10-03 10:42:42	172.70.80.88	USR_1 topping TOP_67 is deleted.
+2025-10-03 10:43:48	172.70.80.88	USR_1	 Topping TOP_43 is updated.
+2025-10-03 10:44:07	172.70.80.88	USR_1	 Topping TOP_43 is updated.
+2025-10-03 10:44:26	172.70.80.88	USR_1	 Topping TOP_43 is updated.
+2025-10-03 10:44:45	172.70.80.88	USR_1	 Topping TOP_42 is updated.
+2025-10-03 10:45:01	172.70.80.88	USR_1	 Topping TOP_41 is updated.
+2025-10-03 10:45:19	172.70.80.88	USR_1	 Topping TOP_40 is updated.
+2025-10-03 10:45:37	172.70.80.88	USR_1	 Topping TOP_39 is updated.
+2025-10-03 10:45:51	172.70.80.88	USR_1	 Topping TOP_38 is updated.
+2025-10-03 10:46:06	172.70.80.88	USR_1	 Topping TOP_37 is updated.
+2025-10-03 10:46:21	172.70.80.88	USR_1	 Topping TOP_36 is updated.
+2025-10-03 10:46:43	172.70.80.88	USR_1	 Topping TOP_35 is updated.
+2025-10-03 10:47:00	172.70.80.88	USR_1 topping TOP_34 is deleted.
+2025-10-03 10:47:10	172.70.80.88	USR_1	 Topping TOP_33 is updated.
+2025-10-03 10:47:30	172.70.80.88	USR_1	 Topping TOP_32 is updated.
+2025-10-03 10:47:56	172.70.80.88	USR_1	 Topping TOP_31 is updated.
+2025-10-03 10:48:42	172.71.120.18	USR_1	 Topping TOP_31 is updated.
+2025-10-03 10:48:57	172.71.120.18	USR_1	 Topping TOP_30 is updated.
+2025-10-03 10:53:22	172.70.80.88	USR_1	 Topping TOP_43 is updated.
+2025-10-03 10:53:37	172.70.80.88	USR_1	 Topping TOP_42 is updated.
+2025-10-03 10:53:49	172.70.80.88	USR_1	 Topping TOP_41 is updated.
+2025-10-03 13:34:03	172.70.80.88	USR_1	User USR_2 is updated.
+2025-10-03 13:40:37	172.69.214.231	USR_1 Special Base SPB_23 is added.
+2025-10-03 13:41:00	172.69.214.231	USR_1	 Signature Pizza SP_8 is updated.
+2025-10-03 14:41:52	172.70.80.89	USR_1	User USR_3 is updated.
+2025-10-03 14:44:04	172.69.214.231	USR_1	User USR_3 is updated.
+2025-10-03 15:08:55	172.70.80.88	USR_1	 Topping TOP_39 is updated.
+2025-10-03 15:09:09	172.70.80.88	USR_1	 Topping TOP_40 is updated.
+2025-10-03 15:09:23	172.70.80.88	USR_1	 Topping TOP_38 is updated.
+2025-10-03 15:09:36	172.70.80.88	USR_1	 Topping TOP_37 is updated.
+2025-10-03 15:09:49	172.70.80.88	USR_1	 Topping TOP_36 is updated.
+2025-10-03 15:10:02	172.70.80.88	USR_1	 Topping TOP_35 is updated.
+2025-10-03 15:10:16	172.70.80.88	USR_1	 Topping TOP_33 is updated.
+2025-10-03 15:10:27	172.70.80.88	USR_1	 Topping TOP_32 is updated.
+2025-10-03 15:10:38	172.70.80.88	USR_1	 Topping TOP_31 is updated.
+2025-10-03 15:10:49	172.70.80.88	USR_1	 Topping TOP_30 is updated.
+2025-10-03 15:11:18	172.70.80.88	USR_1	 Topping TOP_29 is updated.
+2025-10-03 15:11:37	172.70.80.88	USR_1	 Topping TOP_26 is updated.
+2025-10-03 15:11:52	172.70.80.88	USR_1	 Topping TOP_25 is updated.
+2025-10-03 15:12:20	172.70.80.88	USR_1 topping TOP_25 is deleted.
+2025-10-03 15:12:43	172.70.80.88	USR_1	 Topping TOP_15 is updated.
+2025-10-03 15:13:05	172.70.80.88	USR_1	 Topping TOP_14 is updated.
+2025-10-03 15:13:23	172.71.120.8	USR_1	 Topping TOP_13 is updated.
+2025-10-03 15:13:34	172.71.120.18	USR_1	 Topping TOP_12 is updated.
+2025-10-03 15:13:49	172.71.120.8	USR_1	 Topping TOP_11 is updated.
+2025-10-03 15:14:36	172.71.120.8	USR_1 topping TOP_10 is deleted.
+2025-10-03 15:14:46	172.71.120.8	USR_1	 Topping TOP_9 is updated.
+2025-10-03 15:14:56	172.71.120.8	USR_1	 Topping TOP_8 is updated.
+2025-10-03 15:15:06	172.71.120.8	USR_1	 Topping TOP_7 is updated.
+2025-10-03 15:15:27	172.71.120.8	USR_1	 Topping TOP_6 is updated.
+2025-10-03 15:15:40	172.71.120.8	USR_1	 Topping TOP_6 is updated.
+2025-10-03 15:15:51	172.71.120.8	USR_1	 Topping TOP_5 is updated.
+2025-10-03 15:16:45	172.71.120.8	USR_1 topping TOP_4 is deleted.
+2025-10-03 15:16:59	172.71.120.8	USR_1	 Topping TOP_3 is updated.
+2025-10-03 15:17:12	172.71.120.8	USR_1	 Topping TOP_2 is updated.
+2025-10-03 15:17:24	172.71.120.8	USR_1	 Topping TOP_1 is updated.
+2025-10-03 15:17:51	172.71.120.8	USR_1 topping TOP_5 is deleted.
+2025-10-03 15:20:44	172.70.80.89	USR_1	 Topping TOP_16 is updated.
+2025-10-03 15:21:50	172.70.80.89	USR_1	 Topping TOP_24 is updated.
+2025-10-03 16:28:49	172.70.80.89	USR_1	 Special Base  SPB_9 is updated.
+2025-10-03 16:29:02	172.70.80.89	USR_1	 Special Base  SPB_23 is updated.
+2025-10-03 16:29:10	172.70.80.89	USR_1	 Special Base  SPB_2 is updated.
+2025-10-03 16:29:25	172.70.80.89	USR_1	 Special Base  SPB_12 is updated.
+2025-10-03 16:30:30	172.69.214.231	USR_1	 Signature Pizza SP_13 is updated.
+2025-10-03 16:32:12	172.70.80.88	USR_1	 Signature Pizza SP_12 is updated.
+2025-10-03 16:56:14	172.70.80.89	USR_1	 Signature Pizza SP_15 is updated.
+2025-10-03 16:56:33	172.70.80.89	USR_1	 Signature Pizza SP_12 is updated.
+2025-10-03 16:57:18	108.162.241.30	USR_1	 Signature Pizza SP_11 is updated.
+2025-10-03 16:58:10	172.69.214.231	USR_1	 Signature Pizza SP_9 is updated.
+2025-10-03 16:59:01	172.69.214.231	USR_1	 Signature Pizza SP_8 is updated.
+2025-10-03 16:59:44	172.69.214.231	USR_1	 Signature Pizza SP_6 is updated.
+2025-10-03 17:00:14	172.69.214.231	USR_1	 Signature Pizza SP_5 is updated.
+2025-10-03 17:00:57	172.69.214.231	USR_1	 Signature Pizza SP_2 is updated.
+2025-10-03 17:01:43	172.69.214.231	USR_1	 Signature Pizza SP_1 is updated.
+2025-10-03 17:03:19	172.69.214.230	USR_1	 Signature Pizza SP_3 is updated.
+2025-10-03 17:04:11	172.69.214.230	USR_1	 Signature Pizza SP_10 is updated.
+2025-10-03 17:05:25 172.69.214.231 USR_1 Signature Pizza SP_16 is added
+2025-10-03 17:06:30 172.69.214.231 USR_1 Signature Pizza SP_17 is added
+2025-10-03 17:10:56 172.71.120.7 USR_1 Signature Pizza SP_18 is added

@@ -1,0 +1,26 @@
+2024-12-22 00:29:30	117.201.89.172	USR_1	 Signature Pizza SP_3 is updated.
+2024-12-22 00:36:07 106.217.189.1 USR_1 Signature Pizza SP_4 is added
+2024-12-22 02:09:29	117.201.89.172	USR_1	 Topping TOP_68 is updated.
+2024-12-22 02:13:40	117.201.89.172	USR_1	 Signature Pizza SP_1 is updated.
+2024-12-22 02:26:48	106.217.189.65	USR_1	 Signature Pizza Category PCAT_6 is updated.
+2024-12-22 02:30:44	106.217.189.65	USR_1	 Pizza PI_2 is updated.
+2024-12-22 05:44:49 106.217.189.183 USR_1 Signature Pizza SP_5 is added
+2024-12-22 05:45:47 106.217.189.183 USR_1 Signature Pizza SP_6 is added
+2024-12-22 05:47:21 106.217.189.183 USR_1 Signature Pizza SP_7 is added
+2024-12-22 05:48:08 106.217.189.183 USR_1 Signature Pizza SP_8 is added
+2024-12-22 05:50:12 106.217.189.183 USR_1 Pizzas PI_3 is added
+2024-12-22 05:52:15 106.217.189.183 USR_1 Pizzas PI_4 is added
+2024-12-22 05:55:20 106.217.189.183 USR_1 Pizzas PI_5 is added
+2024-12-22 05:55:32	106.217.189.183	USR_1	 Pizza PI_5 is updated.
+2024-12-22 05:59:08 106.217.189.183 USR_1 Pizzas PI_6 is added
+2024-12-22 06:00:52	106.217.189.183	USR_1	 Special Offer SPO_76 is updated.
+2024-12-22 06:01:15	106.217.189.183	USR_1	 Special Offer SPO_73 is updated.
+2024-12-22 06:02:09	106.217.189.183	USR_1	 Special Offer SPO_73 is updated.
+2024-12-22 06:02:28	106.217.189.183	USR_1	 Special Offer SPO_72 is updated.
+2024-12-22 06:02:44	106.217.189.183	USR_1	 Special Offer SPO_68 is updated.
+2024-12-22 06:02:56	106.217.189.183	USR_1	 Special Offer SPO_64 is updated.
+2024-12-22 06:03:22	106.217.189.183	USR_1	 Special Offer SPO_62 is updated.
+2024-12-22 06:03:39	106.217.189.183	USR_1	 Special Offer SPO_64 is updated.
+2024-12-22 06:06:07	106.217.189.183	USR_1	 Store Location STR_8 is updated.
+2024-12-22 06:06:33	106.217.189.183	USR_1	 Store Location STR_9 is updated.
+2024-12-22 06:07:25	106.217.189.183	USR_1	 Store Location STR_3 is updated.

@@ -1,0 +1,11 @@
+2024-12-07 04:54:20	49.36.41.209	USR_1	 Special Offer SPO_69 is updated.
+2024-12-07 04:54:35	49.36.41.209	USR_1	 Special Offer SPO_68 is updated.
+2024-12-07 04:55:23	49.36.41.209	USR_1	 Special Offer SPO_66 is updated.
+2024-12-07 04:56:22	49.36.41.209	USR_1	 Special Offer SPO_55 is updated.
+2024-12-07 05:00:50	49.36.41.209	USR_1	 Special Offer SPO_68 is updated.
+2024-12-07 05:01:04	49.36.41.209	USR_1	 Special Offer SPO_68 is updated.
+2024-12-07 05:25:39	49.36.41.209	USR_1	 Signature Pizza SP_11 is updated.
+2024-12-07 05:30:21	49.36.41.209	USR_1	 Pizza PI_3 is updated.
+2024-12-07 05:34:13	49.36.41.209	USR_1	 Special Offer SPO_68 is updated.
+2024-12-07 06:12:07	49.36.41.209	USR_1	 Special Offer SPO_68 is updated.
+2024-12-07 07:41:56	49.36.41.209	USR_1	 Special Offer SPO_68 is updated.

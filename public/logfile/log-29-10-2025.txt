@@ -1,0 +1,7 @@
+2025-10-29 00:01:22	172.71.147.71	USR_1	 Special Offer SPO_15 is updated.
+2025-10-29 00:14:02	172.71.147.71	USR_1	Special Offer SPO_16 is added
+2025-10-29 00:16:32	172.71.147.71	USR_1	 Special Offer SPO_1 is updated.
+2025-10-29 00:18:13	172.71.147.71	USR_1	 Special Offer SPO_16 is updated.
+2025-10-29 00:18:28	172.71.147.71	USR_1	 Special Offer SPO_15 is updated.
+2025-10-29 00:18:50	172.71.147.71	USR_1	 Special Offer SPO_15 is updated.
+2025-10-29 22:18:35 104.23.190.226 USR_1Dynamic Slider SLI_13 is deleted.

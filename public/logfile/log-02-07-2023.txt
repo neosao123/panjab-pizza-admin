@@ -1,0 +1,6 @@
+2023-07-02 07:50:47	127.0.0.1	USR_1	Ads ADS_1 is added
+2023-07-02 08:49:22	127.0.0.1	USR_1	Ads ADS_2 is added
+2023-07-02 08:53:30	127.0.0.1	USR_1	Ads ADS_3 is added
+2023-07-02 09:44:37	127.0.0.1	USR_1	Ads ADS_3 is updated.
+2023-07-02 09:45:00	127.0.0.1	USR_1	Ads ADS_3 is updated.
+2023-07-02 10:11:24	127.0.0.1	USR_1	Ads ADS_2  is deleted.

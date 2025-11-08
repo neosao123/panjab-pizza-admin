@@ -1,0 +1,10 @@
+2025-09-05 02:40:57	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-05 02:45:57	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-05 02:58:46	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-05 02:58:58	49.36.42.50	USR_1	 Topping TOP_73 is updated.
+2025-09-05 02:59:05	49.36.42.50	USR_1	 Topping TOP_73 is updated.
+2025-09-05 02:59:13	49.36.42.50	USR_1	 Topping TOP_73 is updated.
+2025-09-05 08:07:30	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-05 08:48:12	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-05 10:10:29	49.36.42.50	USR_1	special offer line entries SOL_99 is deleted.
+2025-09-05 10:10:36	49.36.42.50	USR_1	 Special Offer SPO_12 is updated.

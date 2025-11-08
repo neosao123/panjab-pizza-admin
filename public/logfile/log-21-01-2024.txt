@@ -1,0 +1,15 @@
+2024-01-21 12:09:48	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	Special Offer SPO_51 is added
+2024-01-21 12:10:16	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_51 is updated.
+2024-01-21 12:10:45	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	Special Offer SPO_52 is added
+2024-01-21 12:10:54	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	Special Offer SPO_52  is deleted.
+2024-01-21 12:11:01	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	Special Offer SPO_51  is deleted.
+2024-01-21 12:21:19	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_44 is updated.
+2024-01-21 12:28:04	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_44 is updated.
+2024-01-21 12:28:30	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_44 is updated.
+2024-01-21 12:28:54	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_44 is updated.
+2024-01-21 12:29:31	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	Special Offer SPO_53 is added
+2024-01-21 12:30:07	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_53 is updated.
+2024-01-21 12:30:22	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	Special Offer SPO_53  is deleted.
+2024-01-21 12:31:15	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_49 is updated.
+2024-01-21 12:32:00	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_49 is updated.
+2024-01-21 12:43:36	2405:201:1002:4850:ed67:375c:7e6d:8d7	USR_1	 Special Offer SPO_44 is updated.

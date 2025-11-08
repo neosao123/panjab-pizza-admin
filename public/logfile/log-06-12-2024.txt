@@ -1,0 +1,8 @@
+2024-12-06 05:03:48	49.36.43.103	USR_1	 Special Offer SPO_69 is updated.
+2024-12-06 05:03:56	49.36.43.103	USR_1	 Special Offer SPO_69 is updated.
+2024-12-06 05:04:02	49.36.43.103	USR_1	 Special Offer SPO_69 is updated.
+2024-12-06 05:06:42	49.36.43.103	USR_1	 Special Offer SPO_66 is updated.
+2024-12-06 05:15:01	49.36.43.103	USR_1	Special Offer SPO_70 is added
+2024-12-06 05:15:29	49.36.43.103	USR_1	Special Offer SPO_70  is deleted.
+2024-12-06 08:23:19	49.36.43.103	USR_1	 Store Location STR_2 is updated.
+2024-12-06 08:24:24	49.36.43.103	USR_1	 Store Location STR_2 is updated.

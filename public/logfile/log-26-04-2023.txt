@@ -1,0 +1,20 @@
+2023-04-26 12:04:55	127.0.0.1	USR18_1	Users USR_7 is added
+2023-04-26 12:24:07	127.0.0.1	USR18_1	Users USR_8 is added
+2023-04-26 12:40:37	127.0.0.1	USR18_1	User USR_8 is updated.
+2023-04-26 12:42:49	127.0.0.1	USR18_1	User USR_8 is updated.
+2023-04-26 12:54:10	127.0.0.1	USR18_1	Users USR_9 is added
+2023-04-26 13:01:46	127.0.0.1	USR18_1	User USR_9 is deleted.
+2023-04-26 13:39:07	127.0.0.1	USR18_1	Unit UOM_1 is added
+2023-04-26 13:42:02	127.0.0.1	USR18_1	Unit UOM_1 is updated.
+2023-04-26 13:42:24	127.0.0.1	USR18_1	Unit UOM_2 is added
+2023-04-26 13:44:32	127.0.0.1	USR18_1	Unit  is deleted.
+2023-04-26 13:46:53	127.0.0.1	USR18_1	Unit UOM_2 is deleted.
+2023-04-26 14:37:10	127.0.0.1	USR18_1	 Material MTR_1 is added
+2023-04-26 14:49:08	127.0.0.1	USR18_1	Material MTR_1 is updated.
+2023-04-26 14:49:59	127.0.0.1	USR18_1	Material MTR_1 is updated.
+2023-04-26 14:59:30	127.0.0.1	USR18_1	Material MTR_1 is updated.
+2023-04-26 14:59:54	127.0.0.1	USR18_1	Material  is deleted.
+2023-04-26 15:00:40	127.0.0.1	USR18_1	Material  is deleted.
+2023-04-26 16:02:05	127.0.0.1	USR18_1	Client CLI_1 is added
+2023-04-26 16:06:07	127.0.0.1	USR18_1	Client CLI_1 is updated.
+2023-04-26 16:09:47	127.0.0.1	USR18_1	Client CLI_1 is deleted.

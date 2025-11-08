@@ -1,0 +1,94 @@
+2023-08-18 07:10:45	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Dips DI_1 is updated.
+2023-08-18 07:31:45	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_53 is updated.
+2023-08-18 07:32:04	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_52 is updated.
+2023-08-18 07:33:13	106.210.223.238	USR_1	 Topping TOP_50 is updated.
+2023-08-18 07:33:20	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_50 is updated.
+2023-08-18 07:33:43	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_51 is updated.
+2023-08-18 07:33:57	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_49 is updated.
+2023-08-18 07:34:05	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_48 is updated.
+2023-08-18 07:34:19	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_47 is updated.
+2023-08-18 07:34:26	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_46 is updated.
+2023-08-18 07:34:33	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_45 is updated.
+2023-08-18 07:34:41	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_44 is updated.
+2023-08-18 07:35:07	2405:201:1002:40b0:70da:66a5:b06a:c7c8	USR_1	 Topping TOP_43 is updated.
+2023-08-18 07:59:33	2409:40c2:103d:2b7f:7cf0:b2d6:9b54:23f0	USR_1	Side Offer Line Entries SOL_12 is updated
+2023-08-18 07:59:33	2409:40c2:103d:2b7f:7cf0:b2d6:9b54:23f0	USR_1	 Special Offer SPO_21 is updated.
+2023-08-18 09:36:58	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_12 is updated
+2023-08-18 09:36:58	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Special Offer SPO_21 is updated.
+2023-08-18 09:38:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Crust CR_4 is updated.
+2023-08-18 09:38:42	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Crust CR_4 is updated.
+2023-08-18 09:38:52	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Special Base  SPB_6 is updated.
+2023-08-18 09:39:23	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Special Base  SPB_6 is updated.
+2023-08-18 09:44:14	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Soft Drink SFD_4 is updated.
+2023-08-18 09:45:00	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Soft Drink SFD_4 is updated.
+2023-08-18 09:45:09	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Soft Drink SFD_3 is updated.
+2023-08-18 09:46:19	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Soft Drink SFD_2 is updated.
+2023-08-18 09:48:01	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Soft Drink SFD_2 is updated.
+2023-08-18 09:48:10	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Soft Drink SFD_3 is updated.
+2023-08-18 09:48:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Topping TOP_58 is updated.
+2023-08-18 09:49:07	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Topping TOP_58 is updated.
+2023-08-18 09:49:31	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Topping TOP_58 is updated.
+2023-08-18 09:50:10	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Topping TOP_58 is updated.
+2023-08-18 11:35:33	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_13 is added
+2023-08-18 11:35:33	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_14 is added
+2023-08-18 11:35:33	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_15 is added
+2023-08-18 11:35:33	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_16 is added
+2023-08-18 11:35:33	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Special Offer SPO_22 is added
+2023-08-18 11:37:19	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	special offer line entries SOL_15 is deleted.
+2023-08-18 11:37:30	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	special offer line entries - is deleted.
+2023-08-18 11:37:32	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	special offer line entries SOL_16 is deleted.
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_13 is updated
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_14 is updated
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SPO_22 is added
+2023-08-18 11:38:57	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Special Offer SPO_22 is updated.
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_13 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_14 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_17 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_18 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_19 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_20 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_21 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_22 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_23 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_24 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_25 is updated
+2023-08-18 11:40:11	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Special Offer SPO_22 is updated.
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_13 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_14 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_17 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_18 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_19 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_20 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_21 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_22 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_23 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_24 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	Side Offer Line Entries SOL_25 is updated
+2023-08-18 11:41:28	2409:40c2:103d:2b7f:983f:5278:76c2:dc69	USR_1	 Special Offer SPO_22 is updated.
+2023-08-18 13:22:57	106.210.223.238	USR_1	Side Offer Line Entries SOL_8 is updated
+2023-08-18 13:22:57	106.210.223.238	USR_1	Side Offer Line Entries SOL_9 is updated
+2023-08-18 13:22:57	106.210.223.238	USR_1	Side Offer Line Entries SOL_10 is updated
+2023-08-18 13:22:57	106.210.223.238	USR_1	 Special Offer SPO_13 is updated.
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_13 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_14 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_17 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_18 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_19 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_20 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_21 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_22 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_23 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_24 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	Side Offer Line Entries SOL_25 is updated
+2023-08-18 13:23:09	106.210.223.238	USR_1	 Special Offer SPO_22 is updated.
+2023-08-18 14:21:33	106.210.223.238	USR_1	Order statusORD_148 is updated.
+2023-08-18 14:22:37	106.210.223.238	USR_1	Order statusORD_148 is updated.
+2023-08-18 14:48:18	106.210.223.238	USR_1	Order statusORD_151 is updated.

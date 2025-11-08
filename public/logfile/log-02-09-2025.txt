@@ -1,0 +1,143 @@
+2025-09-02 01:09:07	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-02 01:13:12	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-02 01:49:31	49.36.42.50	USR_1	 Soft Drink SFD_5 is updated.
+2025-09-02 01:49:57	49.36.42.50	USR_1	 Soft Drink SFD_5 is updated.
+2025-09-02 01:50:17	49.36.42.50	USR_1	 Soft Drink SFD_5 is updated.
+2025-09-02 01:51:01	49.36.42.50	USR_1	 Soft Drink SFD_4 is updated.
+2025-09-02 01:51:34	49.36.42.50	USR_1	 Soft Drink SFD_4 is updated.
+2025-09-02 01:52:02	49.36.42.50	USR_1	 Soft Drink SFD_3 is updated.
+2025-09-02 01:52:15	49.36.42.50	USR_1	 Soft Drink SFD_3 is updated.
+2025-09-02 01:52:25	49.36.42.50	USR_1	 Soft Drink SFD_2 is updated.
+2025-09-02 01:52:36	49.36.42.50	USR_1	 Soft Drink SFD_2 is updated.
+2025-09-02 01:52:46	49.36.42.50	USR_1	 Soft Drink SFD_1 is updated.
+2025-09-02 01:52:55	49.36.42.50	USR_1	 Soft Drink SFD_1 is updated.
+2025-09-02 01:53:10	49.36.42.50	USR_1	 Soft Drink SFD_5 is updated.
+2025-09-02 01:53:19	49.36.42.50	USR_1	 Soft Drink SFD_5 is updated.
+2025-09-02 01:53:48	49.36.42.50	USR_1	 Soft Drink SFD_4 is updated.
+2025-09-02 01:54:01	49.36.42.50	USR_1	 Soft Drink SFD_4 is updated.
+2025-09-02 01:54:18	49.36.42.50	USR_1	 Soft Drink SFD_5 is updated.
+2025-09-02 01:54:25	49.36.42.50	USR_1	 Soft Drink SFD_5 is updated.
+2025-09-02 01:54:38	49.36.42.50	USR_1	 Soft Drink SFD_4 is updated.
+2025-09-02 01:54:49	49.36.42.50	USR_1	 Soft Drink SFD_4 is updated.
+2025-09-02 02:02:38	49.36.42.50	USR_1	 Cheese CHE_3 is updated.
+2025-09-02 02:02:47	49.36.42.50	USR_1	 Cheese CHE_3 is updated.
+2025-09-02 02:02:56	49.36.42.50	USR_1	 Cheese CHE_2 is updated.
+2025-09-02 02:03:05	49.36.42.50	USR_1	 Cheese CHE_2 is updated.
+2025-09-02 02:03:14	49.36.42.50	USR_1	 Cheese CHE_1 is updated.
+2025-09-02 02:03:23	49.36.42.50	USR_1	 Cheese CHE_1 is updated.
+2025-09-02 02:04:50	49.36.42.50	USR_1	 Crust CR_5 is updated.
+2025-09-02 02:04:59	49.36.42.50	USR_1	 Crust CR_5 is updated.
+2025-09-02 02:05:08	49.36.42.50	USR_1	 Crust CR_4 is updated.
+2025-09-02 02:05:16	49.36.42.50	USR_1	 Crust CR_4 is updated.
+2025-09-02 02:05:30	49.36.42.50	USR_1	 Crust CR_3 is updated.
+2025-09-02 02:05:38	49.36.42.50	USR_1	 Crust CR_3 is updated.
+2025-09-02 02:05:46	49.36.42.50	USR_1	 Crust CR_2 is updated.
+2025-09-02 02:05:53	49.36.42.50	USR_1	 Crust CR_2 is updated.
+2025-09-02 02:06:13	49.36.42.50	USR_1	 Crust CR_1 is updated.
+2025-09-02 02:06:22	49.36.42.50	USR_1	 Crust CR_1 is updated.
+2025-09-02 02:07:16	49.36.42.50	USR_1	 Crust CRT_3 is updated.
+2025-09-02 02:07:25	49.36.42.50	USR_1	 Crust CRT_3 is updated.
+2025-09-02 02:07:34	49.36.42.50	USR_1	 Crust CRT_2 is updated.
+2025-09-02 02:07:42	49.36.42.50	USR_1	 Crust CRT_2 is updated.
+2025-09-02 02:07:49	49.36.42.50	USR_1	 Crust CRT_1 is updated.
+2025-09-02 02:07:57	49.36.42.50	USR_1	 Crust CRT_1 is updated.
+2025-09-02 02:08:20	49.36.42.50	USR_1	 Special Base  SPB_8 is updated.
+2025-09-02 02:08:30	49.36.42.50	USR_1	 Special Base  SPB_8 is updated.
+2025-09-02 02:08:49	49.36.42.50	USR_1	 Special Base  SPB_5 is updated.
+2025-09-02 02:08:58	49.36.42.50	USR_1	 Special Base  SPB_5 is updated.
+2025-09-02 02:09:14	49.36.42.50	USR_1	Spicy SPY_3 is updated.
+2025-09-02 02:09:22	49.36.42.50	USR_1	Spicy SPY_3 is updated.
+2025-09-02 02:09:45	49.36.42.50	USR_1	Sauce SA_3 is updated.
+2025-09-02 02:09:53	49.36.42.50	USR_1	Sauce SA_3 is updated.
+2025-09-02 02:10:07	49.36.42.50	USR_1	Sauce SA_2 is updated.
+2025-09-02 02:10:16	49.36.42.50	USR_1	Sauce SA_2 is updated.
+2025-09-02 02:10:41	49.36.42.50	USR_1	Cook CK_3 is updated.
+2025-09-02 02:10:49	49.36.42.50	USR_1	Cook CK_3 is updated.
+2025-09-02 02:11:02	49.36.42.50	USR_1	 Dips DI_4 is updated.
+2025-09-02 02:11:12	49.36.42.50	USR_1	 Dips DI_4 is updated.
+2025-09-02 02:11:36	49.36.42.50	USR_1	 Topping TOP_72 is updated.
+2025-09-02 02:11:45	49.36.42.50	USR_1	 Topping TOP_72 is updated.
+2025-09-02 02:14:05	49.36.42.50	USR_1	 Soft Drink SFD_5 is updated.
+2025-09-02 02:14:17	49.36.42.50	USR_1	 Soft Drink SFD_4 is updated.
+2025-09-02 02:14:26	49.36.42.50	USR_1	 Soft Drink SFD_4 is updated.
+2025-09-02 04:14:30	49.36.42.50	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count2 is updated
+2025-09-02 09:13:18	99.235.128.241	USR_1	 Signature Pizza SP_15 is updated.
+2025-09-02 09:18:57	99.235.128.241	USR_1	 Signature Pizza SP_13 is updated.
+2025-09-02 09:48:01	99.235.128.241	USR_1	Settings STG_7 Setting name & value  Non Regular Topping Count1 is updated
+2025-09-02 09:54:18	99.235.128.241	USR_1	 Store Location STR_5 is updated.
+2025-09-02 09:54:27	99.235.128.241	USR_1	 Store Location STR_1 is updated.
+2025-09-02 09:54:37	99.235.128.241	USR_1	 Store Location STR_3 is updated.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_1 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_2 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_3 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_4 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_5 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_6 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_7 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_8 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_9 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_10 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_11 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_12 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_13 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_14 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_15 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_16 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_17 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_18 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_19 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_20 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_21 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_22 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_23 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_24 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_25 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_26 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_27 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_28 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_29 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_30 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_31 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_32 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_33 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_34 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_35 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_36 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_37 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_38 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_39 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_40 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_41 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_42 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_43 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_44 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_45 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_46 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_47 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_48 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_49 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_50 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_51 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_52 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_53 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_54 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_55 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_56 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_57 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_58 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_59 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_60 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_61 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_62 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_63 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_64 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_65 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_66 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_67 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_68 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_69 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_70 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_71 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_72 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_73 is added.
+2025-09-02 10:54:41	106.76.70.52	USR_1	 Zipcode ZIP_74 is added.

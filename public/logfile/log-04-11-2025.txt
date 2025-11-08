@@ -1,0 +1,9 @@
+2025-11-04 21:57:11	108.162.241.31	USR_1	 Special Offer SPO_17 is updated.
+2025-11-04 22:03:26	172.70.80.88	USR_1	Special Offer SPO_18 is added
+2025-11-04 22:03:54	108.162.241.30	USR_1	 Special Offer SPO_17 is updated.
+2025-11-04 22:04:17	108.162.241.30	USR_1	 Special Offer SPO_17 is updated.
+2025-11-04 22:06:09	172.71.120.7	USR_1	Special Offer SPO_19 is added
+2025-11-04 22:06:20	172.71.120.7	USR_1	Special Offer SPO_14  is deleted.
+2025-11-04 22:06:28	172.71.120.7	USR_1	Special Offer SPO_11  is deleted.
+2025-11-04 22:08:56	172.70.80.89	USR_1	 Special Offer SPO_18 is updated.
+2025-11-04 22:12:20	108.162.241.31	USR_1	 Soft Drink SFD_20 is updated.

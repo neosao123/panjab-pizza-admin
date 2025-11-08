@@ -1,0 +1,14 @@
+2024-10-11 02:51:48	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	 Special Base  SPB_9 is updated.
+2024-10-11 02:51:54	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	 Special Base  SPB_8 is updated.
+2024-10-11 02:52:01	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	 Special Base  SPB_1 is updated.
+2024-10-11 02:52:08	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	 Special Base  SPB_2 is updated.
+2024-10-11 02:52:21	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	 Special Base  SPB_5 is updated.
+2024-10-11 02:52:30	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	 Special Base  SPB_7 is updated.
+2024-10-11 04:04:49	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	Side Offer Line Entries SOL_35 is updated
+2024-10-11 04:04:49	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	Side Offer Line Entries SOL_36 is updated
+2024-10-11 04:04:49	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	Side Offer Line Entries SPO_24 is added
+2024-10-11 04:04:49	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	 Special Offer SPO_24 is updated.
+2024-10-11 04:10:35	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	Side Offer Line Entries SOL_35 is updated
+2024-10-11 04:10:35	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	Side Offer Line Entries SOL_36 is updated
+2024-10-11 04:10:35	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	Side Offer Line Entries SOL_59 is updated
+2024-10-11 04:10:35	2405:201:1002:481d:505a:b921:a62c:1a6b	USR_1	 Special Offer SPO_24 is updated.

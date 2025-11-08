@@ -1,0 +1,64 @@
+2023-07-08 05:22:37	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_10 is updated
+2023-07-08 05:23:14	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_15 is updated
+2023-07-08 05:23:34	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_9 is updated
+2023-07-08 05:23:57	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_1 is updated
+2023-07-08 05:24:21	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_2 is updated
+2023-07-08 05:24:55	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_11 is updated
+2023-07-08 05:25:20	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_12 is updated
+2023-07-08 05:25:39	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_6 is updated
+2023-07-08 05:26:43	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_3 is updated
+2023-07-08 05:27:11	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_4 is updated
+2023-07-08 05:28:45	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_5 is updated
+2023-07-08 05:29:35	2409:40c2:b:b565:c113:5203:d2d4:bce8	USR_1	Side SD_15 is updated
+2023-07-08 05:45:50	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Users USR_12 is added
+2023-07-08 05:50:48	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	User USR_12 is updated.
+2023-07-08 05:57:53	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Users USR_13 is added
+2023-07-08 06:10:01	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_50 is updated.
+2023-07-08 06:34:45	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_25 is updated
+2023-07-08 08:01:23	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_49 is updated.
+2023-07-08 08:01:43	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_48 is updated.
+2023-07-08 08:03:02	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_47 is updated.
+2023-07-08 08:05:03	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_46 is updated.
+2023-07-08 08:06:37	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_45 is updated.
+2023-07-08 08:08:24	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_25 is updated
+2023-07-08 08:09:25	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_24 is updated
+2023-07-08 08:09:49	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_25 is updated
+2023-07-08 08:13:58	157.33.7.205	USR_1	 Topping TOP_41 is updated.
+2023-07-08 08:14:18	157.33.7.205	USR_1	 Topping TOP_41 is updated.
+2023-07-08 08:15:43	157.33.7.205	USR_1	Side SD_18 is updated
+2023-07-08 08:16:02	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_24 is updated
+2023-07-08 08:16:06	157.33.7.205	USR_1	Side SD_18 is updated
+2023-07-08 08:17:23	157.33.7.205	USR_1	Side SD_25 is updated
+2023-07-08 08:17:49	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_50 is updated.
+2023-07-08 08:41:03	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_50 is updated.
+2023-07-08 08:41:28	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_50 is updated.
+2023-07-08 08:42:37	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_50 is updated.
+2023-07-08 08:43:01	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	 Topping TOP_50 is updated.
+2023-07-08 08:43:30	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_25 is updated
+2023-07-08 08:43:55	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_24 is updated
+2023-07-08 08:44:22	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_24 is updated
+2023-07-08 08:44:40	2409:40c2:38:ea22:15f2:5e3c:5f82:65b8	USR_1	Side SD_24 is updated
+2023-07-08 10:58:28	157.33.7.205	USR_1	Special Offer SPO_1 is added
+2023-07-08 12:22:44	157.33.7.205	USR_1	 Special Offer SPO_1 is updated.
+2023-07-08 12:22:58	157.33.7.205	USR_1	 Special Offer SPO_1 is updated.
+2023-07-08 12:25:51	157.33.7.205	USR_1	 Special Offer SPO_1 is updated.
+2023-07-08 13:07:22	157.33.7.205	USR_1	Special Offer SPO_1  is deleted.
+2023-07-08 13:22:00	157.33.7.205	USR_1	 Cheese CHE_5 is updated.
+2023-07-08 13:37:56	157.33.7.205	USR_1	 Crust CR_4 is updated.
+2023-07-08 13:38:47	157.33.7.205	USR_1	 Crust CR_4 is updated.
+2023-07-08 13:41:26	157.33.7.205	USR_1	 Crust CR_4 is updated.
+2023-07-08 13:56:15	157.33.7.205	USR_1	 Special Base  SPB_7 is updated.
+2023-07-08 13:56:39	157.33.7.205	USR_1	 Special Base  SPB_7 is updated.
+2023-07-08 14:26:36	157.33.7.205	USR_1	 Soft Drink SFD_3 is updated.
+2023-07-08 14:28:13	157.33.7.205	USR_1	 Soft Drink SFD_3 is updated.
+2023-07-08 14:29:10	157.33.7.205	USR_1	 Soft Drink SFD_3 is updated.
+2023-07-08 14:51:04	157.33.7.205	USR_1	 Soft Drink SFD_2 is updated.
+2023-07-08 14:51:18	157.33.7.205	USR_1	 Soft Drink SFD_1 is updated.
+2023-07-08 15:13:55	157.33.7.205	USR_1	 Dips DI_2 is updated.
+2023-07-08 15:14:34	157.33.7.205	USR_1	 Dips DI_1 is updated.
+2023-07-08 15:16:51	157.33.7.205	USR_1	 Dips DI_2 is updated.
+2023-07-08 15:17:40	157.33.7.205	USR_1	 Dips DI_2 is updated.
+2023-07-08 15:19:26	157.33.7.205	USR_1	 Dips DI_2 is updated.
+2023-07-08 15:21:00	157.33.7.205	USR_1	 Dips DI_2 is updated.
+2023-07-08 15:21:24	157.33.7.205	USR_1	 Dips DI_2 is updated.
+2023-07-08 15:22:01	157.33.7.205	USR_1	 Dips DI_2 is updated.
