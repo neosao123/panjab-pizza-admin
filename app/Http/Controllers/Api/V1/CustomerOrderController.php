@@ -95,7 +95,7 @@ class CustomerOrderController extends Controller
                 $storeCode = $r->storeCode;
             } else {
                 $storeCode = '';
-                $zipCodeEntry = DB::table('zipcode')->where('zipcode', $r->zipCode)->where('isActive', 1)->first();
+                $zipCodeEntry = DB::table('zipcode')->where('zipcode', $r->zipCode)->where('isActive', 1)->where('isActive', 0)->first();
                 if ($zipCodeEntry) {
                     $storeCode = $zipCodeEntry->storeCode;
                 }
@@ -108,7 +108,7 @@ class CustomerOrderController extends Controller
 
             if (!empty($store)) {
                 $timezone = $store->timezone;
-                Carbon::now()->setTimezone($timezone);
+                Carbon::setLocale($timezone);
                 date_default_timezone_set($timezone);
             }
             $currentdate = Carbon::now();
@@ -377,6 +377,9 @@ class CustomerOrderController extends Controller
     function isStoreOpen($storeCode)
     {
         if ($storeCode != "") {
+
+            return true;
+
             $storeData = Storelocation::where('code', $storeCode)->where('isActive', 1)->where('isDelete', 0)->first();
             if ($storeData) {
                 $weekdays_start_time = $storeData->weekdays_start_time;
@@ -419,11 +422,7 @@ class CustomerOrderController extends Controller
                 } else {
                     return false;
                 }
-            } else {
-                return false; 
             }
-        } else {
-			return false; 
         }
     }
 

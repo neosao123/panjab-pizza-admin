@@ -103,7 +103,7 @@
 							</div>
 							 <div class="col-md-12 form-group">
                                 <label> Description : </label>
-                                <textarea id="description" name="description" class="form-control summernote" rows="4" maxlength='300'
+                                <textarea name="description" class="form-control" rows="4" maxlength='300'
                                    >{{ $queryresult->description }}</textarea>
                                 
                             </div>
@@ -315,6 +315,7 @@
 			['para', ['ul', 'ol', 'paragraph']]
 		]
 	});
+    $('#description').summernote('disable');
 	 });
   </script>
 @endpush

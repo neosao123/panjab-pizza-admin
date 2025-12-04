@@ -13,7 +13,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^3.1",
-        "stripe/stripe-php": "^12.0"
+        "stripe/stripe-php": "^19.0",
+        "twilio/sdk": "^8.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

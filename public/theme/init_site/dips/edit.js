@@ -55,21 +55,21 @@ $(document).ready(function () {
                         const img = new Image();
                         img.onload = function () {
                             // Check if the image is 512x512
-							
-							if (img.width >= 512 && img.height >= 512) {
-								$('#eDisImage').removeClass("d-none");
+
+                            if (img.width >= 512 && img.height >= 512) {
+                                $('#eDisImage').removeClass("d-none");
                                 $('#eImage').addClass("d-none");
                                 $('#showImage').removeClass('d-none')
                                 $("#showImage").attr("src", event.target.result);
-							}else{
-								toastr.error('The image dimensions are not valid. Please upload an image with at least 512 x 512 dimensions.', 'Sides', {
+                            } else {
+                                toastr.error('The image dimensions are not valid. Please upload an image with at least 512 x 512 dimensions.', 'Sides', {
                                     "progressBar": false
                                 });
                                 // Reset the input field and hide the image
                                 $('#file').val(null);
-								return false;
-							}
-							
+                                return false;
+                            }
+
                         };
                         img.src = event.target.result;
                     };
@@ -79,5 +79,15 @@ $(document).ready(function () {
         }
     });
 
+    $("#description").summernote({
+        height: 100,
+        styleTags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        toolbar: [
 
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ]
+    });
 });

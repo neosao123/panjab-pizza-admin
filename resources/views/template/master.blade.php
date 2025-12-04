@@ -7,8 +7,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="baseurl" content="{{ url('/') }}">
-    <title>{{ config('app.name') }}</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/uploads/favicon/apple-icon-57x57.png') }}">
+    <title>{{ $settings['meta_site_title'] ?? config('app.name') }}</title>
+
+    <meta name="description" content="{{ $settings['meta_site_description'] ?? '' }}">
+
+
+    <link href="{{ asset('storage/'.$settings['favicon']) }}" rel="shortcut icon" />
+
+    {{-- <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/uploads/favicon/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/uploads/favicon/apple-icon-60x60.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/uploads/favicon/apple-icon-72x72.png') }}">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/uploads/favicon/apple-icon-76x76.png') }}">
@@ -21,9 +27,9 @@
         href="{{ asset('/uploads/favicon/android-icon-192x192.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/uploads/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('/uploads/favicon/favicon-96x96.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/uploads/favicon/favicon-16x16.png') }}">
-    <link rel="stylesheet" href="{{ asset('theme/css/style.min.css?v='.time()) }}">
-    <link rel="stylesheet" href="{{ asset('theme/css/custom.css?v='.time()) }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/uploads/favicon/favicon-16x16.png') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('theme/css/style.min.css?v=' . time()) }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/custom.css?v=' . time()) }}">
     <link rel="stylesheet" href="{{ asset('theme/css/sweetalert2.min.css') }}">
     <link href="{{ asset('theme/css/toastr.min.css') }}" rel="stylesheet">
     <style>

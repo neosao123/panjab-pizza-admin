@@ -12,15 +12,19 @@ $avatar = asset("uploads/profile/$profilephoto");
         <div class="navbar-header">
             <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
             <a class="navbar-brand" href="#">
+                @if($settings['logo'] != '' && $settings['logo'] != null)
                 <b class="logo-icon">
                     <!-- Dark Logo icon -->
-                    <img src="{{ asset('uploads/logo.png') }}" alt="mr singhs pizza logo" class="dark-logo" height="48" width="48" />
+                    <img src="{{ asset('storage/'.$settings['logo']) }}" alt="{{ $settings['site_title'] }}" class="dark-logo" height="48" width="48" />
                     <!-- Light Logo icon -->
-                    <img src="{{ asset('uploads/logo.png') }}" alt="mr singhs pizza logo" class="light-logo" height="48" width="48" />
+                    <img src="{{ asset('storage/'.$settings['logo']) }}" alt="{{ $settings['site_title'] }}" class="light-logo" height="48" width="48" />
                 </b>
+                @endif
+                @if($settings['site_title'] != '' && $settings['site_title'] != null)
                 <span class="logo-text">
-                    <span style="font-size:18px">{{ config('app.name') }}</span>
+                    <span style="font-size:18px">{{ $settings['site_title'] ?? config('app.name') }}</span>
                 </span>
+                @endif
             </a>
             <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
         </div>

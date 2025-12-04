@@ -152,8 +152,9 @@ class SidesController extends Controller
         $ip = $_SERVER['REMOTE_ADDR'];
         $rules = [
             'sideName' => 'required|min:3|max:150',
-            'hasToppings' => 'nullable',
+            'hasToppings' => 'nullable', 
             'nooftoppings' => $r->hasToppings == 1 ? 'required|numeric|digits_between:1,2|gt:0' : "nullable",
+            'description' => 'nullable',
         ];
         $messages = [
             'sideName.required' => 'Side name is required.',
@@ -163,11 +164,13 @@ class SidesController extends Controller
             'nooftoppings.numeric' => 'The number of toppings must be a numeric value.',
             'nooftoppings.gt' => 'The number of toppings must be a greater than 0.',
             'nooftoppings.digits_between' => 'The number of toppings must have 1 to 99.',
+            
         ];
         $this->validate($r, $rules, $messages);
         $data = [
             'sidename' => $r->sideName,
             'isActive' => $r->isActive == "" ? '0' : 1,
+            'description'=>$r->description,
             'type' => $r->type,
             'hasToppings' => $r->hasToppings == 1 ? 1 : 0,
             'nooftoppings' =>  $r->nooftoppings ? $r->nooftoppings : 0,
@@ -282,6 +285,7 @@ public function store(Request $r)
             }
         ],
         'price.*' => 'required|numeric|min:0',
+        'description' => 'nullable',
     ], [
         'sideName.required' => 'Side name is required',
         'sideName.min' => 'Minimum of 3 characters are required.',
@@ -290,6 +294,7 @@ public function store(Request $r)
         'type.in' => 'Invalid type selected',
         'price.*.required' => 'Price is required for each size',
         'price.*.numeric' => 'Price must be numeric',
+        
     ]);
 
     if ($validator->fails()) {
@@ -300,6 +305,7 @@ public function store(Request $r)
     $data = [
         'sidename' => $r->sideName,
         'type' => $r->type,
+        'description'=>$r->description,
         'isActive' => 1,
         'isDelete' => 0,
         'hasToppings' => $r->hasToppings == 1 ? 1 : 0,

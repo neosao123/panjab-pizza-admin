@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class CashierOtp extends Model
+{
+    use HasFactory;
+    protected $fillable = [
+        'id',
+        'otp',
+        'mobile',
+        'expired_at',
+        'used_at'
+    ];
+}

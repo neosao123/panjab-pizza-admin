@@ -7,22 +7,22 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
-            <h4 class="page-title">Pictures</h4>
+            <h4 class="page-title">Offer Cards</h4>
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Configuration</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pictures</a></li>
+                        <li class="breadcrumb-item"><a href="#">Offer Cards</a></li>
                     </ol>
                 </nav>
             </div>
         </div>
-<div class="col-7 align-self-center">
-    @if ($pictureCount < 3 && $rights['insert'] == 1)
-        <a href="{{ url('pictures/add') }}" class="btn btn-info btn-sm float-right">Add New</a>
-    @endif
-</div>
+        <div class="col-7 align-self-center">
+            @if ($pictureCount < 3 && $rights['insert'] == 1)
+                <a href="{{ url('pictures/add') }}" class="btn btn-info btn-sm float-right">Add New</a>
+            @endif
+        </div>
 
     </div>
 </div>
@@ -30,7 +30,7 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0" data-anchor="data-anchor">Picture List</h5>
+            <h5 class="mb-0" data-anchor="data-anchor">Offer Cards List</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">

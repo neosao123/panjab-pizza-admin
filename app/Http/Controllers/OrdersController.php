@@ -97,6 +97,25 @@ class OrdersController extends Controller
                 if ($row->orderStatus == "cancelled") {
                     $status = '<span class="badge badge-danger">Cancelled</span>';
                 }
+                if ($row->orderStatus == "pending") {
+                    $status = '<span class="badge badge-danger">Pending</span>';
+                }
+
+                $payment_status="";
+                if ($row->clientType == "customer") {
+                    if ($row->paymentStatus == "paid") {
+                        $payment_status = '<span class="badge badge-success">Paid</span>';
+                    }
+                    if ($row->paymentStatus == "failed") {
+                        $payment_status = '<span class="badge badge-danger">Failed</span>';
+                    }
+                    if ($row->paymentStatus == "pending") {
+                         $payment_status = '<span class="badge badge-info">Pending</span>';
+                    }
+                     if ($row->paymentStatus == "cancelled") {
+                         $payment_status = '<span class="badge badge-danger">Cancelled</span>';
+                    }
+                }
 
                 $actions = '<div class="btn-group">
                 <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -121,6 +140,7 @@ class OrdersController extends Controller
                     $row->storeLocation,
                     $row->grandTotal,
                     $status,
+                    $payment_status,
                     $row->clientType,
                 );
                 $srno++;
@@ -139,15 +159,15 @@ class OrdersController extends Controller
                 $dataCount = $dataCount->where("ordermaster.orderStatus", $orderStatus);
             }
 
-            $dataCount = $dataCount->where(function($query) use ($search) {
+            $dataCount = $dataCount->where(function ($query) use ($search) {
                 $query->where("ordermaster.zipCode", "LIKE", "%$search%")
-                      ->orWhere("ordermaster.clientType", "LIKE", "%$search%")
-                      ->orWhere("ordermaster.code", "LIKE", "%$search%")
-                      ->orWhere("ordermaster.customerName", "LIKE", "%$search%")
-                      ->orWhere("ordermaster.mobileNumber", "LIKE", "%$search%")
-                      ->orWhere("ordermaster.orderFrom", "LIKE", "%$search%")
-                      ->orWhere("storelocation.storeLocation", "LIKE", "%$search%")
-                      ->orWhere("ordermaster.grandTotal", "LIKE", "%$search%");
+                    ->orWhere("ordermaster.clientType", "LIKE", "%$search%")
+                    ->orWhere("ordermaster.code", "LIKE", "%$search%")
+                    ->orWhere("ordermaster.customerName", "LIKE", "%$search%")
+                    ->orWhere("ordermaster.mobileNumber", "LIKE", "%$search%")
+                    ->orWhere("ordermaster.orderFrom", "LIKE", "%$search%")
+                    ->orWhere("storelocation.storeLocation", "LIKE", "%$search%")
+                    ->orWhere("ordermaster.grandTotal", "LIKE", "%$search%");
             });
 
             $dataCount = $dataCount->count();

@@ -1,0 +1,63 @@
+2025-11-29 03:12:38	49.36.42.14	USR_1	SMS Template 1 is added.
+2025-11-29 03:12:59	49.36.42.14	USR_1	SMS Template 2 is added.
+2025-11-29 03:13:33	49.36.42.14	USR_1	SMS Template 3 is added.
+2025-11-29 03:13:59	49.36.42.14	USR_1	SMS Template 4 is added.
+2025-11-29 03:14:18	49.36.42.14	USR_1	SMS Template 4 is updated.
+2025-11-29 03:14:25	49.36.42.14	USR_1	SMS Template 4 is updated.
+2025-11-29 03:21:04	49.36.42.14	USR_1	SMS Template 4 is updated.
+2025-11-29 05:07:46	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:07:46	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:07:46	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:07:46	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:09:36	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:09:36	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:09:36	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:09:36	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:10:52	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:10:52	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:10:52	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:10:52	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:11:37	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:11:37	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:11:37	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:11:37	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:12:06	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:12:06	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:12:06	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:12:06	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:12:46	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:12:46	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:12:46	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:12:46	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:13:49	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:13:49	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:13:49	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:13:49	49.36.42.14	USR_1	Section Lineentries 17 is added.
+2025-11-29 05:13:49	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:14:53	49.36.42.14	USR_1	Section Lineentries ID 17 is deleted.
+2025-11-29 05:14:55	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:14:55	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:14:55	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:14:55	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:18:04	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 05:18:04	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 05:18:04	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 05:18:04	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 05:45:29	49.36.42.14	USR_1	 Signature Pizza SP_15 is updated.
+2025-11-29 05:45:57	49.36.42.14	USR_1	 Pizza PI_8 is updated.
+2025-11-29 05:48:04	49.36.42.14	USR_1	 Soft Drink SFD_5 is updated.
+2025-11-29 05:50:53	49.36.42.14	USR_1	Side SD_47 is updated
+2025-11-29 06:00:31	49.36.42.14	USR_1	Side SD_47 is updated
+2025-11-29 06:03:28	49.36.42.14	USR_1	 Signature Pizza SP_15 is updated.
+2025-11-29 06:04:28	49.36.42.14	USR_1	 Dips DIP_8 is updated.
+2025-11-29 06:08:50	49.36.42.14	USR_1	 Dips DIP_8 is updated.
+2025-11-29 06:10:31	49.36.42.14	USR_1	 Special Offer SPO_1 is updated.
+2025-11-29 06:11:06	49.36.42.14	USR_1	 Dips DIP_8 is updated.
+2025-11-29 06:36:47	49.36.42.14	USR_1	Section Lineentries 2 is updated.
+2025-11-29 06:36:47	49.36.42.14	USR_1	Section Lineentries 3 is updated.
+2025-11-29 06:36:47	49.36.42.14	USR_1	Section Lineentries 4 is updated.
+2025-11-29 06:36:47	49.36.42.14	USR_1	Section 1 is updated.
+2025-11-29 08:19:23	49.36.42.14	USR_1	Twilio Settings added successfully.
+2025-11-29 08:20:23	49.36.42.14	USR_1	Twilio Settings updated successfully.
+2025-11-29 11:46:46	106.221.3.153	USR_1	SMS Template 5 is added.
+2025-11-29 12:01:26	106.221.3.153	USR_1	SMS Queue Created: 15 pending entries added.

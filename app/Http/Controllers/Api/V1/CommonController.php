@@ -114,7 +114,7 @@ class CommonController extends Controller
                     if ($item->dipsImage != "" && $item->dipsImage != null) {
                         $path = url("uploads/dips/" . $item->dipsImage);
                     }
-                    $data = ["dipsCode" => $item->code,  "ratings" => $item->ratings, "dipsName" => $item->dips, "image" => $path, "price" => $item->price];
+                    $data = ["dipsCode" => $item->code,  "ratings" => $item->ratings, "dipsName" => $item->dips, "image" => $path, "price" => $item->price,"description"=>$item->description??""];
                     array_push($dipsArray, $data);
                 }
                 return response()->json(["status" => 200, "message" => "Data found", "data" => $dipsArray], 200);
@@ -170,7 +170,7 @@ class CommonController extends Controller
                     if ($item->softDrinkImage != "" && $item->softDrinkImage != null) {
                         $path = url("uploads/softdrinks/" . $item->softDrinkImage);
                     }
-                    $data = ["softdrinkCode" => $item->code, "ratings" => $item->ratings, "softDrinksName" => $item->softdrinks, "image" => $path, "price" => $item->price, "drinkType" => $typeDrinks, "drinksCount" => $item->drinksCount, "drinksType" => $item->drinksType];
+                    $data = ["softdrinkCode" => $item->code, "ratings" => $item->ratings, "softDrinksName" => $item->softdrinks, "image" => $path, "price" => $item->price, "drinkType" => $typeDrinks, "drinksCount" => $item->drinksCount, "drinksType" => $item->drinksType,"description"=>$item->description??""];
                     array_push($softdrinksArray, $data);
                 }
                 return response()->json(["status" => 200, "message" => "Data found", "data" => $softdrinksArray], 200);
@@ -389,7 +389,7 @@ class CommonController extends Controller
                         }
                     }
 
-                    $data = ["sideCode" => $item->code, "sideName" => $item->sidename, "ratings" => $item->ratings, "image" => $path, "type" => $item->type, 'hasToppings' => $item->hasToppings, 'nooftoppings' => $item->nooftoppings, "combination" => $combinationArray, "sidesToppings" => $sideToppingsArray];
+                    $data = ["sideCode" => $item->code, "sideName" => $item->sidename, "ratings" => $item->ratings, "image" => $path, "type" => $item->type, 'hasToppings' => $item->hasToppings, 'nooftoppings' => $item->nooftoppings, "combination" => $combinationArray, "sidesToppings" => $sideToppingsArray,"description"=>$item->description??""];
                     array_push($sidesArray, $data);
                 }
                 return response()->json(["status" => 200, "message" => "Data found", "data" => $sidesArray], 200);
@@ -1251,8 +1251,7 @@ class CommonController extends Controller
                     "name" => $item->sidename,
                     "image" => $path,
                     "ratings" => $item->ratings,
-                    "type" => ucwords("new"),
-                    "productType" => "sides"
+                    "type" => ucwords("new")
                 ];
             }
             foreach ($other as $item) {
@@ -1316,7 +1315,8 @@ class CommonController extends Controller
                         'pizzaName' => $item->name,
                         'pizzaSubtitle' => $item->subtitle,
                         'pizzaImage' => $path,
-                        'ratings' => $item->ratings
+                        'ratings' => $item->ratings,
+                        'description' => $item->description
                     ];
                 }
             }
@@ -1333,7 +1333,8 @@ class CommonController extends Controller
                         'pizzaName' => $item->pizza_name,
                         'pizzaSubtitle' => $item->pizza_subtitle,
                         'pizzaImage' => $path,
-                        'ratings' => $item->ratings
+                        'ratings' => $item->ratings,
+                        'description' => $item->description
                     ];
                 }
             }
@@ -1350,7 +1351,8 @@ class CommonController extends Controller
                         'pizzaName' => $item->pizza_name,
                         'pizzaSubtitle' => $item->pizza_subtitle,
                         'pizzaImage' => $path,
-                        'ratings' => $item->ratings
+                        'ratings' => $item->ratings,
+                        'description' => $item->description
                     ];
                 }
             }
@@ -1624,18 +1626,18 @@ class CommonController extends Controller
                 }
 
                 foreach ($other as $item) {
-                    $path = $item->pizza_image ? url("uploads/signature-pizza/" . $item->pizza_image) : url("uploads/sample_pizza.jpg");
+                    $path = $item->pizza_image ? url("uploads/signature-pizza/" . $item->pizza_image) : url("uploads/pizza.jpg");
                     $commanArray[] = [
                         "code" => $item->code,
                         "name" => $item->pizza_name,
                         "image" => $path,
                         "ratings" => $item->ratings,
-                        "productType" => "other"
+                        "productType" => "signature"
                     ];
                 }
 
                 foreach ($signature as $item) {
-                    $path = $item->pizza_image ? url("uploads/signature-pizza/" . $item->pizza_image) : url("uploads/sample_pizza.jpg");
+                    $path = $item->pizza_image ? url("uploads/signature-pizza/" . $item->pizza_image) : url("uploads/pizza.jpg");
                     $commanArray[] = [
                         "code" => $item->code,
                         "name" => $item->pizza_name,

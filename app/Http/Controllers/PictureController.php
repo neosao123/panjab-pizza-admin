@@ -9,6 +9,11 @@ use App\Models\Picture;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Models\Specialoffer;
+use App\Models\SignaturePizza;
+use App\Models\SidesMaster;
+use App\Models\Pizzas;
+use App\Models\Sides;
 
 class PictureController extends Controller
 {
@@ -26,6 +31,96 @@ class PictureController extends Controller
             }
             return $next($request);
         });
+    }
+
+
+    // Get products based on category type
+    public function get_products(Request $request)
+    {
+        $categoryType = $request->category_type;
+        $products = [];
+
+        try {
+            switch ($categoryType) {
+                case 'special_offers':
+                    $records = Specialoffer::select("code", "name")
+                        ->whereNotNull("pizza_prices")
+                        ->where("isActive", 1)
+                        ->where("showOnClient", 1)
+                        ->where(function ($query) {
+                            $query->whereNull("limited_offer")
+                                ->orWhere("limited_offer", 0);
+                        })
+                        ->orderBy('name', 'ASC')
+                        ->get();
+
+                    foreach ($records as $item) {
+                        $products[] = [
+                            'code' => $item->code,
+                            'name' => $item->name
+                        ];
+                    }
+                    break;
+
+                case 'signature_pizzas':
+                    $records = SignaturePizza::select("code", "pizza_name")
+                        ->where("isActive", 1)
+                        ->orderBy('pizza_name', 'ASC')
+                        ->get();
+
+                    foreach ($records as $item) {
+                        $products[] = [
+                            'code' => $item->code,
+                            'name' => $item->pizza_name
+                        ];
+                    }
+                    break;
+
+                case 'other_pizzas':
+                    $records = Pizzas::select("code", "pizza_name")
+                        ->where("isActive", 1)
+                        ->orderBy('pizza_name', 'ASC')
+                        ->get();
+
+                    foreach ($records as $item) {
+                        $products[] = [
+                            'code' => $item->code,
+                            'name' => $item->pizza_name
+                        ];
+                    }
+                    break;
+
+                case 'sides':
+                    $records = SidesMaster::select("code", "sidename")
+                        ->where('isActive', 1)
+                        ->orderBy('sidename', 'ASC')
+                        ->get();
+
+                    foreach ($records as $item) {
+                        $products[] = [
+                            'code' => $item->code,
+                            'name' => $item->sidename
+                        ];
+                    }
+                    break;
+
+                default:
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Invalid category type'
+                    ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $products
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error fetching products: ' . $e->getMessage()
+            ]);
+        }
     }
 
     // Show list page
@@ -123,30 +218,35 @@ class PictureController extends Controller
         }
     }
 
-    // Store new picture
     public function store(Request $r)
     {
         $rules = [
-            'title' => 'required|min:3|max:120',
+            'title' => 'required|min:3|max:150',
+            'pizza_type' => 'required|in:special_offers,signature_pizzas,other_pizzas,sides',
+            'product_id' => 'required|string|max:50',
             'product_url' => 'nullable|url|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048|dimensions:width>=512,height>=512',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048|dimensions:min_width=512,min_height=512',
         ];
 
         $messages = [
-              'image.dimensions' => 'The image must be minimum of 512x512 pixels.',
+            'image.dimensions' => 'The image must be minimum of 512x512 pixels.',
+            'pizza_type.required' => 'Pizza type is required.',
+            'pizza_type.in' => 'Invalid pizza type selected.',
+            'product_id.required' => 'Product is required.',
         ];
 
         $this->validate($r, $rules, $messages);
 
-     
         $data = [
             'title' => $r->title,
+            'pizza_type' => $r->pizza_type,
+            'product_id' => $r->product_id,
             'product_url' => $r->product_url,
             'isActive' => 1,
             'isDelete' => 0,
         ];
 
-        // Handle image upload first so filename can be stored in DB
+        // Handle image upload
         if ($r->hasFile('image')) {
             $file = $r->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
@@ -154,7 +254,6 @@ class PictureController extends Controller
             $data['image'] = $filename;
         }
 
-        
         $res = $this->model->addNew($data, 'picture', 'PIC');
 
         if ($res) {
@@ -165,16 +264,20 @@ class PictureController extends Controller
     }
 
     // Edit
+
     public function edit($code)
     {
         $picture = Picture::where('code', $code)->first();
+
         if ($picture) {
             $viewRights = $this->rights['view'] ?? 0;
+
             return view('picture.edit', [
                 'queryresult' => $picture,
                 'viewRights' => $viewRights
             ]);
         }
+
         return back()->with('error', 'Picture not found');
     }
 
@@ -184,13 +287,18 @@ class PictureController extends Controller
         $code = $r->code;
 
         $rules = [
-            'title' => 'required|min:3|max:120',
+            'title' => 'required|min:3|max:150',
+            'pizza_type' => 'required|in:special_offers,signature_pizzas,other_pizzas,sides',
+            'product_id' => 'required|string|max:50',
             'product_url' => 'nullable|url|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048|dimensions:width>=512,height>=512',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048|dimensions:min_width=512,min_height=512',
         ];
 
         $messages = [
             'image.dimensions' => 'The image must be minimum of 512x512 pixels.',
+            'pizza_type.required' => 'Pizza type is required.',
+            'pizza_type.in' => 'Invalid pizza type selected.',
+            'product_id.required' => 'Product is required.',
         ];
 
         $this->validate($r, $rules, $messages);
@@ -202,23 +310,33 @@ class PictureController extends Controller
         }
 
         $picture->title = $r->title;
+        $picture->pizza_type = $r->pizza_type;
+        $picture->product_id = $r->product_id;
         $picture->product_url = $r->product_url;
         $picture->isActive = $r->isActive ? 1 : 0;
 
         // Handle new image
         if ($r->hasFile('image')) {
+            // Delete old image if exists
+            if ($picture->image) {
+                $oldImagePath = public_path('uploads/picture/' . $picture->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
             $file = $r->file('image');
-            $filename = $code . '.' . $file->getClientOriginalExtension();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/picture'), $filename);
             $picture->image = $filename;
         }
 
-        $picture->save(); 
+        $picture->save();
 
         return redirect('/pictures/list')->with('success', 'Picture updated successfully');
     }
 
-    // Delete image 
+    // Delete image
     public function deleteImage(Request $r)
     {
         $code = $r->code;

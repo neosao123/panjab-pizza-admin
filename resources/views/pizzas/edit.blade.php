@@ -126,7 +126,7 @@
 							</div>
 							 <div class="col-md-12 form-group">
                                 <label> Description : </label>
-                                <textarea id="description" name="description" class="form-control summernote" rows="4"
+                                <textarea name="description" class="form-control" rows="4"
                                     data-parsley-minlength="2" data-parsley-minlength-message="You need to enter at least 2 characters"
                                     data-parsley-trigger="change">{{ $queryresult->description }}</textarea>
                                 <span class="text-danger">

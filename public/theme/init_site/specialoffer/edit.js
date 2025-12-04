@@ -348,19 +348,7 @@ $(document).ready(function () {
         placeholder: "Select",
         allowClear: true
     });
-
-    $("#description").summernote({
-        height: 100,
-        styleTags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-        toolbar: [
-
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']]
-        ]
-    });
-
+ 
     var rowCount = Number(count.val());
     for (i = 0; i <= rowCount; i++) {
         resetSidesDropDown(i);

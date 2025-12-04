@@ -172,13 +172,14 @@ class SoftDrinkController extends Controller
             ],
             'softdrinkImage' => 'nullable|image|mimes:jpg,png,jpeg',
             'price' => 'nullable',
-            'drinksCount' => 'required'
+            'drinksCount' => 'required',
+            'description' => 'nullable',
         ];
         $messages = [
             'softdrinks.required' => 'Soft Drink name is required',
             'softdrinks.min' => 'Minimum of 3 characters are required.',
             'softdrinks.max' => 'Max characters exceeded.',
-            'drinksCount.required' => 'Drinks Count is Required',
+            'drinksCount.required' => 'Drinks Count is Required'
         ];
         $this->validate($r, $rules, $messages);
         $data = [
@@ -186,6 +187,7 @@ class SoftDrinkController extends Controller
             'type' => $r->type,
             'price' => $r->price,
             'drinksCount' => $r->drinksCount,
+            'description' => $r->description,
             'isActive' => $r->isActive == "" ? '0' : 1,
             'isDelete' => 0,
             'editIP' => $ip,
@@ -227,118 +229,119 @@ class SoftDrinkController extends Controller
 
 
     // Add Soft Drink view
-public function add()
-{
-    if ($this->rights != '' && $this->rights['insert'] == 1) {
-        $insertRights = $this->rights['insert']; // Pass insert rights
-        $viewRights = $this->rights['view'];
-        return view('softdrinks.add', compact('insertRights', 'viewRights'));
-    } else {
-        return view('noright');
-    }
-}
-
-// Store new Soft Drink
-public function store(Request $r)
-{
-    $table = "softdrinks"; // Table name
-    $softdrinkName = $r->softdrink;
-    $currentdate = Carbon::now();
-    $ip = $_SERVER['REMOTE_ADDR'];
-
-$rules = [
-    'softdrink' => [
-        'required',
-        'min:3',
-        'max:120',
-        Rule::unique('softdrinks', 'softdrinks')->where(function ($query) use ($softdrinkName) {
-            return $query->where('isDelete', 0)
-                         ->where('softdrinks', $softdrinkName);
-        })
-    ],
-    'price' => 'required|numeric|min:0.01',
-    'drinksCount' => 'required|numeric|min:1',
-    'type' => 'required|in:pop,bottle',
-];
-
-
-    $messages = [
-        'softdrink.required' => 'Soft Drink Name is required',
-        'softdrink.min' => 'Minimum of 3 characters are required.',
-        'softdrink.max' => 'Max characters exceeded.',
-        'price.required' => 'Price is required',
-        'price.numeric' => 'Price must be a number',
-        'drinksCount.required' => 'Drinks Count is required',
-        'drinksCount.numeric' => 'Drinks Count must be a number',
-        'type.required' => 'Type is required',
-        'type.in' => 'Invalid type selected',
-    ];
-
-    $this->validate($r, $rules, $messages);
-
-    $typeValue = $r->drinksType; 
-
-    $data = [
-        'softdrinks' => $r->softdrink,
-        'price' => $r->price,
-        'drinksCount' => $r->drinksCount,
-        'type' => $r->type,       
-        'drinksType' => $r->type,  
-        'isActive' => 1,
-        'isDelete' => 0,
-        'addIP' => $ip,
-        'addDate' => $currentdate->toDateTimeString(),
-        'addID' => Auth::guard('admin')->user()->code
-    ];
-
-
-    // Handle  image upload
-    if ($r->hasFile('softDrinkImage')) {
-        $file = $r->file('softDrinkImage');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('uploads/softdrinks'), $filename);
-        $data['softDrinkImage'] = $filename;
+    public function add()
+    {
+        if ($this->rights != '' && $this->rights['insert'] == 1) {
+            $insertRights = $this->rights['insert']; // Pass insert rights
+            $viewRights = $this->rights['view'];
+            return view('softdrinks.add', compact('insertRights', 'viewRights'));
+        } else {
+            return view('noright');
+        }
     }
 
-    $code = $this->model->addNew($data, $table, 'SFD'); //prefix for Soft Drink
+    // Store new Soft Drink
+    public function store(Request $r)
+    {
+        $table = "softdrinks"; // Table name
+        $softdrinkName = $r->softdrink;
+        $currentdate = Carbon::now();
+        $ip = $_SERVER['REMOTE_ADDR'];
 
-    if ($code) {
-        $log = $currentdate->toDateTimeString() . "\t" . $ip . "\t" . Auth::guard('admin')->user()->code . " Soft Drink " . $code . " is added.";
-        $this->model->activity_log($log);
+        $rules = [
+            'softdrink' => [
+                'required',
+                'min:3',
+                'max:120',
+                Rule::unique('softdrinks', 'softdrinks')->where(function ($query) use ($softdrinkName) {
+                    return $query->where('isDelete', 0)
+                        ->where('softdrinks', $softdrinkName);
+                })
+            ],
+            'price' => 'required|numeric|min:0.01',
+            'drinksCount' => 'required|numeric|min:1',
+            'type' => 'required|in:pop,bottle',
+            'description' => 'nullable',
+        ];
 
-        return redirect('softdrinks/list')->with('success', 'Soft Drink added successfully');
-    } else {
-        return back()->with('error', 'Failed to add Soft Drink');
+
+        $messages = [
+            'softdrink.required' => 'Soft Drink Name is required',
+            'softdrink.min' => 'Minimum of 3 characters are required.',
+            'softdrink.max' => 'Max characters exceeded.',
+            'price.required' => 'Price is required',
+            'price.numeric' => 'Price must be a number',
+            'drinksCount.required' => 'Drinks Count is required',
+            'drinksCount.numeric' => 'Drinks Count must be a number',
+            'type.required' => 'Type is required',
+            'type.in' => 'Invalid type selected'
+        ];
+
+        $this->validate($r, $rules, $messages);
+
+        $typeValue = $r->drinksType;
+
+        $data = [
+            'softdrinks' => $r->softdrink,
+            'price' => $r->price,
+            'drinksCount' => $r->drinksCount,
+            'description' => $r->description,
+            'type' => $r->type,
+            'drinksType' => $r->type,
+            'isActive' => 1,
+            'isDelete' => 0,
+            'addIP' => $ip,
+            'addDate' => $currentdate->toDateTimeString(),
+            'addID' => Auth::guard('admin')->user()->code
+        ];
+
+
+        // Handle  image upload
+        if ($r->hasFile('softDrinkImage')) {
+            $file = $r->file('softDrinkImage');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/softdrinks'), $filename);
+            $data['softDrinkImage'] = $filename;
+        }
+
+        $code = $this->model->addNew($data, $table, 'SFD'); //prefix for Soft Drink
+
+        if ($code) {
+            $log = $currentdate->toDateTimeString() . "\t" . $ip . "\t" . Auth::guard('admin')->user()->code . " Soft Drink " . $code . " is added.";
+            $this->model->activity_log($log);
+
+            return redirect('softdrinks/list')->with('success', 'Soft Drink added successfully');
+        } else {
+            return back()->with('error', 'Failed to add Soft Drink');
+        }
     }
-}
 
-// delete softdrinks
-public function delete(Request $r)
-{
-    $currentdate = Carbon::now();
-    $code = $r->code;
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $today = date('Y-m-d H:i:s');
-    $table = 'softdrinks'; // Table name for soft drinks
+    // delete softdrinks
+    public function delete(Request $r)
+    {
+        $currentdate = Carbon::now();
+        $code = $r->code;
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $today = date('Y-m-d H:i:s');
+        $table = 'softdrinks'; // Table name for soft drinks
 
-    $data = [
-        'isActive'   => 0,
-        'isDelete'   => 1,
-        'deleteIP'   => $ip,
-        'deleteID'   => Auth::guard('admin')->user()->code,
-        'deleteDate' => $today
-    ];
+        $data = [
+            'isActive'   => 0,
+            'isDelete'   => 1,
+            'deleteIP'   => $ip,
+            'deleteID'   => Auth::guard('admin')->user()->code,
+            'deleteDate' => $today
+        ];
 
-    $datastring = $currentdate->toDateTimeString() . "\t" . $ip . "\t" . Auth::guard('admin')->user()->code . " Soft Drink " . $code . " is deleted.";
-    $this->model->activity_log($datastring);
+        $datastring = $currentdate->toDateTimeString() . "\t" . $ip . "\t" . Auth::guard('admin')->user()->code . " Soft Drink " . $code . " is deleted.";
+        $this->model->activity_log($datastring);
 
-    $result = $this->model->doEditWithField($data, $table, 'code', $code);
+        $result = $this->model->doEditWithField($data, $table, 'code', $code);
 
-    if ($result == true) {
-        return response()->json(["status" => "success"], 200);
-    } else {
-        return response()->json(["status" => "fail"], 200);
+        if ($result == true) {
+            return response()->json(["status" => "success"], 200);
+        } else {
+            return response()->json(["status" => "fail"], 200);
+        }
     }
-}
-
 }

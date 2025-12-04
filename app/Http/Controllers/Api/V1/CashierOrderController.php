@@ -46,7 +46,7 @@ class CashierOrderController extends Controller
 
             if (!empty($store)) {
                 $timezone = $store->timezone;
-                Carbon::now()->setTimezone($timezone);
+                Carbon::now($timezone);
                 date_default_timezone_set($timezone);
             }
 
@@ -571,21 +571,21 @@ class CashierOrderController extends Controller
                 ->join("storelocation", "storelocation.code", "=", "ordermaster.storeLocation")
                 ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName");
 
-  
-          if ($curDate < date("Y-m-d 06:00:00")) {
-            $orderQuery = OrderMaster::join("usermaster as u1", "u1.code", "=", "ordermaster.addID", "left")
-              ->join("usermaster as u2", "u2.code", "=", "ordermaster.deliveryExecutiveCode", "left")
-              ->join("storelocation", "storelocation.code", "=", "ordermaster.storeLocation")
-              ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName")
-              ->whereBetween('ordermaster.created_at', [date('Y-m-d 10:30:00', strtotime("- 1 days")), date("Y-m-d 06:00:00")]);
-          } else {
-            $orderQuery = OrderMaster::join("usermaster as u1", "u1.code", "=", "ordermaster.addID", "left")
-              ->join("usermaster as u2", "u2.code", "=", "ordermaster.deliveryExecutiveCode", "left")
-              ->join("storelocation", "storelocation.code", "=", "ordermaster.storeLocation")
-              ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName")
-              ->whereBetween('ordermaster.created_at', [date("Y-m-d 10:30:00"), date('Y-m-d 06:00:00', strtotime("+ 1 days"))]);
-          }
-           
+            /*  
+                if ($curDate < date("Y-m-d 06:00:00")) {
+                $orderQuery = OrderMaster::join("usermaster as u1", "u1.code", "=", "ordermaster.addID", "left")
+                    ->join("usermaster as u2", "u2.code", "=", "ordermaster.deliveryExecutiveCode", "left")
+                    ->join("storelocation", "storelocation.code", "=", "ordermaster.storeLocation")
+                    ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName")
+                    ->whereBetween('ordermaster.created_at', [date('Y-m-d 10:30:00', strtotime("- 1 days")), date("Y-m-d 06:00:00")]);
+                } else {
+                $orderQuery = OrderMaster::join("usermaster as u1", "u1.code", "=", "ordermaster.addID", "left")
+                    ->join("usermaster as u2", "u2.code", "=", "ordermaster.deliveryExecutiveCode", "left")
+                    ->join("storelocation", "storelocation.code", "=", "ordermaster.storeLocation")
+                    ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName")
+                    ->whereBetween('ordermaster.created_at', [date("Y-m-d 10:30:00"), date('Y-m-d 06:00:00', strtotime("+ 1 days"))]);
+                }
+            */
 
             //activate when multistore
             //->where("ordermaster.addID", $r->cashierCode);

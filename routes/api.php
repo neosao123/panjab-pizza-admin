@@ -16,6 +16,10 @@ use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\StoreReportsController;
 use App\Http\Controllers\Api\V1\PizzasController;
 use App\Http\Controllers\Api\V1\TestController;
+use App\Http\Controllers\Api\V1\BackgroundImageController;
+use App\Http\Controllers\Api\V1\SectionController;
+use App\Http\Controllers\Api\V1\ContactUsController;
+use App\Http\Controllers\Api\V1\FeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +43,17 @@ Route::get('/mas/vx/ingredients', [TestController::class, 'ingredients']);
 Route::get('/mas/vx/pizzas', [TestController::class, 'pizzas']);
 
 Route::group(['middleware' => 'cors'], function () {
+
+
+    Route::get('/background-image', [BackgroundImageController::class, 'getBackgroundImage']); 
+    Route::get('/sections', [SectionController::class, 'get_sections']);     
+    Route::post('/contact-us', [ContactUsController::class, 'contact_us']);  
+    
+    Route::prefix('feed')->group(function () {
+        Route::get('/site', [FeedController::class, 'siteData']);
+        Route::get('/page/{pageKey}', [FeedController::class, 'pageData']);
+        Route::get('/footer', [FeedController::class, 'footerData']);
+    });
 
     //Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dynamic-slider/app', [CommonController::class, 'dynamicSliderApp']);

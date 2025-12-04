@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 // Import Controllers
-use App\Http\Controllers\Api\AppV1\CartController;
-use App\Http\Controllers\Api\AppV1\OrderController;
-use App\Http\Controllers\Api\AppV1\SpecialOfferController;
-use App\Http\Controllers\Api\AppV1\CommonController;
-use App\Http\Controllers\Api\AppV1\AuthController;
+use App\Http\Controllers\Api\V1\CartController;
+use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\SpecialOfferController;
+use App\Http\Controllers\Api\V1\CommonController;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\BackgroundImageController;
 
 Route::group(['middleware' => 'cors'], function () {
   // For SpecailPizza
@@ -65,4 +66,7 @@ Route::group(['middleware' => 'cors'], function () {
   });
   // For Contact Us Page
   Route::post('sendContactUsEmail', [CommonController::class, 'sendContactUsEmail']);
+
+  // For Background Image
+ 
 });

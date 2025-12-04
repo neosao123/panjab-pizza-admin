@@ -26,6 +26,7 @@ class Dips extends Model
         'deleteIP',
         'deleteDate',
         'ratings',
-        'reviews'
+        'reviews',
+        'description'
     ];
 }

@@ -8,7 +8,7 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
-            <h4 class="page-title">Edit Picture</h4>
+            <h4 class="page-title">Edit Offer Card</h4>
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -50,38 +50,9 @@
                 <input type="hidden" name="id" value="{{ $queryresult->id }}" readonly>
 
                 <div class="row">
-                    
-                    <!-- Image -->
-                    <div class="col-md-6 form-group">
-                        <label>Picture Image :<span style="color:red">*</span></label>
-
-                        <div id="image-block" class="border rounded p-3 text-center position-relative" style="cursor:pointer;">
-                            <!-- Show existing image or preview -->
-                            <img id="showImage" 
-                                src="{{ !empty($queryresult->image) ? url('uploads/picture/' . $queryresult->image) . '?v=' . time() : '' }}" 
-                                class="img-thumbnail {{ !empty($queryresult->image) ? '' : 'd-none' }}" 
-                                width="100" height="100">
-
-                            <!-- Delete button for existing image -->
-                            @if (!empty($queryresult->image))
-                            <button type="button" 
-                                    class="btn btn-danger btn-sm position-absolute top-0 end-0"
-                                    style="transform: translate(50%, -50%);"
-                                    onclick="deleteImage('{{ $queryresult->code }}','{{ $queryresult->image }}');">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            @endif
-
-                            <!-- Drag & drop / click-to-upload instruction -->
-                            <p class="m-0 text-muted mt-2">Drag & drop image here or click to select</p>
-                            <input type="file" id="file" name="image" accept="image.*" class="form-control d-none">
-                        </div>
-
-                        <span id="imageError" class="text-danger">@error('image') {{ $message }} @enderror</span>
-                    </div>
 
                     <!-- Title -->
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-12 form-group">
                         <label>Title : <span style="color:red">*</span></label>
                         <input type="text" id="title" name="title" class="form-control" required
                             value="{{ $queryresult->title }}"
@@ -93,11 +64,64 @@
                         <span class="text-danger">@error('title') {{ $message }} @enderror</span>
                     </div>
 
-                    <!-- product URL -->
+                    <!-- Pizza Type (Category) -->
+                    <div class="col-sm-6 form-group">
+                        <label>Pizza Type : <span style="color:red">*</span></label>
+                        <select id="pizza_type" name="pizza_type" class="form-control" required
+                            data-parsley-required-message="Pizza type is required">
+                            <option value="">Select Pizza Type</option>
+                            <option value="special_offers" {{ $queryresult->pizza_type == 'special_offers' ? 'selected' : '' }}>Special Offers</option>
+                            <option value="signature_pizzas" {{ $queryresult->pizza_type == 'signature_pizzas' ? 'selected' : '' }}>Signature Pizzas</option>
+                            <option value="other_pizzas" {{ $queryresult->pizza_type == 'other_pizzas' ? 'selected' : '' }}>Other Pizzas</option>
+                            <option value="sides" {{ $queryresult->pizza_type == 'sides' ? 'selected' : '' }}>Sides</option>
+                        </select>
+                        <span class="text-danger">@error('pizza_type') {{ $message }} @enderror</span>
+                    </div>
+
+                    <!-- Product -->
+                    <div class="col-sm-6 form-group">
+                        <label>Product : <span style="color:red">*</span></label>
+                        <select id="product_id" name="product_id" class="form-control select2" required
+                            data-parsley-required-message="Product is required">
+                            <option value="">Loading...</option>
+                        </select>
+                        <span class="text-danger">@error('product_id') {{ $message }} @enderror</span>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="col-md-6 form-group">
+                        <label>Picture Image :<span style="color:red">*</span></label>
+
+                        <div id="image-block" class="border rounded p-3 text-center position-relative" style="cursor:pointer;">
+                            <!-- Show existing image or preview -->
+                            <img id="showImage"
+                                src="{{ !empty($queryresult->image) ? url('uploads/picture/' . $queryresult->image) . '?v=' . time() : '' }}"
+                                class="img-thumbnail {{ !empty($queryresult->image) ? '' : 'd-none' }}"
+                                width="100" height="100">
+
+                            <!-- Delete button for existing image -->
+                            @if (!empty($queryresult->image))
+                            <button type="button"
+                                    class="btn btn-danger btn-sm position-absolute top-0 end-0"
+                                    style="transform: translate(50%, -50%);"
+                                    onclick="deleteImage('{{ $queryresult->code }}','{{ $queryresult->image }}');">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            @endif
+
+                            <!-- Drag & drop / click-to-upload instruction -->
+                            <p class="m-0 text-muted mt-2">Drag & drop image here or click to select</p>
+                            <input type="file" id="file" name="image" accept="image/*" class="form-control d-none">
+                        </div>
+
+                        <span id="imageError" class="text-danger">@error('image') {{ $message }} @enderror</span>
+                    </div>
+
+                    <!-- Product URL -->
                     <div class="col-sm-6 form-group">
                         <label>Product URL :</label>
                         <input type="text" id="product_url" name="product_url" class="form-control"
-                            value="{{ $queryresult->product_url ?? '' }}" maxlength="150">
+                            value="{{ $queryresult->product_url ?? '' }}" maxlength="255">
                         <small class="form-text text-muted">
                             The product URL you enter must be the same as the product on the website.
                         </small>
@@ -130,6 +154,11 @@
 <script type="text/javascript" src="{{ asset('theme/js/sweetalert2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('theme/js/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('theme/js/parsley-fields-comparison-validators.js') }}"></script>
+<script>
+    // Pass existing product_id to JavaScript
+    var existingProductId = '{{ $queryresult->product_id ?? '' }}';
+    var existingPizzaType = '{{ $queryresult->pizza_type ?? '' }}';
+</script>
 <script type="text/javascript" src="{{ asset('theme/init_site/picture/edit.js?v=' . time()) }}"></script>
 
 

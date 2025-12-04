@@ -1,4 +1,8 @@
-2025-10-14 15:41:28 172.70.80.76 USR_1Dynamic Slider SLI_8 is deleted.
-2025-10-14 15:41:31 172.70.80.76 USR_1Dynamic Slider SLI_7 is deleted.
-2025-10-14 15:41:33 172.70.80.76 USR_1Dynamic Slider SLI_6 is deleted.
-2025-10-14 15:56:47 172.70.80.88 USR_1Dynamic Slider SLI_2 is deleted.
+2025-10-14 15:25:24 112.110.121.163 USR_1Dynamic Slider SLI_2 is deleted.
+2025-10-14 15:53:50 99.235.128.241 USR_1Dynamic Slider SLI_8 is deleted.
+2025-10-14 15:53:54 99.235.128.241 USR_1Dynamic Slider SLI_7 is deleted.
+2025-10-14 16:12:21	99.209.138.179	USR_1	 Store Location STR_5 is updated.
+2025-10-14 16:22:12 99.209.138.179 USR_1Dynamic Slider SLI_9 is deleted.
+2025-10-14 16:22:54 99.209.138.179 USR_1Dynamic Slider SLI_6 is deleted.
+2025-10-14 16:22:57 99.209.138.179 USR_1Dynamic Slider SLI_11 is deleted.
+2025-10-14 16:23:01 99.209.138.179 USR_1Dynamic Slider SLI_10 is deleted.

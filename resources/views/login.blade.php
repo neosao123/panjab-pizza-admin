@@ -5,8 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{ isset($pageTitle) ? $pageTitle . ' | ' : '' }} {{ config('app.name') }}</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/uploads/favicon/apple-icon-57x57.png') }}">
+    <title>{{ $settings['meta_site_title'] ?? config('app.name') }}</title>
+
+    <meta name="description" content="{{ $settings['meta_site_description'] ?? '' }}">
+
+
+    <link href="{{ asset('storage/' . $settings['favicon']) }}" rel="shortcut icon" />
+
+    {{--  <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/uploads/favicon/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/uploads/favicon/apple-icon-60x60.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/uploads/favicon/apple-icon-72x72.png') }}">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/uploads/favicon/apple-icon-76x76.png') }}">
@@ -18,7 +24,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('/uploads/favicon/android-icon-192x192.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/uploads/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('/uploads/favicon/favicon-96x96.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/uploads/favicon/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/uploads/favicon/favicon-16x16.png') }}"> --}}
     <link rel="stylesheet" href="{{ asset('theme/css/style.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/parsely.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/custom.css') }}">
@@ -37,31 +43,40 @@
             <div class="auth-box">
                 <div id="loginform">
                     <div class="logo m-4">
-                        <h4 class="font-medium m-b-20 d-none">Admin Login</h4>
-                        <span class="db"><img src="{{ asset('uploads/logo.png') }}" alt="" height="110" width="110" /></span>
+
+                        @if ($settings['logo'] != '' && $settings['logo'] != null)
+                            <span class="db"><img src="{{ asset('storage/' . $settings['logo']) }}" alt=""
+                                    height="110" width="110" /></span>
+                        @else
+                            <h4 class="font-medium m-b-20">Admin Login</h4>
+                        @endif
 
                     </div>
                     @if (session('fail'))
                         <div class="alert alert-warning">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                                    aria-hidden="true">×</span> </button>
                             {{ session('fail') }}
                         </div>
                     @endif
                     @if (session('error'))
                         <div class="alert alert-warning">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                                    aria-hidden="true">×</span> </button>
                             {{ session('error') }}
                         </div>
                     @endif
                     @if (session('message'))
                         <div class="alert alert-warning">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                                    aria-hidden="true">×</span> </button>
                             {{ session('message') }}
                         </div>
                     @endif
                     @if (session('success'))
                         <div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                                    aria-hidden="true">×</span> </button>
                             {{ session('success') }}
                         </div>
                     @endif
@@ -71,27 +86,34 @@
                         <div class="col-12">
                             <p>{{ env('SOCKET_ORDER_API') }}</p>
 
-                            <form class="form-horizontal m-t-20" id="loginform" action="{{ url('/login') }}" method="post" data-parsley-validate="">
+                            <form class="form-horizontal m-t-20" id="loginform" action="{{ url('/login') }}"
+                                method="post" data-parsley-validate="">
                                 @csrf
                                 <div class="col-md-12 mb-3">
 
-                                    <input type="text" name="username" class="form-control form-control-lg" placeholder="Username" aria-describedby="basic-addon1" required=""
-                                        data-parsley-required-message="Username is required." value="{{ Cookie::get('username') }}" />
+                                    <input type="text" name="username" class="form-control form-control-lg"
+                                        placeholder="Username" aria-describedby="basic-addon1" required=""
+                                        data-parsley-required-message="Username is required."
+                                        value="{{ Cookie::get('username') }}" />
                                     <span class="text-danger">{{ $errors->first('username') }}</span>
                                 </div>
 
                                 <div class="col-md-12 mb-3">
 
-                                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"
-                                        required="" data-parsley-required-message="Password is required." value="{{ Cookie::get('password') }}" />
+                                    <input type="password" name="password" class="form-control form-control-lg"
+                                        placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"
+                                        required="" data-parsley-required-message="Password is required."
+                                        value="{{ Cookie::get('password') }}" />
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="rememberme" id="customCheck1" @if (Cookie::get('username')) checked @endif>
+                                            <input type="checkbox" class="custom-control-input" name="rememberme"
+                                                id="customCheck1" @if (Cookie::get('username')) checked @endif>
                                             <label class="custom-control-label" for="customCheck1">Remember me</label>
-                                            <a href="{{ url('/reset-password') }}" class="text-dark float-right"><i class="fa fa-lock m-r-5"></i> Forgot password?</a>
+                                            <a href="{{ url('/reset-password') }}" class="text-dark float-right"><i
+                                                    class="fa fa-lock m-r-5"></i> Forgot password?</a>
                                         </div>
                                     </div>
                                 </div>

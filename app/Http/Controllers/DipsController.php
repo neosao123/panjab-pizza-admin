@@ -171,16 +171,18 @@ class DipsController extends Controller
             ],
             'dipsImage' => 'nullable|image|mimes:jpg,png,jpeg',
             'price' => 'nullable',
+            'description' => 'nullable',
         ];
         $messages = [
             'dips.required' => 'Dips name is required',
             'dips.min' => 'Minimum of 3 characters are required.',
-            'dips.max' => 'Max characters exceeded.',
+            'dips.max' => 'Max characters exceeded.'
         ];
         $this->validate($r, $rules, $messages);
         $data = [
             'dips' => ucwords(strtolower($r->dips)),
             'price' => $r->price,
+            'description' => $r->description,
             'isActive' => $r->isActive == "" ? '0' : 1,
             'isDelete' => 0,
             'editIP' => $ip,
@@ -251,6 +253,7 @@ public function store(Request $r)
             })
         ],
         'price' => 'required|numeric|min:0.01',
+        'description' => 'nullable',
     ];
 
     $messages = [
@@ -258,7 +261,7 @@ public function store(Request $r)
         'dips.min' => 'Minimum of 3 characters are required.',
         'dips.max' => 'Max characters exceeded.',
         'price.required' => 'Price is required',
-        'price.numeric' => 'Price must be a number',
+        'price.numeric' => 'Price must be a number'
     ];
 
     $this->validate($r, $rules, $messages);
@@ -267,6 +270,7 @@ public function store(Request $r)
     $data = [
         'dips' => $r->dips,
         'price' => $r->price,
+        'description' => $r->description,
         'isActive' => 1, // default active
         'isDelete' => 0,
         'addIP' => $ip,

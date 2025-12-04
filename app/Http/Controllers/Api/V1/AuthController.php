@@ -98,7 +98,7 @@ class AuthController extends Controller
         ],
         'address' => 'required|min:5',
         'city'  => 'required|min:2',
-        'zipcode' => 'required|regex:/^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$/',
+        //'zipcode' => 'required|regex:/^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$/',
         'password' => 'required|min:6|max:20',
         'password_confirmation' => 'min:6|max:20|required|same:password',
         'profilePhoto' => 'nullable|mimes:png,jpg,jpeg,gif',
@@ -153,7 +153,7 @@ class AuthController extends Controller
           "customerCode"  => $currentId,
           "address"       => $r->address,
           "city"          => $r->city,
-          "zipcode"       => $r->zipcode,
+          "zipcode"       => $r->zipcode ?? "",
           "isActive"      => 1,
           "isDelete"      => 0,
           "addDate"       => date("Y-m-d H:i:s")
@@ -187,7 +187,7 @@ class AuthController extends Controller
         $customerAddress = Customeraddress::where('customerCode', $customer->code)->first();
         $data['address'] = $customerAddress->address;
         $data['city'] = $customerAddress->city;
-        $data['zipcode'] = $customerAddress->zipcode;
+        $data['zipcode'] = $customerAddress->zipcode ?? "";
 
         $token = $customer->createToken('MrsinghPizzaCustomer')->plainTextToken;
 

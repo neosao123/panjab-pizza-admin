@@ -5,8 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{ isset($pageTitle) ? $pageTitle .' | ' :  "" }} {{ config("app.name") }}</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/uploads/favicon/apple-icon-57x57.png')}}">
+    <title>{{ $settings['meta_site_title'] ?? config('app.name') }}</title>
+
+    <meta name="description" content="{{ $settings['meta_site_description'] ?? '' }}">
+
+
+    <link href="{{ asset('storage/'.$settings['favicon']) }}" rel="shortcut icon" />
+
+   {{-- <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/uploads/favicon/apple-icon-57x57.png')}}">
 	<link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/uploads/favicon/apple-icon-60x60.png')}}">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/uploads/favicon/apple-icon-72x72.png')}}">
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/uploads/favicon/apple-icon-76x76.png')}}">
@@ -18,7 +24,7 @@
 	<link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('/uploads/favicon/android-icon-192x192.png')}}">
 	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/uploads/favicon/favicon-32x32.png')}}">
 	<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('/uploads/favicon/favicon-96x96.png')}}">
-	<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/uploads/favicon/favicon-16x16.png')}}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/uploads/favicon/favicon-16x16.png')}}">--}}
 	<link rel="stylesheet" href="{{ asset('theme/css/style.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/parsely.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/custom.css') }}">
@@ -37,7 +43,11 @@
                 <div>
                     <div class="logo">
                         <h4 class="font-medium m-b-20 d-none">Admin</h4>
-                                               <span class="db"><img src="{{ asset('uploads/mr-singhs-pizza-logo.png') }}" alt="" height="110" width="110" /></span>
+                        @if ($settings['logo'] != '' && $settings['logo'] != null)
+                                               <span class="db"><img src="{{ asset('storage/'.$settings['logo']) }}" alt="" height="110" width="110" /></span>
+                        @else
+                        <h4 class="font-medium m-b-20">Forgot Password</h4> 
+                        @endif
                         @if (session('error'))
                         <p class="text-danger">{{ session('error') }} </p>
                         @endif

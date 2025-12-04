@@ -26,6 +26,7 @@ class Softdrinks extends Model
 		'deleteIP',
 		'deleteDate',
         'ratings',
-        'reviews'
+        'reviews',
+        'description'
     ];
 }

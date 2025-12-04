@@ -85,7 +85,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::post('/reset/password', [CustomerController::class, 'customer_reset_password']);
 		Route::get('/verify', [CustomerController::class, 'verify_customer_token']);
 		Route::post('/update/password', [CustomerController::class, 'update_customer_password']);
-        
+
 		Route::post('/logout', [CustomerController::class, 'customer_logout']);
         // profile
         Route::post('/profile', [CustomerController::class, 'get_customer_info']);

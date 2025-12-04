@@ -80,5 +80,15 @@ $(document).ready(function () {
         }
     });
 
+ $("#description").summernote({
+        height: 100,
+        styleTags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        toolbar: [
 
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ]
+    });
 });

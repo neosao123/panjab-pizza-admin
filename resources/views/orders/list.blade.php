@@ -50,9 +50,9 @@
                             <label>Order From:</label>
                             <div class="form-group">
                                 <select class="select2 form-control" id="orderfrom" name="orderfrom" style="width: 100%;">
-                                       <option value="">Select</option>									  
+                                       <option value="">Select</option>
 									   <option value="store">store</option>
-									   <option value="online">online</option>									   
+									   <option value="online">online</option>
                                 </select>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
 									   <option value="picked-up">Picked Up</option>
 									   <option value="delivered">delivered</option>
 									   <option value="shipping">shipping</option>
-                                       <option value="cancelled">cancelled</option>										   
+                                       <option value="cancelled">cancelled</option>
                                 </select>
                             </div>
                         </div>
@@ -96,11 +96,12 @@
                                         <th style="width:10%">Order Code</th>
 										<th style="width:15%">Customer Name</th>
 										<th style="width:10%">Mobile Number</th>
-                                        <th style="width:10%">Postal Code</th>  										
+                                        <th style="width:10%">Postal Code</th>
                                         <th style="width:10%">Order From</th>
-                                        <th style="width:15%">Store Location</th>	
-                                        <th style="width:10%">Grand Total</th>											
+                                        <th style="width:15%">Store Location</th>
+                                        <th style="width:10%">Grand Total</th>
                                         <th style="width:5%">Order Status</th>
+                                        <th style="width:5%">Payment Status</th>
 										<th style="width:5%">Client Type</th>
                                     </tr>
                                 </thead>

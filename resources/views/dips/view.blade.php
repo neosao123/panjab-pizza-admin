@@ -1,4 +1,19 @@
 @extends('template.master', ['pageTitle' => 'Dips View'])
+@push('styles')
+    <style>
+        .btn-group>.btn:first-child,
+        .dropdown-toggle-split::after,
+        .dropright .dropdown-toggle-split::after,
+        .dropup .dropdown-toggle-split::after {
+            margin-left: 0;
+            background-color: white;
+            color: #040404;
+            border: 0;
+        }
+    </style> 
+
+      <link href="{{ asset('theme/js/summernote/dist/summernote-bs4.css') }}" rel="stylesheet">
+@endpush
 @section('content')
 <div class="page-breadcrumb">
     <div class="row">
@@ -50,6 +65,12 @@
                         <input type="text" id="price" name="price"  class="form-control-line" value="{{ $queryresult->price }}" readonly>
                        
                     </div>
+
+                    <div class="col-sm-12 form-group">
+                        <label>Description :</label>
+                         <textarea name="description" rows="3" class="form-control" disabled>{{ $queryresult->description }}</textarea>
+                      
+                    </div>
                    
                     @if (!empty($queryresult->dipsImage)) 
                     <div class="col-md-3 mb-3" id="eImage">
@@ -75,3 +96,22 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script type="text/javascript" src="{{ asset('theme/js/summernote/dist/summernote-bs4.min.js') }}"></script>
+     <script>
+        $(document).ready(function() {
+            $("#description").summernote({
+                height: 100,
+                styleTags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+                toolbar: [
+
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']]
+                ]
+            });
+            $('#description').summernote('disable');
+        });
+    </script>
+@endpush
