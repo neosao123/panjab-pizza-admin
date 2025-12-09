@@ -63,7 +63,7 @@ class CustomerOrderController extends Controller
 			];
 
 			$messages = [
-				//'customerCode.required' 			=> 'Customer is required', 
+				//'customerCode.required' 			=> 'Customer is required',
 				'mobileNumber.required' 		    => 'Phone number is required',
 				'mobileNumber.numeric' 			    => 'Phone number is invalid',
 				//'deliveryType.required' 		    => 'Delivery Type is required',
@@ -264,7 +264,7 @@ class CustomerOrderController extends Controller
 			];
 
 			$messages = [
-				//'customerCode.required' 			=> 'Customer is required', 
+				//'customerCode.required' 			=> 'Customer is required',
 				'mobileNumber.required' 		    => 'Phone number is required',
 				'mobileNumber.numeric' 			    => 'Phone number is invalid',
 				//'deliveryType.required' 		    => 'Delivery Type is required',

@@ -1189,7 +1189,7 @@ class CustomerOrderController extends Controller
         }
     }
 
-    public function webhook(Request $r)
+     public function webhook(Request $r)
     {
         try {
             $endpoint_secret = env('WEBHOOK_SECRET_KEY');
@@ -1300,7 +1300,7 @@ class CustomerOrderController extends Controller
                         $data['webHookResponse'] = json_encode($event);
 
                         // Handle succeeded payment intent
-                        if ($eventType == "payment_intent.succeeded" && $status == "succeeded") {
+                        if ($eventType == "payment_intent.succeeded") {
                             $data['orderStatus'] = 'placed';
                             $data['paymentStatus'] = "paid";
                             $this->model->doEdit($data, 'ordermaster', $result->code);
@@ -1308,7 +1308,7 @@ class CustomerOrderController extends Controller
                             Log::info("Order updated to paid via payment_intent: " . $paymentIntentId);
                         }
                         // Handle failed payment
-                        elseif ($eventType == "payment_intent.payment_failed" || $status == "canceled") {
+                        elseif ($eventType == "payment_intent.payment_failed") {
 
                             $data['orderStatus'] = 'pending';
                             $data['paymentStatus'] = "failed";
@@ -1317,11 +1317,11 @@ class CustomerOrderController extends Controller
                             Log::info("Order canceled via payment_intent: " . $paymentIntentId);
                         } // Handle created payment intent (optional - just for tracking)
                         elseif ($eventType == "payment_intent.created") {
-                            if ($status == "requires_payment_method") {
+                            /*if ($status == "requires_payment_method") {
                                 $data['orderStatus'] = 'cancelled';
                                 $data['paymentStatus'] = "failed";
                                 $this->model->doEdit($data, 'ordermaster', $result->code);
-                            }
+                            }*/
                             // Just log it, don't change order status
                             Log::info("Payment intent created: " . $paymentIntentId);
                         }
@@ -1345,6 +1345,7 @@ class CustomerOrderController extends Controller
             return response()->json(["status" => 200, "message" => "Webhook received."]);
         }
     }
+
 
     public function payment_success(Request $r)
     {
