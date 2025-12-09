@@ -45,9 +45,10 @@ Route::get('/mas/vx/pizzas', [TestController::class, 'pizzas']);
 Route::group(['middleware' => 'cors'], function () {
 
 
-    Route::get('/background-image', [BackgroundImageController::class, 'getBackgroundImage']);
-    Route::get('/sections', [SectionController::class, 'get_sections']);
-    Route::post('/contact-us', [ContactUsController::class, 'contact_us']);
+       Route::get('/franchise/bgimage', [BackgroundImageController::class, 'getBackgroundImage']);
+    Route::get('/franchise/sections', [SectionController::class, 'get_sections']);
+    Route::post('/franchise/contact-us', [ContactUsController::class, 'contact_us']);
+
 
     Route::prefix('feed')->group(function () {
         Route::get('/site', [FeedController::class, 'siteData']);
