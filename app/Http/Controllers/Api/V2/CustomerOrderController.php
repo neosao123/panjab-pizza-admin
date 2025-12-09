@@ -102,8 +102,8 @@ class CustomerOrderController extends Controller
             } else {
 
                 $zipCodeEntry = DB::table('zipcode')->where('zipcode', $r->zipCode)
-                                ->where('isActive', 1)
-                                ->first();
+                    ->where('isActive', 1)
+                    ->first();
                 if ($zipCodeEntry) {
                     $storeCode = $zipCodeEntry->storeCode;
                 }
@@ -424,9 +424,16 @@ class CustomerOrderController extends Controller
                                 return response()->json(["message" => "Failed to place order."], 400);
                             }
                         } else {
-                            $stripe = new \Stripe\StripeClient(env('TEST_SECRET_KEY'));
-                          
-                       
+
+                            $mode = env('PAYMENT_MODE', 'SANDBOX');
+
+                            $secretKey = $mode === 'SANDBOX'
+                                ? env('TEST_SECRET_KEY')
+                                : env('LIVE_SECRET_KEY');
+
+                            $stripe = new \Stripe\StripeClient($secretKey);
+
+
                             $stripeResult = $stripe->checkout->sessions->create([
                                 'payment_method_types' => ['card', 'link'],
                                 'line_items' => [
@@ -443,7 +450,7 @@ class CustomerOrderController extends Controller
                                 ],
                                 'metadata' => ["orderId" => $txnId],
                                 'mode' => 'payment',
-                                
+
                                 'success_url' => env('FRONTEND_URL') . "payment/success",
                                 'cancel_url' =>  env("FRONTEND_URL") . "payment/cancel"
                             ]);
@@ -1308,9 +1315,9 @@ class CustomerOrderController extends Controller
                             $this->model->doEdit($data, 'ordermaster', $result->code);
 
                             Log::info("Order canceled via payment_intent: " . $paymentIntentId);
-                        }// Handle created payment intent (optional - just for tracking)
-                         elseif ($eventType == "payment_intent.created") {
-                             if( $status=="requires_payment_method"){
+                        } // Handle created payment intent (optional - just for tracking)
+                        elseif ($eventType == "payment_intent.created") {
+                            if ($status == "requires_payment_method") {
                                 $data['orderStatus'] = 'cancelled';
                                 $data['paymentStatus'] = "failed";
                                 $this->model->doEdit($data, 'ordermaster', $result->code);
