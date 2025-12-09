@@ -48,7 +48,7 @@ class CashierOrderController extends Controller
 
             if (!empty($store)) {
                 $timezone = $store->timezone;
-                Carbon::now($timezone);
+                 Carbon::now()->setTimezone($timezone);
                 date_default_timezone_set($timezone);
             }
 
@@ -352,7 +352,7 @@ class CashierOrderController extends Controller
 
             if (!empty($store)) {
                 $timezone = $store->timezone;
-                Carbon::setLocale($timezone);
+               Carbon::now()->setTimezone($timezone);
                 date_default_timezone_set($timezone);
             }
 
