@@ -364,6 +364,7 @@ class SettingsController extends Controller
     {
         $logo = SiteSettings::where('key', 'logo')->first();
         $favicon = SiteSettings::where('key', 'favicon')->first();
+        $barcode = SiteSettings::where('key', 'barcode')->first();
 
 
         $site = SiteSettings::firstOrCreate(['key' => 'site_title'], ['value' => '']);
@@ -378,6 +379,7 @@ class SettingsController extends Controller
         return view('settings.logoUpdate', [
             'logo' => $logo ? $logo->value : null,
             'favicon' => $favicon ? $favicon->value : null,
+            'barcode' => $barcode ? $barcode->value : null,
             'site' => $site
         ]);
     }
@@ -410,8 +412,6 @@ class SettingsController extends Controller
         return redirect()->route('settings.logo.update')
             ->with('success', 'Site details updated successfully.');
     }
-
-
 
 
     /** Update Logo */
@@ -476,11 +476,10 @@ class SettingsController extends Controller
         }
     }
 
-    /** Update Favicon */
     public function updateFavicon(Request $request)
     {
         try {
-            // Validate only if normal file upload is provided
+          
             if ($request->hasFile('favicon')) {
                 $request->validate([
                     'favicon' => 'image|mimes:jpeg,png,jpg,svg|max:1024|dimensions:max_width=128,max_height=128',
@@ -493,49 +492,142 @@ class SettingsController extends Controller
             }
 
             $path = null;
+            $base64Value = null;
 
-            // Handle cropped base64 image
             if ($request->filled('cropped_image')) {
+
                 $data = $request->cropped_image;
 
-                // Validate base64 format
                 if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
-                    $data = substr($data, strpos($data, ',') + 1);
-                    $type = strtolower($type[1]); // jpg, png, gif, etc.
-                    $data = base64_decode($data);
 
-                    if ($data === false) {
+                    $base64Value = $data;
+
+                    $raw = substr($data, strpos($data, ',') + 1);
+                    $decoded = base64_decode($raw);
+
+                    if ($decoded === false) {
                         throw new \Exception('Base64 decode failed.');
                     }
 
-                    $filename = 'uploads/settings/' . uniqid('favicon_') . '.' . $type;
-                    Storage::disk('public')->put($filename, $data);
+                    $extension = strtolower($type[1]);
+                    $filename = 'uploads/settings/' . uniqid('favicon_') . '.' . $extension;
 
+                    Storage::disk('public')->put($filename, $decoded);
                     $path = $filename;
+
                 } else {
                     throw new \Exception('Invalid image data.');
                 }
-            } elseif ($request->hasFile('favicon')) {
-                // Handle regular uploaded file
-                $file = $request->file('favicon');
-                $ext = $file->getClientOriginalExtension();
-                $filename = 'uploads/settings/' . uniqid('favicon_') . '.' . $ext;
+            }
 
-                Storage::disk('public')->putFileAs('uploads/settings', $file, basename($filename));
-                $path = $filename;
+            elseif ($request->hasFile('favicon')) {
+
+                $file = $request->file('favicon');
+                $ext = strtolower($file->getClientOriginalExtension());
+
+                $filename = 'favicon_' . uniqid() . '.' . $ext;
+                $path = 'uploads/settings/' . $filename;
+
+                Storage::disk('public')->putFileAs('uploads/settings', $file, $filename);
+
+                try {
+                    if (is_uploaded_file($file->getRealPath()) || file_exists($file->getRealPath())) {
+                        $fileContent = file_get_contents($file->getRealPath());
+                        if ($fileContent !== false) {
+                            $mime = $ext === 'svg' ? 'image/svg+xml' : 'image/' . $ext;
+                            $base64Value = 'data:' . $mime . ';base64,' . base64_encode($fileContent);
+                        }
+                    }
+                } catch (\Throwable $ex) {
+                   
+                }
+            }
+
+            if ($path && $base64Value === null) {
+                if (Storage::disk('public')->exists($path)) {
+                    $stored = Storage::disk('public')->get($path);
+                    if ($stored !== false) {
+                        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                        $mime = $ext === 'svg' ? 'image/svg+xml' : 'image/' . $ext;
+                        $base64Value = 'data:' . $mime . ';base64,' . base64_encode($stored);
+                    }
+                }
             }
 
             if ($path) {
-                SiteSettings::updateOrCreate(['key' => 'favicon'], ['value' => $path]);
+                SiteSettings::updateOrCreate(
+                    ['key' => 'favicon'],
+                    [
+                        'value' => $path,
+                        'base64_value' => $base64Value
+                    ]
+                );
+
                 $request->session()->flash('success', 'Favicon updated successfully.');
             } else {
                 $request->session()->flash('error', 'No favicon or cropped image provided.');
             }
 
             return back();
+
         } catch (\Exception $e) {
             Log::error('Favicon update failed: ' . $e->getMessage());
             $request->session()->flash('error', 'An error occurred while updating the favicon: ' . $e->getMessage());
+            return back();
+        }
+    }
+
+
+    public function updateBarcode(Request $request)
+    {
+        try {
+            if ($request->hasFile('barcode')) {
+                $request->validate([
+                    'barcode' => 'image|mimes:jpeg,png,jpg,svg|max:1024|dimensions:max_width=500,max_height=500',
+                ], [
+                    'barcode.image' => 'The barcode must be an image.',
+                    'barcode.mimes' => 'The barcode must be a file of type: jpeg, png, jpg, svg.',
+                    'barcode.max' => 'The barcode may not be greater than 1 MB.',
+                    'barcode.dimensions' => 'The barcode may not be greater than 500x500 pixels.',
+                ]);
+            }
+
+            $path = null;
+            $base64Value = null;
+
+            if ($request->hasFile('barcode')) {
+
+                $file = $request->file('barcode');
+                $ext = $file->getClientOriginalExtension();
+
+                $filename = 'uploads/settings/' . uniqid('barcode_') . '.' . $ext;
+
+                Storage::disk('public')->putFileAs('uploads/settings', $file, basename($filename));
+                $path = $filename;
+
+                $fileContent = file_get_contents($file->getRealPath());
+                $base64Value = 'data:image/' . $ext . ';base64,' . base64_encode($fileContent);
+            }
+
+            if ($path) {
+                SiteSettings::updateOrCreate(
+                    ['key' => 'barcode'],
+                    [
+                        'value' => $path,
+                        'base64_value' => $base64Value
+                    ]
+                );
+
+                $request->session()->flash('success', 'Barcode updated successfully.');
+            } else {
+                $request->session()->flash('error', 'No barcode file provided.');
+            }
+
+            return back();
+
+        } catch (\Exception $e) {
+            Log::error('Barcode update failed: ' . $e->getMessage());
+            $request->session()->flash('error', 'An error occurred while updating the barcode: ' . $e->getMessage());
             return back();
         }
     }
@@ -563,6 +655,22 @@ class SettingsController extends Controller
         if ($setting && Storage::disk('public')->exists($setting->value)) {
             Storage::disk('public')->delete($setting->value);
             $setting->value = null;
+            $setting->base64_value = null;
+            $setting->save();
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+     /** Delete barcode */
+    public function barcodeDelete()
+    {
+        $setting = SiteSettings::where('key', 'barcode')->first();
+
+        if ($setting && Storage::disk('public')->exists($setting->value)) {
+            Storage::disk('public')->delete($setting->value);
+            $setting->value = null;
+            $setting->base64_value = null;
             $setting->save();
         }
 

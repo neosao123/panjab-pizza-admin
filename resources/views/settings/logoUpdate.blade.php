@@ -187,6 +187,54 @@
                     </div>
                 </div>
 
+
+                <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Upload Barcode</h5>
+                </div>
+
+                <div class="card-body">
+                    <form id="barcodeForm" action="{{ route('settings.barcode.save') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        <label class="form-label fw-semibold">Barcode</label>
+
+                        <div id="barcode-block" class="upload-block text-center" data-type="barcode">
+                            @if (isset($barcode) && $barcode)
+                                <button type="button"
+                                    class="delete-btn delete-image"
+                                    data-field="barcode"
+                                    data-url="{{ route('settings.delete.barcode') }}">
+                                    <i class="fa fa-times"></i>
+                                </button>
+
+                                <img id="barcode-preview"
+                                    src="{{ asset('storage/' . $barcode) }}"
+                                    class="image-preview"
+                                    alt="Barcode">
+                            @else
+                                <i class="fas fa-cloud-upload-alt fa-2x text-muted"></i>
+                                <p class="upload-text">Click to select barcode</p>
+                            @endif
+                        </div>
+
+                        <input type="file" name="barcode" id="barcodeInput" class="d-none"
+                            accept=".png,.jpg,.jpeg,.svg">
+
+                        <span class="text-danger small">
+                            @error('barcode')
+                                {{ $message }}
+                            @enderror
+                        </span>
+
+                        <button type="submit" class="btn btn-primary mt-3">
+                            <i class="fas fa-save me-1"></i> Update Barcode
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
             </div>
 
             <!-- RIGHT SIDE -->
@@ -576,7 +624,89 @@
                     });
                 });
             });
+
+        const barcodeBlock = document.getElementById("barcode-block");
+        const barcodeInput = document.getElementById("barcodeInput");
+
+        // When clicking the block → open file dialog
+        barcodeBlock.addEventListener("click", function(e) {
+            if (e.target.closest(".delete-btn")) return;  // don't trigger on delete click
+            barcodeInput.click();
         });
+
+        // Upload file preview
+        barcodeInput.addEventListener("change", function() {
+            const file = barcodeInput.files[0];
+            if (!file) return;
+
+            const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/svg+xml"];
+            if (!allowedTypes.includes(file.type)) {
+                Swal.fire("Invalid File", "Only PNG, JPG, JPEG, SVG allowed.", "error");
+                barcodeInput.value = "";
+                return;
+            }
+
+            let previewUrl = URL.createObjectURL(file);
+
+            barcodeBlock.innerHTML = `
+                <button type="button" class="delete-btn delete-image" data-field="barcode"
+                    data-url="{{ route('settings.delete.barcode') }}">
+                    <i class="fa fa-times"></i>
+                </button>
+
+                <img id="barcode-preview" src="${previewUrl}"
+                    class="image-preview" alt="Barcode">
+            `;
+        });
+
+        // Delete barcode
+        document.addEventListener("click", function(e) {
+            if (!e.target.closest(".delete-image")) return;
+
+            let btn = e.target.closest(".delete-image");
+            let deleteUrl = btn.dataset.url;
+
+            Swal.fire({
+                title: "Delete Barcode?",
+                text: "Are you sure you want to delete this barcode?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Delete",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    fetch(deleteUrl, {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+
+                        if (data.status === 200) {
+                            Swal.fire("Deleted!", data.message, "success");
+
+                            barcodeBlock.innerHTML = `
+                                <i class="fas fa-cloud-upload-alt fa-2x text-muted"></i>
+                                <p class="upload-text">Click to select barcode</p>
+                            `;
+
+                            barcodeInput.value = "";
+                        } else {
+                            Swal.fire("Error", data.message, "error");
+                        }
+
+                    })
+                    .catch(() => {
+                        Swal.fire("Error", "Something went wrong", "error");
+                    });
+
+                }
+            });
+        });
+    });
     </script>
     @if (session('success'))
         <script>

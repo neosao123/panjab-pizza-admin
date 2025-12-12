@@ -176,4 +176,35 @@ class FeedController extends Controller
             ], 500);
         }
     }
+
+    public function getLogoBarcode(Request $request)
+    {
+        try {
+            $logoBase64 = SiteSettings::where('key', 'favicon')->value('base64_value');
+            $barcodeBase64 = SiteSettings::where('key', 'barcode')->value('base64_value');
+
+                $response = [
+                    'logo'    => $logoBase64,
+                    'barcode' => $barcodeBase64
+                ];
+
+            return response()->json([
+                'status'  => true,
+                'message' => 'Logo and barcode fetched successfully.',
+                'data'    => $response
+            ], 200);
+           
+        } catch (\Exception $ex) {
+
+            Log::error("[API] [GetLogoBarcode] Failed", [
+                'error' => $ex->getMessage(),
+                'trace' => $ex->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'status'  => false,
+                'message' => 'Failed to fetch logo and barcode.',
+            ], 500);
+        }
+    }
 }

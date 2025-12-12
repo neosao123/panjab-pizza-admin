@@ -227,15 +227,40 @@ class SectionController extends Controller
             'id' => 'required',
             'title' => 'required|min:2',
             'subTitle' => 'nullable|min:2',
+            'line_image.*' => 'nullable|image|mimes:jpg,jpeg,png'
         ];
 
         $messages = [
             'id.required' => 'ID is required.',
             'title.required' => 'Title is required',
             'title.min' => 'Minimum of 2 characters are required.',
+            'line_image.*.image' => 'Only image files are allowed',
+            'line_image.*.mimes' => 'Only JPG, JPEG, PNG formats allowed'
         ];
 
         $this->validate($r, $rules, $messages);
+
+        // --------------------------------------
+        // STRICT 300×300 SERVER-SIDE VALIDATION
+        // --------------------------------------
+        if ($r->hasFile('line_image')) {
+            foreach ($r->file('line_image') as $index => $file) {
+
+                if ($file) {
+                    $imageInfo = getimagesize($file);
+
+                    if ($imageInfo) {
+                        $width = $imageInfo[0];
+                        $height = $imageInfo[1];
+
+                        if ($width != 300 || $height != 300) {
+                            return back()->with('error', "Image at row " . ($index + 1) . " must be exactly 300px × 300px.")
+                                        ->withInput();
+                        }
+                    }
+                }
+            }
+        }
 
         // ---------------------------
         // UPDATE MAIN SECTION
@@ -261,9 +286,7 @@ class SectionController extends Controller
 
             for ($i = 0; $i < count($r->line_title); $i++) {
 
-                // ------------------------------------
-                // NEW LINE ENTRY
-                // ------------------------------------
+                // NEW ENTRY
                 if ($r->line_id[$i] == "##NA") {
 
                     $lineEntry = new SectionLineentries();
@@ -282,22 +305,12 @@ class SectionController extends Controller
                         $imageName = $lineEntryId . "." . $file->getClientOriginalExtension();
                         $file->move("uploads/section-images", $imageName);
 
-                        // STORE FULL PATH
                         $lineEntry->image = "uploads/section-images/" . $imageName;
                         $lineEntry->save();
                     }
-
-                    // LOG
-                    $this->model->activity_log(
-                        $currentdate . "\t" . $ip . "\t" .
-                            Auth::guard('admin')->user()->code .
-                            "\tSection Lineentries " . $lineEntryId . " is added."
-                    );
                 }
 
-                // ------------------------------------
-                // UPDATE EXISTING LINE ENTRY
-                // ------------------------------------
+                // EXISTING ENTRY UPDATE
                 else {
 
                     $lineEntry = SectionLineentries::find($r->line_id[$i]);
@@ -320,28 +333,20 @@ class SectionController extends Controller
                     }
 
                     $lineEntry->save();
-
-                    // LOG
-                    $this->model->activity_log(
-                        $currentdate . "\t" . $ip . "\t" .
-                            Auth::guard('admin')->user()->code .
-                            "\tSection Lineentries " . $lineEntry->id . " is updated."
-                    );
                 }
             }
         }
 
-        // ---------------------------
-        // MAIN SECTION LOG
-        // ---------------------------
+        // LOG
         $this->model->activity_log(
             $currentdate . "\t" . $ip . "\t" .
-                Auth::guard('admin')->user()->code .
-                "\tSection " . $section->id . " is updated."
+            Auth::guard('admin')->user()->code .
+            "\tSection " . $section->id . " is updated."
         );
 
         return redirect('sections/list')->with('success', 'Section updated successfully');
     }
+
 
     // Developer: seema, Working Date: 22-11-2025
     // Developer: seema, Working Date: 22-11-2025

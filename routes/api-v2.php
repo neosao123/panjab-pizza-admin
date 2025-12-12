@@ -54,6 +54,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::get('/site', [FeedController::class, 'siteData']);
         Route::get('/page/{pageKey}', [FeedController::class, 'pageData']);
         Route::get('/footer', [FeedController::class, 'footerData']);
+        Route::get('/get-logo-barcode', [FeedController::class, 'getLogoBarcode']);
     });
 
     //Route::middleware(['auth:sanctum'])->group(function () {
@@ -68,11 +69,14 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/settings', [CommonController::class, 'settings']);
     Route::get('/crust', [CommonController::class, 'crust']);
     Route::get('/dips', [CommonController::class, 'dips']);
+    Route::get('/dips-details/{code}', [CommonController::class, 'dipsDetails']);
     Route::get('/soft-drinks', [CommonController::class, 'softDrinks']);
+    Route::get('/soft-drinks-details/{code}', [CommonController::class, 'softDrinksDetails']);
     Route::get('/special-bases', [CommonController::class, 'specialBases']);
     Route::get('/toppings', [CommonController::class, 'toppings']);
     Route::get('/all-ingredients', [CommonController::class, 'allIngredients']);
     Route::get('/sides', [CommonController::class, 'sides']);
+    Route::get('/sides-details/{code}', [CommonController::class, 'sidesDetails']);
     Route::get('/type-wise-searchable-sides', [CommonController::class, 'typeWiseSearchableSides']);
     Route::get('/store-locations', [CommonController::class, 'storeLocations']);
     Route::get('/special-offers', [SpecialOfferController::class, 'list']);

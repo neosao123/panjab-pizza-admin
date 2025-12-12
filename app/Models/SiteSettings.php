@@ -13,6 +13,7 @@ class SiteSettings extends Model
     protected $fillable = [
         'key',
         'value',
+        'base64_value',
     ];
 
     // Timestamps are true since your table has created_at & updated_at

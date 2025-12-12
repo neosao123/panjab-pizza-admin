@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DynamicSliderController;
+use App\Http\Controllers\PaymentSettingsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -571,6 +572,11 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/favicon/update', [SettingsController::class, 'updateFavicon'])->name('settings.favicon.save');
         Route::post('/favicon/delete', [SettingsController::class, 'faviconDelete'])->name('settings.delete.favicon');
 
+        // Barcode routes
+        Route::get('/barcode/update', [SettingsController::class, 'logoUpdate'])->name('settings.barcode.update');
+        Route::post('/barcode/update', [SettingsController::class, 'updateBarcode'])->name('settings.barcode.save');
+        Route::post('/barcode/delete', [SettingsController::class, 'barcodeDelete'])->name('settings.delete.barcode');
+
         Route::get('/logoUpdate', [SettingsController::class, 'logoUpdate'])->name('settings.logoUpdate');
         Route::post('/logoUpdate', [SettingsController::class, 'updateLogoSettings'])->name('settings.logoSave');
 
@@ -582,5 +588,13 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/social-media/update', [SettingsController::class, 'updateSocialMedia'])->name('settings.social.update');
 
         Route::post('/site-details/update', [SettingsController::class, 'updateSiteDetails'])->name('settings.sites.update');
+
     });
+
+
+     //Payment Settings
+        Route::get('/payment-settings',[PaymentSettingsController::class, 'index']);
+        Route::post('/payment-gateway/store', [PaymentSettingsController::class, 'store'])
+    ->name('payment-gateway.store');
+
 });

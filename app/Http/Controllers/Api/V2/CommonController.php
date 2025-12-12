@@ -125,6 +125,35 @@ class CommonController extends Controller
         }
     }
 
+    public function dipsDetails($code)
+    {
+        try {
+            $dipsArray = [];
+
+            //$cacheKey = 'dips';
+            ///if (Cache::has($cacheKey)) {
+            //$dips = Cache::get($cacheKey);
+            //} else {
+            $dips = Dips::where('isActive', 1)->where('code', $code)->orderBy("code", "DESC")->get();
+            //Cache::put($cacheKey, $dips, 600);
+            //}
+            if ($dips && count($dips) > 0) {
+                foreach ($dips as $item) {
+                    $path = "";
+                    if ($item->dipsImage != "" && $item->dipsImage != null) {
+                        $path = url("uploads/dips/" . $item->dipsImage);
+                    }
+                    $data = ["dipsCode" => $item->code,  "ratings" => $item->ratings, "dipsName" => $item->dips, "image" => $path, "price" => $item->price, "description" => $item->description ?? ""];
+                    array_push($dipsArray, $data);
+                }
+                return response()->json(["status" => 200, "message" => "Data found", "data" => $dipsArray], 200);
+            }
+            return response()->json(["status" => 300, "message" => "No Data found"], 200);
+        } catch (\Exception $ex) {
+            return response()->json(["status" => 400, 'message' => $ex->getMessage()], 400);
+        }
+    }
+
     public function softDrinks()
     {
         try {
@@ -134,6 +163,62 @@ class CommonController extends Controller
             //$softdrinks = Cache::get($cacheKey);
             //} else {
             $softdrinks = Softdrinks::where('isActive', 1)->orderBy("id", "DESC")->get();
+            // Cache::put($cacheKey, $softdrinks, 600);
+            //}
+            if ($softdrinks && count($softdrinks) > 0) {
+                foreach ($softdrinks as $item) {
+
+                    $typeDrinks = [];
+                    if ($item->code == "SFD_5") {
+                        $getTypeDrinks = DB::table("juice")
+                            ->select("juice.*")
+                            ->where("juice.isActive", 1)
+                            ->where("juice.isDelete", 0)
+                            ->get();
+                        if ($getTypeDrinks && count($getTypeDrinks) > 0) {
+                            foreach ($getTypeDrinks as $items) {
+                                array_push($typeDrinks, $items->juice);
+                            }
+                        }
+                    } else if ($item->code == "SFD_1") {
+                        $typeDrinks = ['Coke'];
+                    } else {
+                        $getTypeDrinks = DB::table("typedrinks")
+                            ->select("typedrinks.*")
+                            ->where("typedrinks.isActive", 1)
+                            ->where("typedrinks.isDelete", 0)
+                            ->get();
+                        if ($getTypeDrinks && count($getTypeDrinks) > 0) {
+                            foreach ($getTypeDrinks as $items) {
+                                array_push($typeDrinks, $items->drinks);
+                            }
+                        }
+                    }
+
+                    $path = "";
+                    if ($item->softDrinkImage != "" && $item->softDrinkImage != null) {
+                        $path = url("uploads/softdrinks/" . $item->softDrinkImage);
+                    }
+                    $data = ["softdrinkCode" => $item->code, "ratings" => $item->ratings, "softDrinksName" => $item->softdrinks, "image" => $path, "price" => $item->price, "drinkType" => $typeDrinks, "drinksCount" => $item->drinksCount, "drinksType" => $item->drinksType, "description" => $item->description ?? ""];
+                    array_push($softdrinksArray, $data);
+                }
+                return response()->json(["status" => 200, "message" => "Data found", "data" => $softdrinksArray], 200);
+            }
+            return response()->json(["status" => 300, "message" => "No Data found"], 200);
+        } catch (\Exception $ex) {
+            return response()->json(["status" => 400, 'message' => $ex->getMessage()], 400);
+        }
+    }
+
+    public function softDrinksDetails($code)
+    {
+        try {
+            $softdrinksArray = [];
+            $cacheKey = 'softdrinks';
+            //if (Cache::has($cacheKey)) {
+            //$softdrinks = Cache::get($cacheKey);
+            //} else {
+            $softdrinks = Softdrinks::where('isActive', 1)->where('code', $code)->orderBy("code", "DESC")->get();
             // Cache::put($cacheKey, $softdrinks, 600);
             //}
             if ($softdrinks && count($softdrinks) > 0) {
@@ -399,6 +484,89 @@ class CommonController extends Controller
             return response()->json(["status" => 400, 'message' => $ex->getMessage()], 400);
         }
     }
+
+
+    public function sidesDetails(Request $r)
+    {
+        try {
+            $sidesArray = [];
+            $validator = Validator::make($r->all(), [
+                'type' => 'nullable'
+            ]);
+            if ($validator->fails()) {
+                return response()->json(["status" => 500, "message" => $validator->errors()->first()], 200);
+            }
+
+            $sideQuery = SidesMaster::where('isActive', 1);
+            if ($r->code !="") {
+                $sideQuery->where("code", $r->code);
+            }
+            $sideQuery->orderBy("code", "DESC");
+
+            $item = $sideQuery->first();
+
+            if ($item) {
+
+                $path = url("uploads/sample_sides.png");
+                if ($item->image != "" && $item->image != null) {
+                    $path = url("uploads/sides/" . $item->image);
+                }
+
+               
+                $combinationArray = [];
+                $sidelineEntries = SidelineEntries::where("isActive", 1)
+                    ->orderBy("id", "DESC")
+                    ->where("sidemasterCode", $item->code)
+                    ->get();
+
+                if ($sidelineEntries && count($sidelineEntries) > 0) {
+                    foreach ($sidelineEntries as $items) {
+                        $linedata = [
+                            "lineCode" => $items->code,
+                            "size" => $items->size,
+                            "price" => $items->price
+                        ];
+                        array_push($combinationArray, $linedata);
+                    }
+                }
+
+              
+                $sideToppingsArray = [];
+                if ($item->hasToppings == 1 && $item->nooftoppings > 0) {
+                    $sideToppings = DB::table('sides_toppings')->where('isActive', 1)->get();
+                    foreach ($sideToppings as $data) {
+                        $toppings = [
+                            'code' => $data->code,
+                            'toppingsName' => $data->toppingsName
+                        ];
+                        array_push($sideToppingsArray, $toppings);
+                    }
+                }
+
+                
+                $data = [
+                    "sideCode" => $item->code,
+                    "sideName" => $item->sidename,
+                    "ratings" => $item->ratings,
+                    "image" => $path,
+                    "type" => $item->type,
+                    "hasToppings" => $item->hasToppings,
+                    "nooftoppings" => $item->nooftoppings,
+                    "combination" => $combinationArray,
+                    "sidesToppings" => $sideToppingsArray,
+                    "description" => $item->description ?? ""
+                ];
+
+                return response()->json(["status" => 200, "message" => "Data found", "data" => $data], 200);
+            }
+
+            return response()->json(["status" => 300, "message" => "No Data found"], 200);
+
+        } catch (\Exception $ex) {
+            return response()->json(["status" => 400, 'message' => $ex->getMessage()], 400);
+        }
+    }
+
 
     public function typeWiseSearchableSides(Request $r)
     {
