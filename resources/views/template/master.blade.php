@@ -12,7 +12,7 @@
     <meta name="description" content="{{ $settings['meta_site_description'] ?? '' }}">
 
 
-    <link href="{{ asset('storage/'.$settings['favicon']) }}" rel="shortcut icon" />
+    <link href="{{ asset('storage/'.$settings['favicon']??"") }}" rel="shortcut icon" />
 
     {{-- <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/uploads/favicon/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/uploads/favicon/apple-icon-60x60.png') }}">

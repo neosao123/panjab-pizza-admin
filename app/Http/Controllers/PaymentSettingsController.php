@@ -3,10 +3,29 @@
 namespace App\Http\Controllers;
 use App\Models\PaymentSettings;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use App\Models\GlobalModel;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use DB;
 
 class PaymentSettingsController extends Controller
 {
+
+     private $role, $rights;
+    public function __construct(GlobalModel $model)
+    {
+        $this->model = $model;
+        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            $this->role = Auth::guard('admin')->user()['role'];
+            $this->rights = $this->model->getMenuRights('15.1', $this->role);
+            if ($this->rights == '') {
+                return redirect('access/denied');
+            }
+            return $next($request);
+        });
+    }
 
     public function index()
     {

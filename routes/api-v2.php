@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\V2\BackgroundImageController;
 use App\Http\Controllers\Api\V2\SectionController;
 use App\Http\Controllers\Api\V2\ContactUsController;
 use App\Http\Controllers\Api\V2\FeedController;
+use App\Http\Controllers\Api\V2\DoorDashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Route::get('/mas/vx/pizzas', [TestController::class, 'pizzas']);
 Route::group(['middleware' => 'cors'], function () {
 
 
-       Route::get('/franchise/bgimage', [BackgroundImageController::class, 'getBackgroundImage']);
+    Route::get('/franchise/bgimage', [BackgroundImageController::class, 'getBackgroundImage']);
     Route::get('/franchise/sections', [SectionController::class, 'get_sections']);
     Route::post('/franchise/contact-us', [ContactUsController::class, 'contact_us']);
 
@@ -89,6 +90,8 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/signature-pizzas', [SignaturePizzaController::class, 'list']);
     Route::get('/signature-pizzas/{code}', [SignaturePizzaController::class, 'show']);
 
+     Route::get('/defaultspecialoffer/{code}', [SignaturePizzaController::class, 'defaultForSpecialOffer']);
+
     Route::get('/pizzas', [PizzasController::class, 'list']);
     Route::get('/pizzas/{code}', [PizzasController::class, 'show']);
 
@@ -125,7 +128,7 @@ Route::group(['middleware' => 'cors'], function () {
         Route::get('/previousorder', [CashierOrderController::class, 'get_previous_order']);
         Route::post('/payment/callback',  [CustomerOrderController::class, 'webhook']);
         Route::get('/payment/success',  [CustomerOrderController::class, 'payment_success']);
-         Route::get('/payment/cancel',  [CustomerOrderController::class, 'payment_cancel']);
+        Route::get('/payment/cancel',  [CustomerOrderController::class, 'payment_cancel']);
         Route::get('/payment/failed',  [CustomerOrderController::class, 'payment_failed']);
         Route::post('/changepassword', [CustomerController::class, 'change_password']);
         // orders
@@ -135,8 +138,6 @@ Route::group(['middleware' => 'cors'], function () {
             Route::post('/details',  [CustomerOrderController::class, 'get_order_details']);
             Route::post('/getlist',  [CustomerOrderController::class, 'customer_order_list']);
         });
-
-
     });
 
     // in-store (cashier website)
@@ -213,5 +214,20 @@ Route::group(['middleware' => 'cors'], function () {
         Route::post('/login', [AuthController::class, 'user_login']);
         Route::post('/logout', [AuthController::class, 'user_logout']);
         Route::post('/resetPassword', [AuthController::class, 'user_reset_password']);
+    });
+
+
+    //doordash api
+
+
+    Route::prefix('doordash')->group(function () {
+        Route::post('/quotes', [DoorDashController::class, 'createQuote']);
+        Route::post('/quotes/{external_delivery_id}/accept', [DoorDashController::class, 'acceptQuote']);
+        Route::post('/deliveries', [DoorDashController::class, 'createDelivery']);
+        Route::get('/deliveries/{external_delivery_id}', [DoorDashController::class, 'getDelivery']);
+        Route::put('/deliveries/{external_delivery_id}', [DoorDashController::class, 'updateDelivery']);
+        Route::delete('/deliveries/{external_delivery_id}', [DoorDashController::class, 'cancelDelivery']);
+        Route::post('/create-from-order', [DoorDashController::class, 'createDeliveryFromOrder']);
+        Route::post('/quote-from-order', [DoorDashController::class, 'getQuoteFromOrder']);
     });
 });

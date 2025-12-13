@@ -133,4 +133,39 @@ class SignaturePizzaController extends Controller
             return response()->json(['message' => $ex->getMessage()], 400);
         }
     }
+
+    public function defaultForSpecialOffer($code)
+    {
+        try {
+            if (!$code) {
+                $response = [
+                    "message" => "Invalid request"
+                ];
+                return response()->json($response, 500);
+            }
+
+            $pizza = SignaturePizza::where("code",$code)->where("isActive", 1)->first();
+            if ($pizza) {
+                $data = [
+                    "code" => $pizza->code,
+                      "pizza_name" => $pizza->pizza_name,
+                    "cheese"=> $pizza->cheese,
+                      "crust"=> $pizza->crust,
+                    "crust_type" => $pizza->crust_type,
+                    "special_base" => $pizza->special_base,
+                      "spices"=>  $pizza->spices,
+                    "sauce"=> $pizza->sauce,
+                    "cook"=>  $pizza->cook,
+                    "topping_as_1"=> $pizza->topping_as_1 ,
+                    "topping_as_2"=> $pizza->topping_as_2,
+                    "topping_as_free"=> $pizza->topping_as_free,
+                ];
+
+                return response()->json(["message" => "Data found", "data" => $data], 200);
+            }
+            return response()->json(["message" => "Data not found"], 200);
+        } catch (\Exception $ex) {
+            return response()->json(['message' => $ex->getMessage()], 400);
+        }
+    }
 }

@@ -39,6 +39,8 @@ use App\Http\Controllers\BackgroundImageController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\SmsTemplateController;
+use App\Http\Controllers\DoorDashController;
+
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
@@ -596,5 +598,9 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/payment-settings',[PaymentSettingsController::class, 'index']);
         Route::post('/payment-gateway/store', [PaymentSettingsController::class, 'store'])
     ->name('payment-gateway.store');
+
+
+     Route::get('/doordash-settings', [DoorDashController::class, 'index'])->name('doordash.index');
+    Route::post('/doordash-settings', [DoorDashController::class, 'store'])->name('doordash.store');
 
 });
