@@ -65,6 +65,17 @@
                 @enderror
               </span>
             </div>
+             <div class="col-md-6 form-group">
+              <label>Pickup Mobile Number : <span style="color:red">*</span></label>
+              <input type="text" id="pickupNumber" name="pickupNumber" class="form-control mb-2" >
+              <span class="text-danger">
+                @error('pickupNumber')
+                  <span class="text-danger">
+                    {{ $message }}
+                  </span>
+                @enderror
+              </span>
+            </div>
             <div class="col-md-6 form-group">
               <label>Tax (Province) : <span style="color:red">*</span></label>
               <select id="tax_province_id" name="tax_province_id" autocomplete="off" class="form-control mb-2" required>

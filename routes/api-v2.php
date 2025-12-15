@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\V2\SectionController;
 use App\Http\Controllers\Api\V2\ContactUsController;
 use App\Http\Controllers\Api\V2\FeedController;
 use App\Http\Controllers\Api\V2\DoorDashController;
+use App\Http\Controllers\Api\V2\WebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/special-offers', [SpecialOfferController::class, 'list']);
     Route::get('/searchable-special-deal', [SpecialOfferController::class, 'searchableSpecialDeals']);
     Route::get('/special-offers/{code}', [SpecialOfferController::class, 'show']);
+    Route::get('/special-offers-web/{code}', [SpecialOfferController::class, 'showWeb']);
     // nearest store by lat long
     Route::get('/nearest-store', [CommonController::class, 'nearestStoreByLatLng']);
     Route::get('/search-products', [CommonController::class, 'searchProducts']);
@@ -124,12 +126,19 @@ Route::group(['middleware' => 'cors'], function () {
         Route::post('/addAddress', [CustomerController::class, 'add_customer_address']);
         Route::post('/updateAddress', [CustomerController::class, 'update_customer_address']);
         Route::post('/deleteAddress', [CustomerController::class, 'delete_customer_address']);
+
+
+
         Route::get('/getstorelocationbycity', [CustomerController::class, 'getStoreLocationByCity']);
         Route::get('/previousorder', [CashierOrderController::class, 'get_previous_order']);
-        Route::post('/payment/callback',  [CustomerOrderController::class, 'webhook']);
-        Route::get('/payment/success',  [CustomerOrderController::class, 'payment_success']);
-        Route::get('/payment/cancel',  [CustomerOrderController::class, 'payment_cancel']);
-        Route::get('/payment/failed',  [CustomerOrderController::class, 'payment_failed']);
+
+        //webhook
+        Route::post('/payment/callback',  [WebhookController::class, 'webhook']);
+        Route::get('/payment/success',  [WebhookController::class, 'payment_success']);
+        Route::get('/payment/cancel',  [WebhookController::class, 'payment_cancel']);
+        Route::get('/payment/failed',  [WebhookController::class, 'payment_failed']);
+
+
         Route::post('/changepassword', [CustomerController::class, 'change_password']);
         // orders
         Route::group(['prefix' => '/order'], function () {
@@ -157,6 +166,10 @@ Route::group(['middleware' => 'cors'], function () {
         Route::group(['prefix' => 'order'], function () {
             Route::post('status-change', [CashierOrderController::class, 'update_order_status']);
             Route::post('place', [CashierOrderController::class, 'order_place']);
+
+            //dooredash api for order status change
+            Route::post('status/update', [CashierOrderController::class, 'change_order_status']);
+
             Route::post('edit', [CashierOrderController::class, 'order_edit']);
             Route::post('details', [CashierOrderController::class, 'get_order_details']);
             Route::post('assignDeliveryExecutive', [CashierOrderController::class, 'delivery_executive_assign']);
@@ -220,7 +233,11 @@ Route::group(['middleware' => 'cors'], function () {
     //doordash api
 
 
+
     Route::prefix('doordash')->group(function () {
+
+        Route::post('webhook', [WebhookController::class, 'doordash_webhook']);
+
         Route::post('/quotes', [DoorDashController::class, 'createQuote']);
         Route::post('/quotes/{external_delivery_id}/accept', [DoorDashController::class, 'acceptQuote']);
         Route::post('/deliveries', [DoorDashController::class, 'createDelivery']);
@@ -229,5 +246,11 @@ Route::group(['middleware' => 'cors'], function () {
         Route::delete('/deliveries/{external_delivery_id}', [DoorDashController::class, 'cancelDelivery']);
         Route::post('/create-from-order', [DoorDashController::class, 'createDeliveryFromOrder']);
         Route::post('/quote-from-order', [DoorDashController::class, 'getQuoteFromOrder']);
+
+
+        //business creation api
+
+        Route::post('/create/business', [DoorDashController::class, 'createBusiness']);
+        Route::post('/create/store', [DoorDashController::class, 'createStore']);
     });
 });

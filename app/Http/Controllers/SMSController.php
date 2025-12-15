@@ -58,6 +58,7 @@ class SMSController extends Controller
         $validator = Validator::make($request->all(), [
             'twilio_sid' => 'required|string|min:30|max:100',
             'twilio_auth_token' => 'required|string|min:30|max:100',
+            'twilio_mode' => 'required|in:test,live',
             'twilio_from_number' => 'required|string|min:10|max:20|regex:/^\+?[1-9]\d{1,14}$/',
         ], [
             'twilio_sid.required' => 'Twilio SID is required',
@@ -85,6 +86,7 @@ class SMSController extends Controller
                 $twilioSetting->twilio_session_id = $request->twilio_sid;
                 $twilioSetting->twilio_auth_id = $request->twilio_auth_token;
                 $twilioSetting->twilio_number = $request->twilio_from_number;
+                $twilioSetting->twilio_mode = $request->twilio_mode;
                 $twilioSetting->isActive = 1;
                 $twilioSetting->updated_at = $currentDate;
                 $twilioSetting->save();
@@ -96,6 +98,7 @@ class SMSController extends Controller
                     'twilio_session_id' => $request->twilio_sid,
                     'twilio_auth_id' => $request->twilio_auth_token,
                     'twilio_number' => $request->twilio_from_number,
+                    'twilio_mode' => $request->twilio_mode,
                     'isActive' => 1,
                     'isDelete' => 0,
                     'created_at' => $currentDate,
@@ -131,6 +134,7 @@ class SMSController extends Controller
                         'twilio_sid' => $settings->twilio_sid,
                         'twilio_auth_token' => $settings->twilio_auth_token,
                         'twilio_from_number' => $settings->twilio_from_number,
+                        'twilio_mode' => $settings->twilio_mode,
                     ]
                 ]);
             }

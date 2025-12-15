@@ -12,14 +12,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use DB;
-
+use Illuminate\Support\Facades\Log;
+use App\Services\DoorDashService;
+use App\Models\Business;
 
 class StoreLocationController extends Controller
 {
     private $role, $rights;
-    public function __construct(GlobalModel $model)
+    protected DoorDashService $doorDashService;
+    public function __construct(GlobalModel $model, DoorDashService $doorDashService)
     {
         $this->model = $model;
+        $this->doorDashService = $doorDashService;
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
             $this->role = Auth::guard('admin')->user()['role'];
@@ -151,7 +155,7 @@ class StoreLocationController extends Controller
             'longitude' => 'required',
             'storeAddress' => 'required|min:20|max:300',
             'city' => 'required|min:3|max:50',
-            'tax_province_id' => 'required',            
+            'tax_province_id' => 'required',
         ];
         $messages = [
             'name.required' => 'Store Location name is required.',
@@ -217,10 +221,42 @@ class StoreLocationController extends Controller
             'addID' => Auth::guard('admin')->user()->code,
             'tax_province_id' => $r->tax_province_id,
             'timezone' => $r->timezone,
+            'pickup_number' => $r->pickupNumber
         ];
 
         $currentId = $this->model->addNew($data, $table, 'STR');
         if ($currentId) {
+
+
+            // Get the first business from the table
+            $business = Business::orderBy('id', 'asc')->first();
+            if (!$business) {
+                return back()->withInput()->with('error', 'No business found. Please create a business first.');
+            }
+
+            // Prepare payload for DoorDash API
+            $apiParams = [
+                'external_business_id' => $business->external_business_id,
+                'external_store_id' => $currentId,
+                'name' => $r->name,
+                'phone_number' => $r->pickupNumber,
+                'address' => $r->storeAddress
+            ];
+
+            // Call DoorDash API to create store
+            $result = $this->doorDashService->createStore($apiParams);
+
+            DB::table($table)
+                ->where('code', $currentId)
+                ->update([
+                    'doordash_response' => json_encode($result),
+                ]);
+
+            if (!isset($result['success']) || $result['success'] !== true) {
+                return back()->withInput()->with('error', 'Failed to create store in DoorDash: ' . ($result['message'] ?? 'Unknown error'));
+            }
+
+
             //activity log start
             $data = $currentdate->toDateTimeString() .    "	"    . $ip .    "	"    . Auth::guard('admin')->user()->code .    "	Store Location " . $currentId . " is added";
             $this->model->activity_log($data);
@@ -309,10 +345,35 @@ class StoreLocationController extends Controller
             'editID' => Auth::guard('admin')->user()->code,
             'tax_province_id' => $r->tax_province_id,
             'timezone' => $r->timezone,
+            'pickup_number'=> $r->pickupNumber
         ];
 
         $result = $this->model->doEdit($data, $table, $code);
         if ($result == true) {
+
+
+            /* ================== DOORDASH STORE UPDATE ================== */
+
+            $business = Business::orderBy('id', 'asc')->first();
+
+            if ($business) {
+
+                $apiParams = [
+                    'external_business_id' => $business->external_business_id,
+                    'external_store_id'    => $code,
+                    'name'                => $r->name,
+                    'phone_number'        => $r->pickupNumber,
+                    'address'             => $r->storeAddress
+                ];
+
+                $ddResponse = $this->doorDashService->updateStore($apiParams);
+
+                Log::info('DoorDash Store Update Result', [
+                    'store_code' => $code,
+                    'response'   => $ddResponse
+                ]);
+            }
+
             //activity log start
             $data = $currentdate->toDateTimeString() .    "	"    . $ip .    "	"    . Auth::guard('admin')->user()->code .    "	 Store Location " . $code . " is updated.";
             $this->model->activity_log($data);

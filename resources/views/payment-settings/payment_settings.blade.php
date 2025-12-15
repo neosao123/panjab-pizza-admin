@@ -47,27 +47,27 @@
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
 
-                    <form action="{{ route('payment-gateway.store') }}" 
-                          method="post" 
+                    <form action="{{ route('payment-gateway.store') }}"
+                          method="post"
                           data-parsley-validate>
                         @csrf
 
                         <div class="form-group">
                             <label>Payment Mode<span class="required-asterisk">*</span></label>
 
-                            <select name="payment_mode" 
+                            <select name="payment_mode"
                                     class="form-control @error('payment_mode') is-invalid @enderror"
                                     required
                                     data-parsley-required-message="Please select a payment mode.">
 
                                 <option value="">-- Select Mode --</option>
 
-                                <option value="0" 
+                                <option value="0"
                                     {{ old('payment_mode', $settings->payment_mode ?? '') == "0" ? 'selected' : '' }}>
                                     Sandbox
                                 </option>
 
-                                <option value="1" 
+                                <option value="1"
                                     {{ old('payment_mode', $settings->payment_mode ?? '') == "1" ? 'selected' : '' }}>
                                     Live
                                 </option>
@@ -83,14 +83,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Test Secret Key<span class="required-asterisk">*</span></label>
-                                    <input type="text" 
+                                    <input type="text"
                                            name="test_secret_key"
                                            class="form-control @error('test_secret_key') is-invalid @enderror"
                                            value="{{ old('test_secret_key', $settings->test_secret_key ?? '') }}"
                                            required
                                            data-parsley-required-message="Test Secret Key is required."
-                                           data-parsley-maxlength="20"
-                                           data-parsley-maxlength-message="Length must not exceed 20 characters.">
+                                          >
 
                                     @error('test_secret_key')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -101,14 +100,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Live Secret Key<span class="required-asterisk">*</span></label>
-                                    <input type="text" 
+                                    <input type="text"
                                            name="live_secret_key"
                                            class="form-control @error('live_secret_key') is-invalid @enderror"
                                            value="{{ old('live_secret_key', $settings->live_secret_key ?? '') }}"
                                            required
                                            data-parsley-required-message="Live Secret Key is required."
-                                           data-parsley-maxlength="20"
-                                           data-parsley-maxlength-message="Length must not exceed 20 characters.">
+                                          >
 
                                     @error('live_secret_key')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -121,13 +119,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Test Client ID<span class="required-asterisk">*</span></label>
-                                    <input type="text" 
+                                    <input type="text"
                                            name="test_client_id"
                                            class="form-control @error('test_client_id') is-invalid @enderror"
                                            value="{{ old('test_client_id', $settings->test_client_id ?? '') }}"
                                            required
-                                           data-parsley-maxlength="20"
-                                           data-parsley-maxlength-message="Length must not exceed 20 characters.">
+                                          >
 
                                     @error('test_client_id')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -138,13 +135,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Live Client ID<span class="required-asterisk">*</span></label>
-                                    <input type="text" 
+                                    <input type="text"
                                            name="live_client_id"
                                            class="form-control @error('live_client_id') is-invalid @enderror"
                                            value="{{ old('live_client_id', $settings->live_client_id ?? '') }}"
                                            required
-                                           data-parsley-maxlength="20"
-                                           data-parsley-maxlength-message="Length must not exceed 20 characters.">
+                                           >
 
                                     @error('live_client_id')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -153,18 +149,31 @@
                             </div>
                         </div>
 
- 
+
                         <div class="form-group">
-                            <label>Webhook Secret Key<span class="required-asterisk">*</span></label>
-                            <input type="text" 
+                            <label>Webhook Secret Test Key<span class="required-asterisk">*</span></label>
+                            <input type="text"
                                    name="webhook_secret_key"
                                    class="form-control @error('webhook_secret_key') is-invalid @enderror"
                                    value="{{ old('webhook_secret_key', $settings->webhook_secret_key ?? '') }}"
                                    required
-                                   data-parsley-maxlength="20"
-                                   data-parsley-maxlength-message="Length must not exceed 20 characters.">
+                                   >
 
                             @error('webhook_secret_key')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                         <div class="form-group">
+                            <label>Webhook Secret Live Key<span class="required-asterisk">*</span></label>
+                            <input type="text"
+                                   name="webhook_secret_live_key"
+                                   class="form-control @error('webhook_secret_live_key') is-invalid @enderror"
+                                   value="{{ old('webhook_secret_live_key', $settings->webhook_secret_live_key ?? '') }}"
+                                   required
+                                  >
+
+                            @error('webhook_secret__live_key')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
@@ -190,7 +199,7 @@
     $(function() {
         $('form').parsley();
     });
-</script>   
+</script>
 
 <script>
     setTimeout(function () {

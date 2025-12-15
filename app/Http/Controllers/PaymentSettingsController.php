@@ -7,6 +7,7 @@ use App\Models\GlobalModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 use DB;
 
 class PaymentSettingsController extends Controller
@@ -38,11 +39,12 @@ class PaymentSettingsController extends Controller
         try {
               $request->validate([
                 'payment_mode' => 'required|in:0,1',
-                'test_secret_key' => 'required|string|max:20',
-                'live_secret_key' => 'required|string|max:20',
-                'test_client_id' => 'required|string|max:20',
-                'live_client_id' => 'required|string|max:20',
-                'webhook_secret_key' => 'required|string|max:20',
+                'test_secret_key' => 'required|string',
+                'live_secret_key' => 'required|string',
+                'test_client_id' => 'required|string',
+                'live_client_id' => 'required|string',
+                'webhook_secret_key' => 'required|string',
+                'webhook_secret_live_key'=>'required|string',
             ], [
                 'payment_mode.required' => 'Please select a payment mode.',
                 'payment_mode.in' => 'Invalid payment mode selected.',
@@ -51,6 +53,7 @@ class PaymentSettingsController extends Controller
                 'test_client_id.required' => 'Test Client ID is required.',
                 'live_client_id.required' => 'Live Client ID is required.',
                 'webhook_secret_key.required' => 'Webhook Secret Key is required.',
+                'webhook_secret_live_key.required' => 'Webhook Secret Key is required.',
             ]);
 
             $existing = PaymentSettings::where('payment_gateway', 'stripe')->first();
@@ -62,7 +65,8 @@ class PaymentSettingsController extends Controller
                     'live_secret_key' => $request->live_secret_key,
                     'test_client_id' => $request->test_client_id,
                     'live_client_id' => $request->live_client_id,
-                    'webhook_secret_key' => $request->webhook_secret_key
+                    'webhook_secret_key' => $request->webhook_secret_key,
+                    'webhook_secret_live_key' => $request->webhook_secret_live_key
                 ]);
 
                 return back()->with('success', 'Payment settings updated successfully!');
@@ -75,7 +79,8 @@ class PaymentSettingsController extends Controller
                 'live_secret_key' => $request->live_secret_key,
                 'test_client_id' => $request->test_client_id,
                 'live_client_id' => $request->live_client_id,
-                'webhook_secret_key' => $request->webhook_secret_key
+                'webhook_secret_key' => $request->webhook_secret_key,
+                'webhook_secret_live_key'=>$request->webhook_secret_live_key
             ]);
 
             return redirect()->back()->with('success', 'Payment settings saved successfully.');

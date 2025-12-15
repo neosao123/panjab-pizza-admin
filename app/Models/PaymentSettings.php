@@ -19,6 +19,7 @@ class PaymentSettings extends Model
     'test_client_id',
     'live_client_id',
     'webhook_secret_key',
+    'webhook_secret_live_key',
     'payment_gateway',
     'isActive',
     'isDelete',

@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('twilio_settings', function (Blueprint $table) {
+        Schema::create('door_dash_steps', function (Blueprint $table) {
             $table->id();
-            $table->string('twilio_session_id');
-            $table->string('twilio_auth_id');
-            $table->string('twilio_number');
-            $table->string('twilio_mode')->nullable();
-            $table->tinyInteger('isActive')->default(1);
-            $table->tinyInteger('isDelete')->default(0);
+            $table->longText('order_id');
+            $table->longText('doordash_status')->nullable();
+            $table->longText('doordash_response')->nullable();
+            $table->longText('doordash_delivery_id')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('twilio_settings');
+        Schema::dropIfExists('door_dash_steps');
     }
 };

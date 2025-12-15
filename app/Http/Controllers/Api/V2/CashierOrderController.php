@@ -27,13 +27,22 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use App\Classes\Twilio;
 use App\Models\SmsTemplate;
+use Illuminate\Support\Facades\Log;
+use App\Models\PaymentSettings;
+use App\Services\DoorDashService;
+use App\Classes\Stripe;
+use App\Models\DoorDashStep;
+use App\Models\Business;
 
 class CashierOrderController extends Controller
 {
-    public function __construct(GlobalModel $model, ApiModel $apimodel)
+    protected DoorDashService $doorDashService;
+
+    public function __construct(GlobalModel $model, ApiModel $apimodel, DoorDashService $doorDashService)
     {
         $this->model = $model;
         $this->apimodel = $apimodel;
+        $this->doorDashService = $doorDashService;
     }
 
     public function order_place(Request $r)
@@ -42,16 +51,16 @@ class CashierOrderController extends Controller
 
             $storeLocation = $r->storeLocation;
             $store = DB::table('storelocation')
-                ->select("storelocation.timezone", "storelocation.storeAddress")
+                ->select("storelocation.timezone", "storelocation.storeAddress", "storelocation.storeLocation", "storelocation.pickup_number")
                 ->where('code', $storeLocation)
                 ->first();
 
             if (!empty($store)) {
                 $timezone = $store->timezone;
-                 Carbon::now()->setTimezone($timezone);
+                Carbon::now()->setTimezone($timezone);
                 date_default_timezone_set($timezone);
             }
-
+            $paymentLinkData = null;
             $currentdate = Carbon::now();
             $now =  $currentdate->toDateTimeString();
 
@@ -194,13 +203,18 @@ class CashierOrderController extends Controller
                 "deliveryExecutiveCode" => $deliveryExecutive,
                 "extraDeliveryCharges" => $r->extraDeliveryCharges,
                 "transactionDate" => $now,
-                "paymentStatus" => "paid",
                 "orderStatus" => "placed",
                 "orderFrom" => "store",
                 "zipCode" => $r->zipCode,
                 "orderTakenBy" => $r->orderTakenBy,
                 //"transactionResponse"=>"",
             ];
+
+            if ($r->deliverType == "pickup") {
+                $data["paymentStatus"] = "paid";
+            } else {
+                $data["paymentStatus"] = "pending";
+            }
 
             $orderCode = 1;
             $curDate = date('Y-m-d H:i:00');
@@ -263,31 +277,107 @@ class CashierOrderController extends Controller
                         $orderLine->save();
                     }
 
-                    // $uri = config('constant.SITE_MODE') == 'LIVE' ? config('constant.SOCKET_URL_LIVE') : config('constant.SOCKET_URL_TEST');
-                    // $uri .= '/order/place/cashier';
-                    // $response = Http::get($uri, [
-                    //   'orderCode' => $order,
-                    //   'orderNumber' =>  $orderCode,
-                    //   'phoneNumber' => $r->mobileNumber,
-                    //   'status' => "placed",
-                    //   'storeCode' => $r->storeLocation,
-                    //   'deliveryType' => $r->deliveryType,
-                    //   "customerName" => $r->customerName,
-                    //   "grandTotal" => $r->grandTotal,
-                    //   "orderFrom" => "store"
-                    // ]);
+
+                    //doordash api
+
+
+                    // Only call DoorDash and Payment Link for DELIVERY orders
+                    if ($r->deliveryType == "delivery") {
+                        $businessId = "";
+                        $business = Business::first();
+                        if ($business) {
+                            $businessId = $business->external_business_id;
+                        }
+
+                        $quotePayload = [
+                            'external_delivery_id' => $order,
+                            //'pickup_address' => $r->storeAddress,
+                            'pickup_address' => "901 Market Street 6th Floor San Francisco, CA 94103",
+                            'pickup_phone_number' => '+12345678900',
+                            'dropoff_address' => $r->address,
+                            'dropoff_phone_number' => $r->mobileNumber,
+                            'dropoff_contact_given_name' => $r->customerName,
+                            "pickup_external_business_id" => $businessId,
+                            "pickup_external_store_id" => $storeLocation,
+                            'order_value' => (int)round($r->grandTotal * 100), // Convert to cents
+                            'currency' => 'CAD',
+                        ];
+
+                        $doorDashResult = $this->doorDashService->makeRequest('post', '/quotes', $quotePayload);
+
+                        Log::info('DoorDash Create Quote response', $doorDashResult);
+
+                        // Check if DoorDash request was successful
+                        if (!isset($doorDashResult['success']) || $doorDashResult['success'] !== true) {
+                            // Log the error
+                            Log::error('DoorDash quote creation failed', [
+                                'order_code' => $order,
+                                'error' => $doorDashResult['error'] ?? 'Unknown error',
+                                'data' => $doorDashResult['data'] ?? null
+                            ]);
+
+
+                            $errorMessage = '';
+
+                            if (
+                                isset($doorDashResult['data']['field_errors'][0]['error'])
+                            ) {
+                                $errorMessage = $doorDashResult['data']['field_errors'][0]['error'];
+                            } elseif (
+                                isset($doorDashResult['data']['message'])
+                            ) {
+                                $errorMessage = $doorDashResult['data']['message'];
+                            }
+
+                            DoorDashStep::create([
+                                'order_id' => $order,
+                                'doordash_status' => 'QUOTE_FAILED',
+                                'doordash_delivery_id' => null,
+                                'doordash_response' => json_encode($doorDashResult),
+                            ]);
+
+                            return response()->json([
+                                "message" => "Failed to create delivery. Order has been cancelled.",
+                                "error" => $errorMessage,
+                                "mode" => $doorDashResult['mode'] ?? 'unknown'
+                            ], 400);
+                        }
+
+                        // Store DoorDash quote data in order
+                        OrderMaster::where("code", $order)->update([
+                            "doordash_quote_id" => $doorDashResult['data']['external_delivery_id'] ?? null,
+                            "doordash_fee" => isset($doorDashResult['data']['fee']) ? $doorDashResult['data']['fee'] / 100 : null,
+                            "doordash_response" => $doorDashResult,
+                            "doordash_status" => 'QUOTE_CREATED',
+                        ]);
+
+                        DoorDashStep::create([
+                            'order_id' => $order,
+                            'doordash_status' => 'QUOTE_CREATED',
+                            'doordash_delivery_id' => $doorDashResult['data']['external_delivery_id'] ?? null,
+                            'doordash_response' => json_encode($doorDashResult),
+                        ]);
+                    }
+
 
                     $socketData = [
-                        'orderCode' => $order,
-                        'orderNumber' =>  $orderCode,
-                        'phoneNumber' => $r->mobileNumber,
-                        'status' => "placed",
-                        'storeCode' => $r->storeLocation,
+                        'orderCode'    => $order,
+                        'orderNumber'  => $orderCode,
+                        'phoneNumber'  => $r->mobileNumber,
+                        'status'       => 'placed',
+                        'storeCode'    => $r->storeLocation,
                         'deliveryType' => $r->deliveryType,
-                        "customerName" => $r->customerName,
-                        "grandTotal" => $r->grandTotal,
-                        "orderFrom" => "store",
-                        "placedBy" => 'cashier'
+                        'customerName' => $r->customerName,
+                        'grandTotal'   => $r->deliveryType === 'delivery'
+                            ? $r->grandTotal + (
+                                isset($doorDashResult['data']['fee'])
+                                ? $doorDashResult['data']['fee'] / 100
+                                : 0
+                            )
+                            : $r->grandTotal,
+                        'orderFrom'    => 'store',
+                        'placedBy'     => 'cashier',
+                        'txnId' => $txnId
                     ];
 
                     if ($r->deliveryType == "delivery") {
@@ -329,8 +419,21 @@ class CashierOrderController extends Controller
                         }
                     }
 
+                    $response = [
+                        "message" => "Order placed successfully.",
+                        "orderCode" => $order,
+                        "code" => $orderCode,
+                        "data" => $socketData
+                    ];
 
-                    return response()->json(["message" => "Order placed successfully.", "orderCode" => $order, "code" => $orderCode, "data" => $socketData], 200);
+                    // Only include DoorDash data if it's a delivery order
+                    if ($r->deliveryType == "delivery" && $doorDashResult) {
+                        $response['doordashData'] = $doorDashResult["data"] ?? null;
+                    }
+
+                    return response()->json($response, 200);
+
+                    //return response()->json(["message" => "Order placed successfully.", "orderCode" => $order, "code" => $orderCode, "data" => $socketData], 200);
                 }
                 return response()->json(["message" => "Failed to place order."], 400);
             }
@@ -340,19 +443,125 @@ class CashierOrderController extends Controller
         }
     }
 
+    //change order status
+
+    public function change_order_status(Request $r)
+    {
+        try {
+            $input = $r->all();
+
+            $validator = Validator::make($input, [
+                'orderCode' => 'required',
+                'status'    => 'required|in:accept,cancelled',
+                'grandTotal'       => 'required',
+                'txnId'     => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->first()
+                ], 422);
+            }
+
+            if ($r->status === 'accept') {
+
+                try {
+                    $mobileNumber = "";
+                    $stripe = new Stripe();
+                    $paymentLink = $stripe->createPaymentLink(
+                        $r->grandTotal,
+                        $r->txnId,
+                        'Order Payment - ' . $r->orderCode
+                    );
+
+                    if (!empty($paymentLink['success']) && $paymentLink['success'] === true) {
+
+
+                        OrderMaster::where('code', $r->orderCode)->update([
+                            'payment_link'    => $paymentLink['payment_url'],
+                            'payment_link_id' => $paymentLink['payment_link_id'],
+                            'stripesessionid' =>  $paymentLink['payment_link_id']
+                        ]);
+
+                        $order = OrderMaster::where('code', $r->orderCode)->first();
+
+                        if ($order && $order->mobileNumber) {
+                            $mobileNumber = $order->mobileNumber;
+                        }
+                        //send payemnt link sms
+                        $smsTemplate = SmsTemplate::where("id", 7)->first();
+                        // Replace placeholders in template with actual values
+                        $message = str_replace(
+                            ['{order_number}', '{payment_link}'],
+                            [$r->orderCode,  $paymentLink['payment_url']],
+                            $smsTemplate->template
+                        );
+
+                        if (env('SMS_MODE') === "LIVE") {
+                            $sms = (new \App\Classes\Twilio)->sendMessage($message, $mobileNumber);
+                        }
+
+                        Log::info('Payment link created for cashier order', [
+                            'order_code'  => $r->orderCode,
+                            'payment_url' => $paymentLink['payment_url']
+                        ]);
+
+                        return response()->json([
+                            'message' => 'Order accepted and payment link generated successfully',
+                            'data' => [
+                                'payment_url'     => $paymentLink['payment_url'],
+                                'payment_link_id' => $paymentLink['payment_link_id'],
+                                'payment_mode'    => $paymentLink['mode']
+                            ]
+                        ], 200);
+                    }
+
+                    return response()->json([
+                        'message' => 'Failed to generate payment link'
+                    ], 400);
+                } catch (\Exception $e) {
+                    Log::error('Failed to create payment link for cashier order', [
+                        'order_code' => $r->orderCode,
+                        'error'      => $e->getMessage()
+                    ]);
+
+                    return response()->json([
+                        'message' => 'Payment link creation failed'
+                    ], 500);
+                }
+            }
+
+            if ($r->status === 'cancelled') {
+
+                OrderMaster::where('code', $r->orderCode)->update([
+                    'orderStatus' => 'cancelled'
+                ]);
+
+                return response()->json([
+                    'message' => 'Order cancelled successfully'
+                ], 200);
+            }
+        } catch (\Exception $ex) {
+            return response()->json([
+                'message' => $ex->getMessage()
+            ], 500);
+        }
+    }
+
+
     public function order_edit(Request $r)
     {
         try {
 
             $storeLocation = $r->storeLocation;
             $store = DB::table('storelocation')
-                ->select("storelocation.timezone")
+                ->select("storelocation.timezone", "storelocation.storeAddress", "storelocation.storeLocation")
                 ->where('code', $storeLocation)
                 ->first();
 
             if (!empty($store)) {
                 $timezone = $store->timezone;
-               Carbon::now()->setTimezone($timezone);
+                Carbon::now()->setTimezone($timezone);
                 date_default_timezone_set($timezone);
             }
 
@@ -596,6 +805,7 @@ class CashierOrderController extends Controller
                 'cashierCode' => 'required',
                 'orderFrom' => 'required|in:all,store,online',
                 'orderStatus' => 'nullable',
+                'deliveryType' => 'nullable',
                 'phoneno' => 'nullable'
             ]);
 
@@ -649,6 +859,13 @@ class CashierOrderController extends Controller
                     $orderQuery->where('ordermaster.mobileNumber', $r->phoneno);
                 }
             }
+
+            if ($r->has('deliveryType') && $r->deliveryType != "") {
+                if ($r->deliveryType !== "") {
+                    $orderQuery->where('ordermaster.deliveryType', $r->deliveryType);
+                }
+            }
+
 
             if ($r->has('orderStatus') && $r->orderStatus != "") {
                 $orderQuery->where("ordermaster.orderStatus", $r->orderStatus);
@@ -906,7 +1123,7 @@ class CashierOrderController extends Controller
                 $data["deliveryExecutiveCode"] = $getOrder->deliveryExecutiveCode ?? "";
                 $data["deliveryExecutiveName"] = $getOrder->deliveryExecutiveName ?? "";
                 $data["comments"] = $getOrder->comments ?? "";
-                $data["created_at"] = $getOrder->orderDate;
+                $data["created_at"] = date('d-m-Y h:i A', strtotime($getOrder->created_at)) ?? "";
                 $data["clientType"] = $getOrder->clientType ?? "";
                 $data["subTotal"] = $getOrder->subTotal ?? "0.00";
                 $data["discountmount"] = $getOrder->discountAmount ?? "0.00";
@@ -1385,7 +1602,7 @@ class CashierOrderController extends Controller
                     "comments" => $r->creditComment,
                 ]);
                 if ($addCreditComment == true) {
-                    return response()->json(["message" => "Credit Comment Added Successfully.", "data" => $addCreditComment], 200);
+                    return response()->json(["message" => "Credit Comment Added Successfully.", "data" => ["comments" => $r->creditComment]], 200);
                 }
             }
             return response()->json(["message" => "Failed to add Credit Comment."], 400);

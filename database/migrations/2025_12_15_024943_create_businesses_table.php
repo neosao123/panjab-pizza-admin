@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('twilio_settings', function (Blueprint $table) {
+        Schema::create('businesses', function (Blueprint $table) {
             $table->id();
-            $table->string('twilio_session_id');
-            $table->string('twilio_auth_id');
-            $table->string('twilio_number');
-            $table->string('twilio_mode')->nullable();
-            $table->tinyInteger('isActive')->default(1);
-            $table->tinyInteger('isDelete')->default(0);
+            $table->longText('external_business_id')->nullable();
+            $table->longText('name')->nullable();
+            $table->longText('phone_number')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('activation_status')->default('active');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('twilio_settings');
+        Schema::dropIfExists('businesses');
     }
 };

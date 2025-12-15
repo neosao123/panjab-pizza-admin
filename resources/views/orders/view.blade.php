@@ -93,39 +93,51 @@
                         @endif
                         <div class="col-md-4 form-group">
                             <label>Order Status</label>
-                            <select class="form-control" id="orderStatus" name="orderStatus" <?php if ($queryresult->orderStatus == 'delivered' || $queryresult->orderStatus == 'cancelled') {
-                                echo 'disabled';
-                            } ?>>
-                                @if ($queryresult->orderFrom == 'store' && $queryresult->deliveryType == 'delivery')
-                                    <option value="placed" @if ($queryresult->orderStatus == 'placed') selected @endif>Placed
-                                    </option>
-                                    <option value="shipping" @if ($queryresult->orderStatus == 'shipping') selected @endif>Shipping
-                                    </option>
-                                    <option value="delivered" @if ($queryresult->orderStatus == 'delivered') selected @endif>
-                                        Delivered</option>
-                                    <option value="cancelled" @if ($queryresult->orderStatus == 'cancelled') selected @endif>
-                                        Cancelled</option>
+
+                            <select class="form-control" id="orderStatus" name="orderStatus"
+                                @if ($queryresult->orderStatus == 'delivered' || $queryresult->orderStatus == 'cancelled')
+                                    disabled
                                 @endif
-                                @if ($queryresult->orderFrom == 'store' && $queryresult->deliveryType == 'pickup')
-                                    <option value="placed" @if ($queryresult->orderStatus == 'placed') selected @endif>Placed
-                                    </option>
-                                    <option value="picked-up" @if ($queryresult->orderStatus == 'picked-up') selected @endif>Picked
-                                        Up</option>
-                                    <option value="cancelled" @if ($queryresult->orderStatus == 'cancelled') selected @endif>
-                                        Cancelled</option>
+                            >
+                                @if ($queryresult->orderStatus == 'pending')
+                                    <option value="pending" @selected($queryresult->orderStatus == 'pending')>Pending</option>
+                                     <option value="placed" @selected($queryresult->orderStatus == 'placed')>Placed</option>
+                                     <option value="shipping" @selected($queryresult->orderStatus == 'shipping')>Shipping</option>
+                                     <option value="delivered" @selected($queryresult->orderStatus == 'delivered')>Delivered</option>
+                                     <option value="cancelled" @selected($queryresult->orderStatus == 'cancelled')>Cancelled</option>
+                                @else
+
+                                    {{-- Store → Delivery --}}
+                                    @if ($queryresult->orderFrom == 'store' && $queryresult->deliveryType == 'delivery')
+                                        <option value="placed" @selected($queryresult->orderStatus == 'placed')>Placed</option>
+                                        <option value="pending" @selected($queryresult->orderStatus == 'pending')>Pending</option>
+                                        <option value="shipping" @selected($queryresult->orderStatus == 'shipping')>Shipping</option>
+                                        <option value="delivered" @selected($queryresult->orderStatus == 'delivered')>Delivered</option>
+                                        <option value="cancelled" @selected($queryresult->orderStatus == 'cancelled')>Cancelled</option>
+                                    @endif
+
+                                    {{-- Store → Pickup --}}
+                                    @if ($queryresult->orderFrom == 'store' && $queryresult->deliveryType == 'pickup')
+                                        <option value="placed" @selected($queryresult->orderStatus == 'placed')>Placed</option>
+                                        <option value="pending" @selected($queryresult->orderStatus == 'pending')>Pending</option>
+                                        <option value="picked-up" @selected($queryresult->orderStatus == 'picked-up')>Picked Up</option>
+                                        <option value="cancelled" @selected($queryresult->orderStatus == 'cancelled')>Cancelled</option>
+                                    @endif
+
+                                    {{-- Online --}}
+                                    @if ($queryresult->orderFrom == 'online')
+                                        <option value="placed" @selected($queryresult->orderStatus == 'placed')>Placed</option>
+                                        <option value="pending" @selected($queryresult->orderStatus == 'pending')>Pending</option>
+                                        <option value="shipping" @selected($queryresult->orderStatus == 'shipping')>Shipping</option>
+                                        <option value="delivered" @selected($queryresult->orderStatus == 'delivered')>Delivered</option>
+                                        <option value="cancelled" @selected($queryresult->orderStatus == 'cancelled')>Cancelled</option>
+                                    @endif
+
                                 @endif
-                                @if ($queryresult->orderFrom == 'online')
-                                    <option value="placed" @if ($queryresult->orderStatus == 'placed') selected @endif>Placed
-                                    </option>
-                                    <option value="shipping" @if ($queryresult->orderStatus == 'shipping') selected @endif>Shipping
-                                    </option>
-                                    <option value="delivered" @if ($queryresult->orderStatus == 'delivered') selected @endif>
-                                        Delivered</option>
-                                    <option value="cancelled" @if ($queryresult->orderStatus == 'cancelled') selected @endif>
-                                        Cancelled</option>
-                                @endif
+
                             </select>
                         </div>
+
                         @if ($queryresult->address != '')
                             <div class="col-md-12 form-group">
                                 <label>Address : </label>

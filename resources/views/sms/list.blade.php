@@ -186,6 +186,28 @@
                                             target="_blank">Twilio Console</a>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Mode <span class="text-danger">*</span></label>
+                                        <select name="twilio_mode"
+                                            class="form-control @error('twilio_mode') is-invalid @enderror">
+
+                                            <option value="">-- Select Mode --</option>
+                                            <option value="test"
+                                                @selected(old('twilio_mode', $twilioSettings->twilio_mode ?? '') === 'test')>
+                                                Test
+                                            </option>
+                                            <option value="live"
+                                                @selected(old('twilio_mode', $twilioSettings->twilio_mode ?? '') === 'live')>
+                                                Live
+                                            </option>
+                                        </select>
+
+                                        @error('twilio_mode')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
                                     <div class="form-group mt-3">
                                         <label>Twilio Account SID <span class="text-danger">*</span></label>
                                         <input type="text" name="twilio_sid"

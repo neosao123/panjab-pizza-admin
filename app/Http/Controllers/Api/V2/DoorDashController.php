@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use App\Models\Business;
 
 class DoorDashController extends Controller
 {
@@ -49,12 +50,12 @@ class DoorDashController extends Controller
             'dropoff_contact_family_name' => 'nullable|string',
             'dropoff_contact_send_notifications' => 'nullable|boolean',
             'currency' => 'nullable|string',
-            'pickup_time' => 'nullable|date',
-            'dropoff_time' => 'nullable|date',
-            'pickup_window.start_time' => 'nullable|date',
-            'pickup_window.end_time' => 'nullable|date',
-            'dropoff_window.start_time' => 'nullable|date',
-            'dropoff_window.end_time' => 'nullable|date',
+            'pickup_time' => 'nullable|date_format:Y-m-d\TH:i:s\Z',
+            'dropoff_time' => 'nullable|date_format:Y-m-d\TH:i:s\Z',
+            'pickup_window.start_time' => 'nullable|date_format:Y-m-d\TH:i:s\Z',
+            'pickup_window.end_time' => 'nullable|date_format:Y-m-d\TH:i:s\Z',
+            'dropoff_window.start_time' => 'nullable|date_format:Y-m-d\TH:i:s\Z',
+            'dropoff_window.end_time' => 'nullable|date_format:Y-m-d\TH:i:s\Z',
             'contactless_dropoff' => 'nullable|boolean',
             'action_if_undeliverable' => 'nullable|in:return_to_pickup,leave_at_door',
             'tip' => 'nullable|integer|min:0',
@@ -496,6 +497,113 @@ class DoorDashController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Internal server error while cancelling delivery'
+            ], 500);
+        }
+    }
+
+
+
+    /**
+     * Create a new business
+     * POST /api/doordash/businesses
+     */
+    public function createBusiness(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'external_business_id' => 'required|string',
+            'name' => 'required|string',
+            'phone_number' => 'nullable|string',
+            'description' => 'nullable|string'
+        ]);
+
+        if ($validator->fails()) {
+            Log::warning('DoorDash Create Business Validation Errors', [
+                'errors' => $validator->errors(),
+                'request' => $request->all()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $result = $this->doorDashService->createBusiness($request->all());
+
+            if (isset($result['success']) && $result['success'] === true) {
+                // Save to local database
+                $business = Business::updateOrCreate(
+                    ['external_business_id' => $request->external_business_id],
+                    [
+                        'name' => $request->name,
+                        'phone_number' => $request->phone_number,
+                        'description' => $request->description,
+                        'activation_status' => $request->activation_status ?? 'active'
+                    ]
+                );
+
+                Log::info('DoorDash Business Saved Locally', [
+                    'business_id' => $business->id,
+                    'external_business_id' => $business->external_business_id
+                ]);
+            }
+
+            return response()->json($result, $result['success'] ? 200 : 400);
+        } catch (\Exception $ex) {
+            Log::error('DoorDash Create Business Exception', [
+                'error' => $ex->getMessage(),
+                'request' => $request->all()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => $ex->getMessage()
+            ], 500);
+        }
+    }
+
+
+    /**
+     * Create Store for a Business
+     * POST /api/doordash/stores
+     */
+    public function createStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'external_business_id' => 'required|string',
+            'external_store_id'    => 'required',
+            'name'                 => 'required',
+            'phone_number'         => 'required',
+            'address'              => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            Log::warning('DoorDash Create Store Validation Errors', [
+                'errors' => $validator->errors(),
+                'request' => $request->all()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $result = $this->doorDashService->createStore($request->all());
+
+
+            return response()->json($result, $result['success'] ? 200 : 400);
+        } catch (\Exception $ex) {
+            Log::error('DoorDash Create Store Exception', [
+                'error' => $ex->getMessage(),
+                'request' => $request->all()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => $ex->getMessage()
             ], 500);
         }
     }
