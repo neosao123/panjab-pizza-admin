@@ -35,6 +35,8 @@ use App\Classes\Stripe;
 use App\Services\DoorDashService;
 use App\Models\SmsTemplate;
 use App\Models\DoorDashStep;
+use App\Classes\Twilio;
+
 
 
 class WebhookController extends Controller
@@ -425,9 +427,11 @@ class WebhookController extends Controller
                 $smsTemplate->template
             );
 
+            $twilio = new Twilio;
+
             // Send SMS if in LIVE mode
-            if (env('SMS_MODE') === "LIVE" && !empty($order->mobileNumber)) {
-                $sms = (new Twilio)->sendMessage($message, $order->mobileNumber);
+            if ($twilio->isLive() && !empty($order->mobileNumber)) {
+                $sms = $twilio->sendMessage($message, $order->mobileNumber);
 
                 Log::info("DoorDash tracking SMS sent", [
                     'order_code' => $order->code,

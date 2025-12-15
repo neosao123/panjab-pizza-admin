@@ -44,11 +44,13 @@ class SmsSend extends Command
         $this->info("Processing in chunks of 100...");
 
         $twilio = new Twilio();
+
         $successCount = 0;
         $failedCount = 0;
         $processedCount = 0;
 
         // Process in chunks of 100
+        if ($twilio->isLive()) {
         SMSLog::where('status', 'pending')
             ->chunkById(100, function ($pendingSms) use ($twilio, &$successCount, &$failedCount, &$processedCount, $totalPending) {
 
@@ -113,6 +115,7 @@ class SmsSend extends Command
 
                 $this->info("Chunk completed. Progress: {$processedCount}/{$totalPending}");
             });
+        }
 
         $this->newLine();
         $this->info("SMS sending completed!");

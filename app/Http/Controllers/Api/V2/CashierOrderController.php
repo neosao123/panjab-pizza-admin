@@ -34,6 +34,7 @@ use App\Classes\Stripe;
 use App\Models\DoorDashStep;
 use App\Models\Business;
 
+
 class CashierOrderController extends Controller
 {
     protected DoorDashService $doorDashService;
@@ -393,8 +394,10 @@ class CashierOrderController extends Controller
                             $smsTemplate->template
                         );
 
-                        if (env('SMS_MODE') === "LIVE") {
-                            $sms = (new \App\Classes\Twilio)->sendMessage($message, $r->mobileNumber);
+                        $twilio = new Twilio;
+
+                        if ($twilio->isLive()) {
+                            $sms = $twilio->sendMessage($message, $r->mobileNumber);
                         }
                     }
 
@@ -413,9 +416,10 @@ class CashierOrderController extends Controller
                             [$order, $pickupTime, $storeAddress],
                             $smsTemplate->template
                         );
+                        $twilio = new Twilio;
 
-                        if (env('SMS_MODE') === "LIVE") {
-                            $sms = (new \App\Classes\Twilio)->sendMessage($message, $r->mobileNumber);
+                        if ($twilio->isLive()) {
+                            $sms = $twilio->sendMessage($message, $r->mobileNumber);
                         }
                     }
 
@@ -497,8 +501,10 @@ class CashierOrderController extends Controller
                             $smsTemplate->template
                         );
 
-                        if (env('SMS_MODE') === "LIVE") {
-                            $sms = (new \App\Classes\Twilio)->sendMessage($message, $mobileNumber);
+                        $twilio = new Twilio;
+
+                        if ($twilio->isLive()) {
+                            $sms = $twilio->sendMessage($message, $mobileNumber);
                         }
 
                         Log::info('Payment link created for cashier order', [

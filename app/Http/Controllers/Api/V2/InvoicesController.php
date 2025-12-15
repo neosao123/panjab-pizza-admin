@@ -49,6 +49,7 @@ class InvoicesController extends Controller
 
     public function getInvoice(Request $r)
     {
+
         try {
             $input = $r->all();
             $validator = Validator::make($input, [
@@ -72,12 +73,13 @@ class InvoicesController extends Controller
             $todate = date('Y-m-d 23:59:59');
 
 
+
             if ($r->fromDate != "" && $r->toDate != "") {
                 $fromDate = date('Y-m-d', strtotime($r->fromDate));
                 $toDate = date('Y-m-d', strtotime($r->toDate));
                 //if ($toDate > $fromDate) {
                     $fromdate = $fromDate . " 00:00:00";
-                    $toDate = $toDate . " 23:59:59";
+                    $todate = $toDate . " 23:59:59";
 
                // }
             }
@@ -88,7 +90,8 @@ class InvoicesController extends Controller
                 ->join("usermaster as u2", "u2.code", "=", "ordermaster.deliveryExecutiveCode", "left")
                 ->join("storelocation", "storelocation.code", "=", "ordermaster.storeLocation")
                 ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName")
-                ->whereBetween('ordermaster.created_at', [$fromdate, $todate]);
+                  ->where('ordermaster.created_at', '>=', $fromdate)
+                  ->where('ordermaster.created_at', '<=', $todate);
             if ($r->has('cashierCode') && $r->cashierCode != "") {
                 $getCount->where('ordermaster.addID', $r->cashierCode);
             }
@@ -123,7 +126,8 @@ class InvoicesController extends Controller
                 ->join("usermaster as u2", "u2.code", "=", "ordermaster.deliveryExecutiveCode", "left")
                 ->join("storelocation", "storelocation.code", "=", "ordermaster.storeLocation")
                 ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName")
-                ->whereBetween('ordermaster.created_at', [$fromdate, $todate]);
+                ->where('ordermaster.created_at', '>=', $fromdate)
+                ->where('ordermaster.created_at', '<=', $todate);
             if ($r->has('cashierCode') && $r->cashierCode != "") {
                 $orderQuery->where('ordermaster.addID', $r->cashierCode);
             }

@@ -448,9 +448,10 @@ class CustomerController extends Controller
                     [$otp],
                     $smsTemplate->template
                 );
+                $twilio = new Twilio;
 
-                if (env('SMS_MODE') === "LIVE") {
-                    $sms = (new \App\Classes\Twilio)->sendMessage($message, $r->mobileNumber);
+                if ($twilio->isLive()) {
+                    $sms = $twilio->sendMessage($message, $r->mobileNumber);
 
                     if ($sms === false) {
                         return response()->json([

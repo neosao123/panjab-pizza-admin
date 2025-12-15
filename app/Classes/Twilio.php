@@ -19,11 +19,17 @@ class Twilio
         }
 
         return [
-            'mode'=>'LIVE',
+            'mode' => $settings->twilio_mode,
             'sid'   => $settings->twilio_session_id,
             'token' => $settings->twilio_auth_id,
             'from'  => $settings->twilio_number,
         ];
+    }
+
+    public function isLive()
+    {
+        $config = $this->getConfig();
+        return $config && strtoupper($config['mode']) === 'LIVE';
     }
 
     public function sendMessage($message, $recipient)

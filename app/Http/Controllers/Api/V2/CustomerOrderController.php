@@ -36,6 +36,7 @@ use App\Models\SmsTemplate;
 use App\Services\DoorDashService;
 use App\Models\DoorDashStep;
 use App\Models\Business;
+use App\Classes\Twilio;
 
 class CustomerOrderController extends Controller
 {
@@ -363,9 +364,13 @@ class CustomerOrderController extends Controller
                                 $smsTemplate->template
                             );
 
-                            if (env('SMS_MODE') === "LIVE") {
-                                $sms = (new \App\Classes\Twilio)->sendMessage($message, $r->mobileNumber);
+                            $twilio = new Twilio;
+
+                            if ($twilio->isLive()) {
+                                $sms = $twilio->sendMessage($message, $r->mobileNumber);
                             }
+
+
                         }
 
                         if ($r->deliveryType == "pickup") {
@@ -384,8 +389,10 @@ class CustomerOrderController extends Controller
                                 $smsTemplate->template
                             );
 
-                            if (env('SMS_MODE') === "LIVE") {
-                                $sms = (new \App\Classes\Twilio)->sendMessage($message, $r->mobileNumber);
+                            $twilio = new Twilio;
+
+                            if ($twilio->isLive()) {
+                                $sms = $twilio->sendMessage($message, $r->mobileNumber);
                             }
                         }
 
@@ -1012,7 +1019,7 @@ class CustomerOrderController extends Controller
             if ($r->has('transactionId') && $r->transactionId != "") {
                 $getCount->where('ordermaster.txnId', $r->transactionId);
             }
-            $count = $getCount->orderBy('ordermaster.id', 'DESC')->count();
+            $count = $getCount->groupBy("ordermaster.id")->orderBy('ordermaster.id', 'DESC')->count();
             $perpage = 10;
             $page = 1;
             if ($r->page != "") {
@@ -1045,7 +1052,7 @@ class CustomerOrderController extends Controller
             if ($r->has('transactionId') && $r->transactionId != "") {
                 $orderQuery->where('ordermaster.txnId', $r->transactionId);
             }
-            $getOrder = $orderQuery->orderBy('ordermaster.id', 'DESC')
+            $getOrder = $orderQuery->groupBy("ordermaster.id")->orderBy('ordermaster.id', 'DESC')
                 ->skip($offset)
                 ->limit($perpage)
                 ->get();
@@ -1289,178 +1296,5 @@ class CustomerOrderController extends Controller
         } catch (\Exception $ex) {
             return response()->json(["status" => 200, "message" => "Payment Successfull."]);
         }
-    }
-
-    public function webhook(Request $r)
-    {
-        try {
-            $endpoint_secret = env('WEBHOOK_SECRET_KEY');
-
-            // Get raw payload for signature verification
-            $payload = $r->getContent();
-            $sig_header = $r->header('Stripe-Signature');
-
-            // Verify webhook signature
-            try {
-                $event = \Stripe\Webhook::constructEvent(
-                    $payload,
-                    $sig_header,
-                    $endpoint_secret
-                );
-            } catch (\UnexpectedValueException $e) {
-                return response()->json(['error' => 'Invalid payload'], 400);
-            } catch (\Stripe\Exception\SignatureVerificationException $e) {
-                return response()->json(['error' => 'Invalid signature'], 400);
-            }
-
-            Log::info("payment web hook " . json_encode($event));
-
-            // Access the data
-            $paymentObject = $event->data->object;
-            $eventType = $event->type;
-
-            // Check object type exists
-            if (!isset($paymentObject->object)) {
-                Log::warning("Object type not found in webhook");
-                return response()->json(["status" => 200, "message" => "Invalid object type."]);
-            }
-
-            $objectType = $paymentObject->object;
-
-            // HANDLE CHECKOUT SESSION EVENTS
-            if ($objectType == "checkout.session") {
-                $stripeSessionId = $paymentObject->id;
-                $paymentIntentId = $paymentObject->payment_intent ?? null;
-                $paymentStatus = $paymentObject->payment_status ?? null;
-
-                Log::info("Processing checkout.session - Session ID: " . $stripeSessionId . " | Payment Status: " . $paymentStatus);
-
-                // Find order by session ID
-                $result = DB::table("ordermaster")
-                    ->select("ordermaster.*")
-                    ->where("stripesessionid", $stripeSessionId)
-                    ->first();
-
-                if (!empty($result)) {
-                    if ($result->orderStatus === 'pending') {
-                        $data = [];
-                        $data['webHookResponse'] = json_encode($event);
-
-                        if ($paymentIntentId) {
-                            $data['paymentOrderId'] = $paymentIntentId;
-                        }
-
-                        // Handle completed session with paid status
-                        if ($eventType == "checkout.session.completed" && $paymentStatus == "paid") {
-                            $data['orderStatus'] = 'placed';
-                            $data['paymentStatus'] = "paid";
-                            $this->model->doEdit($data, 'ordermaster', $result->code);
-
-                            Log::info("Order updated to paid: " . $stripeSessionId);
-                        }
-                        // Handle expired session
-                        elseif ($eventType == "checkout.session.expired") {
-                            $data['orderStatus'] = 'pending';
-                            $data['paymentStatus'] = "failed";
-                            $this->model->doEdit($data, 'ordermaster', $result->code);
-
-                            Log::info("Order canceled: " . $stripeSessionId);
-                        }
-                        // Handle unpaid status
-                        elseif ($paymentStatus == "unpaid") {
-                            $data['orderStatus'] = 'cancelled';
-                            $data['paymentStatus'] = "cancelled";
-                            $this->model->doEdit($data, 'ordermaster', $result->code);
-
-                            Log::info("Order marked unpaid: " . $stripeSessionId);
-                        }
-                    } else {
-                        Log::info("Order already processed: " . $stripeSessionId);
-                    }
-                } else {
-                    Log::warning("Order not found for session: " . $stripeSessionId);
-                }
-            }
-
-            // HANDLE PAYMENT INTENT EVENTS
-            elseif ($objectType == "payment_intent") {
-                $paymentIntentId = $paymentObject->id;
-                $status = $paymentObject->status ?? null;
-                $customer = $paymentObject->customer ?? null;
-
-                Log::info("Processing payment_intent - ID: " . $paymentIntentId . " | Status: " . $status);
-
-                // Find order by payment intent ID
-                $result = DB::table("ordermaster")
-                    ->select("ordermaster.*")
-                    ->where("stripesessionid", $paymentIntentId)
-                    ->first();
-
-                if (!empty($result)) {
-                    if ($result->orderStatus === 'pending') {
-                        $data = [];
-                        $data['webHookResponse'] = json_encode($event);
-
-                        // Handle succeeded payment intent
-                        if ($eventType == "payment_intent.succeeded") {
-                            $data['orderStatus'] = 'placed';
-                            $data['paymentStatus'] = "paid";
-                            $this->model->doEdit($data, 'ordermaster', $result->code);
-
-                            Log::info("Order updated to paid via payment_intent: " . $paymentIntentId);
-                        }
-                        // Handle failed payment
-                        elseif ($eventType == "payment_intent.payment_failed") {
-
-                            $data['orderStatus'] = 'pending';
-                            $data['paymentStatus'] = "failed";
-                            $this->model->doEdit($data, 'ordermaster', $result->code);
-
-                            Log::info("Order canceled via payment_intent: " . $paymentIntentId);
-                        } // Handle created payment intent (optional - just for tracking)
-                        elseif ($eventType == "payment_intent.created") {
-                            /*if ($status == "requires_payment_method") {
-                                $data['orderStatus'] = 'cancelled';
-                                $data['paymentStatus'] = "failed";
-                                $this->model->doEdit($data, 'ordermaster', $result->code);
-                            }*/
-                            // Just log it, don't change order status
-                            Log::info("Payment intent created: " . $paymentIntentId);
-                        }
-                    } else {
-                        Log::info("Order already processed: " . $paymentIntentId);
-                    }
-                } else {
-                    Log::warning("Order not found for payment intent: " . $paymentIntentId);
-                }
-            }
-
-            // Unknown object type
-            else {
-                Log::info("Unhandled object type: " . $objectType . " | Event: " . $eventType);
-            }
-
-            return response()->json(["status" => 200, "message" => "Webhook processed successfully."]);
-        } catch (\Exception $ex) {
-            Log::error("Webhook error: " . $ex->getMessage());
-            // Return 200 to prevent Stripe from retrying
-            return response()->json(["status" => 200, "message" => "Webhook received."]);
-        }
-    }
-
-
-    public function payment_success(Request $r)
-    {
-        return response()->json(["status" => 200, "message" => "Payment Successfull."]);
-    }
-
-    public function payment_failed(Request $r)
-    {
-        return response()->json(["status" => 300, "message" => "Payment Failed."]);
-    }
-
-    public function payment_cancel(Request $r)
-    {
-        return response()->json(["status" => 200, "message" => "Payment Successfull."]);
     }
 }
