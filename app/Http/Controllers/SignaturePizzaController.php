@@ -52,8 +52,90 @@ class SignaturePizzaController extends Controller
         }
     }
 
+    public function getSauce(Request $r)
+    {
+        $html = [];
+        $search = $r->search;
+        $like = array('sauce.sauce' => $search);
+        $condition = array('sauce.isDelete' => array('=', 0));
+        $orderBy = array('sauce' . '.id' => 'DESC');
+        $result = $this->model->selectQuery('sauce.*', 'sauce', array(), $condition, $orderBy, $like, '', '');
+        if ($result) {
+            foreach ($result as $item) {
+                $html[] = array('id' => $item->code, 'text' => $item->sauce);
+            }
+        }
+        echo  json_encode($html);
+    }
+
+
+    public function getCrustType(Request $r)
+    {
+        $html = [];
+        $search = $r->search;
+        $like = array('crust_type.crustType' => $search);
+        $condition = array('crust_type.isDelete' => array('=', 0));
+        $orderBy = array('crust_type' . '.id' => 'DESC');
+        $result = $this->model->selectQuery('crust_type.*', 'crust_type', array(), $condition, $orderBy, $like, '', '');
+        if ($result) {
+            foreach ($result as $item) {
+                $html[] = array('id' => $item->code, 'text' => $item->crustType);
+            }
+        }
+        echo  json_encode($html);
+    }
+
+    public function getCrust(Request $r)
+    {
+        $html = [];
+        $search = $r->search;
+        $like = array('crust.crust' => $search);
+        $condition = array('crust.isDelete' => array('=', 0));
+        $orderBy = array('crust' . '.id' => 'DESC');
+        $result = $this->model->selectQuery('crust.*', 'crust', array(), $condition, $orderBy, $like, '', '');
+        if ($result) {
+            foreach ($result as $item) {
+                $html[] = array('id' => $item->code, 'text' => $item->crust);
+            }
+        }
+        echo  json_encode($html);
+    }
+
+     public function getCheese(Request $r)
+    {
+        $html = [];
+        $search = $r->search;
+        $like = array('cheese.cheese' => $search);
+        $condition = array('cheese.isDelete' => array('=', 0));
+        $orderBy = array('cheese' . '.id' => 'DESC');
+        $result = $this->model->selectQuery('cheese.*', 'cheese', array(), $condition, $orderBy, $like, '', '');
+        if ($result) {
+            foreach ($result as $item) {
+                $html[] = array('id' => $item->code, 'text' => $item->cheese);
+            }
+        }
+        echo  json_encode($html);
+    }
+
+     public function getCook(Request $r)
+    {
+        $html = [];
+        $search = $r->search;
+        $like = array('cook.cook' => $search);
+        $condition = array('cook.isDelete' => array('=', 0));
+        $orderBy = array('cook' . '.id' => 'DESC');
+        $result = $this->model->selectQuery('cook.*', 'cook', array(), $condition, $orderBy, $like, '', '');
+        if ($result) {
+            foreach ($result as $item) {
+                $html[] = array('id' => $item->code, 'text' => $item->cook);
+            }
+        }
+        echo  json_encode($html);
+    }
+
     //seemashelar@neosao
     //signature pizza list
+
 
     public function getSignaturePizza(Request $r)
     {

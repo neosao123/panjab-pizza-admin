@@ -95,6 +95,7 @@ class CashierController extends Controller
                 return response()->json($response, 500);
             }
             $user = Users::where('userEmail', $r->email)->first();
+
             if ($user) {
                 $token = $this->model->randomCharacters(5);
                 $token .= date('Hdm');
@@ -109,7 +110,7 @@ class CashierController extends Controller
                 $user->save();
                 return response()->json(['message' => 'Reset Link was sent to your email...'], 200);
             } else {
-                return response()->json(['message' => 'No users were found with the email address provided! Sorry cannot reset the password'], 200);
+                return response()->json(['message' => 'No users were found with the email address provided! Sorry cannot reset the password'], 400);
             }
         } catch (\Exception $ex) {
             return response()->json(['message' => $ex->getMessage()], 400);
@@ -133,7 +134,7 @@ class CashierController extends Controller
                 $data = ["resetToken" => $user->resetToken];
                 return response()->json(["message" => "Data found", "data" => $data], 200);
             }
-            return response()->json(["message" => "Password Reset Link is Expired. Please Forgot Password Again to Continue."], 200);
+            return response()->json(["message" => "Password Reset Link is Expired. Please Forgot Password Again to Continue."], 400);
         } catch (\Exception $ex) {
             return response()->json(['message' => $ex->getMessage()], 400);
         }
@@ -161,7 +162,7 @@ class CashierController extends Controller
                 $user->save();
                 return response()->json(["message" => "Password updated successful. Please login to continue."], 200);
             }
-            return response()->json(["message" => "Password Reset Link is Expired. Please Forgot Password Again to Continue."], 200);
+            return response()->json(["message" => "Password Reset Link is Expired. Please Forgot Password Again to Continue."], 400);
         } catch (\Exception $ex) {
             return response()->json(['message' => $ex->getMessage()], 400);
         }

@@ -107,100 +107,104 @@ class Helper
     // Dveloper: ShreyasM, Working Date: 10oct2024
     public function special_pizza_calculations($product, $nonRegularToppingCount)
     {
-
         $calculatedPrice = 0;
-        // $totalOneTpsPrice = 0;
-        // $totalTwoTpsPrice = 0;
+        $totalOneTpsPrice = 0;
+        $totalTwoTpsPrice = 0;
 
-        // $calcOneTpsArr = [];
-        // $calcTwoTpsArr = [];
-        // $noOfAdditionalTps = 0;
-        // $noOfFreeToppings = 0;
+        $calcOneTpsArr = [];
+        $calcTwoTpsArr = [];
+        $noOfAdditionalTps = 0;
+        $noOfFreeToppings = 0;
 
         $calculatedPrice += (float)$product['pizzaPrice'];
 
-        // foreach ($product['config']['pizza'] as $item) {
-        //     if (isset($item['crust']['price'])) {
-        //         $calculatedPrice += (float)$item['crust']['price'];
-        //     }
-        //     if (isset($item['crustType']['price'])) {
-        //         $calculatedPrice += (float)$item['crustType']['price'];
-        //     }
-        //     if (isset($item['cheese']['price'])) {
-        //         $calculatedPrice += (float)$item['cheese']['price'];
-        //     }
-        //     if (isset($item['specialBases']['price'])) {
-        //         $calculatedPrice += (float)$item['specialBases']['price'];
-        //     }
-        //     if (isset($item['spicy']['price'])) {
-        //         $calculatedPrice += (float)$item['spicy']['price'];
-        //     }
-        //     if (isset($item['sauce']['price'])) {
-        //         $calculatedPrice += (float)$item['sauce']['price'];
-        //     }
-        //     if (isset($item['cook']['price'])) {
-        //         $calculatedPrice += (float)$item['cook']['price'];
-        //     }
-        // }
+        foreach ($product['config']['pizza'] as $item) {
+            if (isset($item['crust']['price'])) {
+                $calculatedPrice += (float)$item['crust']['price'];
+            }
+            if (isset($item['crustType']['price'])) {
+                $calculatedPrice += (float)$item['crustType']['price'];
+            }
+            if (isset($item['cheese']['price'])) {
+                $calculatedPrice += (float)$item['cheese']['price'];
+            }
+            if (isset($item['specialBases']['price'])) {
+                $calculatedPrice += (float)$item['specialBases']['price'];
+            }
+            if (isset($item['spicy']['price'])) {
+                $calculatedPrice += (float)$item['spicy']['price'];
+            }
+            if (isset($item['sauce']['price'])) {
+                $calculatedPrice += (float)$item['sauce']['price'];
+            }
+            if (isset($item['cook']['price'])) {
+                $calculatedPrice += (float)$item['cook']['price'];
+            }
+        }
 
         $getSpecialData = DB::table('specialoffer')->where('code', $product['productCode'])->select('*')->first();
-        // for ($i = 0; $i < $getSpecialData->noofPizza; $i++) {
-        //     foreach ($product['config']['pizza'] as $pizzaIndex => $data) {
-        //         // Handle CountAsOne Toppings
-        //         if (!empty($data['toppings']['countAsOneToppings'])) {
-        //             foreach ($data['toppings']['countAsOneToppings'] as $key => $item) {
-        //                 if ($pizzaIndex === $i) {
-        //                     if ($noOfFreeToppings > 0) {
-        //                         $tpsObj = [
-        //                             ...$item,
-        //                             'amount' => 0,
-        //                         ];
-        //                         $calcOneTpsArr[] = $tpsObj;
-        //                         $noOfFreeToppings--;
-        //                     } else {
-        //                         $calcOneTpsArr[] = $item;
-        //                         $noOfAdditionalTps++;
-        //                     }
-        //                 }
-        //             }
-        //         }
 
-        //         // Handle CountAsTwo Toppings
-        //         if (!empty($data['toppings']['countAsTwoToppings'])) {
-        //             foreach ($data['toppings']['countAsTwoToppings'] as $item) {
-        //                 if ($pizzaIndex === $i) {
-        //                     if ($noOfFreeToppings > 1) {
-        //                         $tpsObj = [
-        //                             ...$item,
-        //                             'amount' => 0,
-        //                         ];
-        //                         $calcTwoTpsArr[] = $tpsObj;
-        //                         $noOfFreeToppings -= 2;
-        //                     } elseif ($noOfFreeToppings === 1) {
-        //                         $tpsObj = [
-        //                             ...$item,
-        //                             'amount' => $nonRegularToppingCount >= 2 ? (float) $item['toppingsPrice'] / $nonRegularToppingCount : 0,
-        //                         ];
-        //                         $calcTwoTpsArr[] = $tpsObj;
-        //                         $noOfFreeToppings--;
-        //                         if ($nonRegularToppingCount) {
-        //                             $noOfAdditionalTps++;
-        //                         }
-        //                     } else {
-        //                         $calcTwoTpsArr[] = $item;
-        //                         $noOfAdditionalTps += 2;
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        for ($i = 0; $i < $getSpecialData->noofPizza; $i++) {
+            foreach ($product['config']['pizza'] as $pizzaIndex => $data) {
+                // Handle CountAsOne Toppings
+                if (!empty($data['toppings']['countAsOneToppings'])) {
+                    foreach ($data['toppings']['countAsOneToppings'] as $key => $item) {
+                        if ($pizzaIndex === $i) {
+                            if ($noOfFreeToppings > 0) {
+                                $tpsObj = [
+                                    ...$item,
+                                    'amount' => 0,
+                                ];
+                                $calcOneTpsArr[] = $tpsObj;
+                                $noOfFreeToppings--;
+                            } else {
+                                $calcOneTpsArr[] = $item;
+                                $noOfAdditionalTps++;
+                            }
+                        }
+                    }
+                }
 
-        if ($product['config']['dips'] > 0) {
-            $calcDipsArr = [];
-            $totalDipsPrice = 0;
+                // Handle CountAsTwo Toppings
+                if (!empty($data['toppings']['countAsTwoToppings'])) {
+                    foreach ($data['toppings']['countAsTwoToppings'] as $item) {
+                        if ($pizzaIndex === $i) {
+                            if ($noOfFreeToppings > 1) {
+                                $tpsObj = [
+                                    ...$item,
+                                    'amount' => 0,
+                                ];
+                                $calcTwoTpsArr[] = $tpsObj;
+                                $noOfFreeToppings -= 2;
+                            } elseif ($noOfFreeToppings === 1) {
+                                $tpsObj = [
+                                    ...$item,
+                                    'amount' => $nonRegularToppingCount >= 2 ? (float) $item['toppingsPrice'] / $nonRegularToppingCount : 0,
+                                ];
+                                $calcTwoTpsArr[] = $tpsObj;
+                                $noOfFreeToppings--;
+                                if ($nonRegularToppingCount) {
+                                    $noOfAdditionalTps++;
+                                }
+                            } else {
+                                $calcTwoTpsArr[] = $item;
+                                $noOfAdditionalTps += 2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // FIX: Initialize dips calculation variables and array
+        $calcDipsArr = [];
+        $totalDipsPrice = 0;
+
+        // FIX: Check if dips exist and is an array before processing
+        if (isset($product['config']['dips']) && is_array($product['config']['dips']) && count($product['config']['dips']) > 0) {
             $noOfFreeDips = $getSpecialData->noofDips;
             $noOfAdditionalDips = 0;
+
             foreach ($product['config']['dips'] as $item) {
                 $usedFreeDips = 0;
 
@@ -226,31 +230,29 @@ class Helper
                 ];
 
                 $calcDipsArr[] = $dipsObj;
+                // FIX: Add totalPrice immediately during loop
+                $totalDipsPrice += (float)$dipsObj['totalPrice'];
             }
         }
 
-        foreach ($calcDipsArr as $dips) {
-            $totalDipsPrice += (float)($dips['totalPrice'] ?? 0);
-        }
-
+        // FIX: Remove duplicate dips price calculation loop (it was outside the if block)
         $calculatedPrice += $totalDipsPrice;
 
-        // // Calculate total prices for CountAsOne Toppings
-        // foreach ($calcOneTpsArr as $tps) {
-        //     $totalOneTpsPrice += (float) $tps['amount'];
-        // }
-        // $calculatedPrice += $totalOneTpsPrice;
+        // Calculate total prices for CountAsOne Toppings
+        foreach ($calcOneTpsArr as $tps) {
+            $totalOneTpsPrice += (float) $tps['amount'];
+        }
+        $calculatedPrice += $totalOneTpsPrice;
 
-        // // Calculate total prices for CountAsTwo Toppings
-        // foreach ($calcTwoTpsArr as $tps) {
-        //     $totalTwoTpsPrice += (float) $tps['amount'];
-        // }
-        // $calculatedPrice += $totalTwoTpsPrice;
+        // Calculate total prices for CountAsTwo Toppings
+        foreach ($calcTwoTpsArr as $tps) {
+            $totalTwoTpsPrice += (float) $tps['amount'];
+        }
+        $calculatedPrice += $totalTwoTpsPrice;
 
         $verify_specialpizza_amount = $calculatedPrice * $product['quantity'];
         return $verify_specialpizza_amount;
     }
-
     /**
      * Summary of signature_pizza_calculations
      * @param mixed $product
@@ -370,10 +372,15 @@ class Helper
             $discountAmount = $cart['discountAmount'];
         }
         if ($deliveryType != "pickup") {
-            $delvSettings = Setting::where('code', 'STG_1')->where('isActive', 1)->first();
+
+            if(isset($cart['deliveryCharges'])){
+               $deliveryCharges =$cart['deliveryCharges'];
+            }
+            /*$delvSettings = Setting::where('code', 'STG_1')->where('isActive', 1)->first();
             if ($delvSettings) {
                 $deliveryCharges = $delvSettings->settingValue;
-            }
+            }*/
+
             /*
             if (isset($cart['deliveryCharges'])) {
                 $deliveryCharges = $cart['deliveryCharges'];

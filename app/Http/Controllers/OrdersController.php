@@ -13,14 +13,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use DB;
 use PDF;
-
+use App\Services\DoorDashService;
+use App\Models\DoorDashStep;
+use App\Models\Business;
+use App\Classes\Twilio;
 
 class OrdersController extends Controller
 {
     private $role, $rights;
-    public function __construct(GlobalModel $model)
+    protected DoorDashService $doorDashService;
+    public function __construct(GlobalModel $model,DoorDashService $doorDashService)
     {
         $this->model = $model;
+        $this->doorDashService = $doorDashService;
         $this->middleware('auth');
         $this->middleware(function ($request, $next) {
             $this->role = Auth::guard('admin')->user()['role'];
@@ -101,7 +106,7 @@ class OrdersController extends Controller
                     $status = '<span class="badge badge-danger">Pending</span>';
                 }
 
-                $payment_status="";
+                $payment_status = "";
                 if ($row->clientType == "customer") {
                     if ($row->paymentStatus == "paid") {
                         $payment_status = '<span class="badge badge-success">Paid</span>';
@@ -110,10 +115,10 @@ class OrdersController extends Controller
                         $payment_status = '<span class="badge badge-danger">Failed</span>';
                     }
                     if ($row->paymentStatus == "pending") {
-                         $payment_status = '<span class="badge badge-info">Pending</span>';
+                        $payment_status = '<span class="badge badge-info">Pending</span>';
                     }
-                     if ($row->paymentStatus == "cancelled") {
-                         $payment_status = '<span class="badge badge-danger">Cancelled</span>';
+                    if ($row->paymentStatus == "cancelled") {
+                        $payment_status = '<span class="badge badge-danger">Cancelled</span>';
                     }
                 }
 
@@ -218,6 +223,7 @@ class OrdersController extends Controller
         return $pdf->stream();
     }
 
+
     public function updateOrderStatus(Request $r)
     {
         $orderCode = $r->orderCode;
@@ -225,40 +231,73 @@ class OrdersController extends Controller
         $currentdate = Carbon::now();
 
         $getOrderStatus = DB::table("ordermaster")
-            ->select("ordermaster.*")
-            ->where("ordermaster.code", $orderCode)
+            ->where("code", $orderCode)
             ->first();
-        if (!empty($getOrderStatus)) {
-            if ($getOrderStatus->orderStatus == "shipping") {
-                if ($r->orderStatus == "cancelled" || $r->orderStatus == "placed") {
-                    return response()->json(["status" => "failed", "message" => "You are not allowed to change status."], 200);
-                }
-            }
-            if ($getOrderStatus->orderStatus == "delivered") {
-                if ($r->orderStatus == "cancelled" || $r->orderStatus == "placed" || $r->orderStatus == "shipping") {
-                    return response()->json(["status" => "failed", "message" => "You are not allowed to change status."], 200);
-                }
-            }
-            if ($getOrderStatus->orderStatus == "picked-up") {
-                if ($r->orderStatus == "cancelled" || $r->orderStatus == "placed") {
-                    return response()->json(["status" => "failed", "message" => "You are not allowed to change status."], 200);
-                }
+
+        if (!$getOrderStatus) {
+            return response()->json(["status" => "failed", "message" => "Order not found"], 200);
+        }
+
+        if ($getOrderStatus->orderStatus == "shipping") {
+            if (in_array($r->orderStatus, ["cancelled", "placed"])) {
+                return response()->json(["status" => "failed", "message" => "You are not allowed to change status."], 200);
             }
         }
 
-        $table = 'ordermaster';
-        $data = ['orderStatus' => $r->orderStatus, 'updated_at' => $currentdate];
-        $result = $this->model->doEditWithField($data, $table, 'code', $orderCode);
+        if ($getOrderStatus->orderStatus == "delivered") {
+            if (in_array($r->orderStatus, ["cancelled", "placed", "shipping"])) {
+                return response()->json(["status" => "failed", "message" => "You are not allowed to change status."], 200);
+            }
+        }
 
-        //activity log start
-        $datastring = $currentdate->toDateTimeString() .    "	"    . $ip .    "	"    . Auth::guard('admin')->user()->code .    "	Order status" . $orderCode . " is updated.";
+        if ($getOrderStatus->orderStatus == "picked-up") {
+            if (in_array($r->orderStatus, ["cancelled", "placed"])) {
+                return response()->json(["status" => "failed", "message" => "You are not allowed to change status."], 200);
+            }
+        }
+
+        /* ===========================
+       DOORDASH CANCEL DELIVERY
+    ============================ */
+
+        if (
+            $r->orderStatus == "cancelled" &&
+            $getOrderStatus->deliveryType == "delivery" &&
+            $getOrderStatus->doordash_status == "QUOTE_ACCEPTED" &&
+            !empty($getOrderStatus->doordash_delivery_id)
+        ) {
+
+            try {
+                $doordash = new DoorDashService;
+                $doordash->cancelDelivery($getOrderStatus->doordash_delivery_id);
+
+            } catch (\Exception $e) {
+                Log::error("DoorDash cancel failed", [
+                    "orderCode" => $orderCode,
+                    "error" => $e->getMessage()
+                ]);
+
+                return response()->json([
+                    "status" => "failed",
+                    "message" => "Failed to cancel DoorDash delivery"
+                ], 200);
+            }
+        }
+
+        $data = [
+            'orderStatus' => $r->orderStatus,
+            'updated_at' => $currentdate
+        ];
+
+        $result = $this->model->doEditWithField($data, 'ordermaster', 'code', $orderCode);
+
+        $datastring = $currentdate->toDateTimeString() . "	" . $ip . "	" . Auth::guard('admin')->user()->code . "	Order status " . $orderCode . " is updated.";
         $this->model->activity_log($datastring);
-        //activity log end
 
-        if ($result == true) {
+        if ($result) {
             return response()->json(["status" => "success"], 200);
-        } else {
-            return response()->json(["status" => "failed", "message" => "Failed to update status of order."], 200);
         }
+
+        return response()->json(["status" => "failed", "message" => "Failed to update status of order."], 200);
     }
 }

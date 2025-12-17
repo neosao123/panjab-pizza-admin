@@ -93,48 +93,54 @@
                         @endif
                         <div class="col-md-4 form-group">
                             <label>Order Status</label>
-
                             <select class="form-control" id="orderStatus" name="orderStatus"
-                                @if ($queryresult->orderStatus == 'delivered' || $queryresult->orderStatus == 'cancelled')
-                                    disabled
-                                @endif
-                            >
-                                @if ($queryresult->orderStatus == 'pending')
-                                    <option value="pending" @selected($queryresult->orderStatus == 'pending')>Pending</option>
-                                     <option value="placed" @selected($queryresult->orderStatus == 'placed')>Placed</option>
-                                     <option value="shipping" @selected($queryresult->orderStatus == 'shipping')>Shipping</option>
-                                     <option value="delivered" @selected($queryresult->orderStatus == 'delivered')>Delivered</option>
-                                     <option value="cancelled" @selected($queryresult->orderStatus == 'cancelled')>Cancelled</option>
-                                @else
+                                @if (in_array($queryresult->orderStatus, ['delivered', 'cancelled'])) disabled @endif>
 
-                                    {{-- Store → Delivery --}}
-                                    @if ($queryresult->orderFrom == 'store' && $queryresult->deliveryType == 'delivery')
-                                        <option value="placed" @selected($queryresult->orderStatus == 'placed')>Placed</option>
-                                        <option value="pending" @selected($queryresult->orderStatus == 'pending')>Pending</option>
-                                        <option value="shipping" @selected($queryresult->orderStatus == 'shipping')>Shipping</option>
-                                        <option value="delivered" @selected($queryresult->orderStatus == 'delivered')>Delivered</option>
-                                        <option value="cancelled" @selected($queryresult->orderStatus == 'cancelled')>Cancelled</option>
-                                    @endif
+                                <option value="">Select Order Status</option>
 
-                                    {{-- Store → Pickup --}}
-                                    @if ($queryresult->orderFrom == 'store' && $queryresult->deliveryType == 'pickup')
-                                        <option value="placed" @selected($queryresult->orderStatus == 'placed')>Placed</option>
-                                        <option value="pending" @selected($queryresult->orderStatus == 'pending')>Pending</option>
-                                        <option value="picked-up" @selected($queryresult->orderStatus == 'picked-up')>Picked Up</option>
-                                        <option value="cancelled" @selected($queryresult->orderStatus == 'cancelled')>Cancelled</option>
-                                    @endif
-
-                                    {{-- Online --}}
-                                    @if ($queryresult->orderFrom == 'online')
-                                        <option value="placed" @selected($queryresult->orderStatus == 'placed')>Placed</option>
-                                        <option value="pending" @selected($queryresult->orderStatus == 'pending')>Pending</option>
-                                        <option value="shipping" @selected($queryresult->orderStatus == 'shipping')>Shipping</option>
-                                        <option value="delivered" @selected($queryresult->orderStatus == 'delivered')>Delivered</option>
-                                        <option value="cancelled" @selected($queryresult->orderStatus == 'cancelled')>Cancelled</option>
-                                    @endif
-
+                                @if ($queryresult->orderFrom == 'store' && $queryresult->deliveryType == 'delivery')
+                                    <option value="cancelled"
+                                        {{ $queryresult->orderStatus == 'cancelled' ? 'selected' : '' }}>
+                                        Cancelled
+                                    </option>
                                 @endif
 
+                                @if ($queryresult->orderFrom == 'store' && $queryresult->deliveryType == 'pickup')
+                                    <option value="placed" {{ $queryresult->orderStatus == 'placed' ? 'selected' : '' }}>
+                                        Placed
+                                    </option>
+
+                                    <option value="picked-up"
+                                        {{ $queryresult->orderStatus == 'picked-up' ? 'selected' : '' }}>
+                                        Picked Up
+                                    </option>
+
+                                    <option value="cancelled"
+                                        {{ $queryresult->orderStatus == 'cancelled' ? 'selected' : '' }}>
+                                        Cancelled
+                                    </option>
+                                @endif
+
+                                @if ($queryresult->orderFrom == 'online')
+                                    <option value="placed" {{ $queryresult->orderStatus == 'placed' ? 'selected' : '' }}>
+                                        Placed
+                                    </option>
+
+                                    <option value="shipping"
+                                        {{ $queryresult->orderStatus == 'shipping' ? 'selected' : '' }}>
+                                        Shipping
+                                    </option>
+
+                                    <option value="delivered"
+                                        {{ $queryresult->orderStatus == 'delivered' ? 'selected' : '' }}>
+                                        Delivered
+                                    </option>
+
+                                    <option value="cancelled"
+                                        {{ $queryresult->orderStatus == 'cancelled' ? 'selected' : '' }}>
+                                        Cancelled
+                                    </option>
+                                @endif
                             </select>
                         </div>
 
@@ -211,7 +217,10 @@
                                         </div>
                                         <div class="amountRows">
                                             <strong>
-                                                @if ($orderlineentries[$i]->productType == 'custom_pizza' || $orderlineentries[$i]->productType == 'special_pizza')
+                                                @if (
+                                                    $orderlineentries[$i]->productType == 'custom_pizza' ||
+                                                        $orderlineentries[$i]->productType == 'special_pizza' ||
+                                                        $orderlineentries[$i]->productType == 'other_pizza')
                                                     <span>$ {{ $orderlineentries[$i]->pizzaPrice }}</span>
                                                 @else
                                                     <span>$ {{ $orderlineentries[$i]->amount }}</span>
@@ -238,7 +247,8 @@
                                     @if (in_array($orderlineentries[$i]->productType, $allowedPizzas))
                                         @if (isset($data['pizza']))
                                             @foreach ($data['pizza'] as $pizzaItem)
-                                                @if (isset($pizzaItem['crust']) && $pizzaItem['crust']['crustName'] != 'Regular')
+                                                {{-- Display Crust --}}
+                                                @if (isset($pizzaItem['crust']) && isset($pizzaItem['crust']['crustName']))
                                                     <div class="product-columns d-flex justify-content-between">
                                                         <div class="proRows">
                                                             <strong>Crust:</strong><span
@@ -249,14 +259,16 @@
                                                         </div>
                                                         <div class="amountRows">
                                                             <strong><span>
-                                                                    @if ($pizzaItem['crust']['price'] != 0)
+                                                                    @if (isset($pizzaItem['crust']['price']) && $pizzaItem['crust']['price'] != 0)
                                                                         $ {{ $pizzaItem['crust']['price'] }}
                                                                     @endif
                                                                 </span></strong>
                                                         </div>
                                                     </div>
                                                 @endif
-                                                @if (isset($pizzaItem['crustType']) && $pizzaItem['crustType']['crustType'] != 'Regular')
+
+                                                {{-- Display Crust Type --}}
+                                                @if (isset($pizzaItem['crustType']) && isset($pizzaItem['crustType']['crustType']))
                                                     <div class="product-columns d-flex justify-content-between">
                                                         <div class="proRows">
                                                             <strong>Crust Type:</strong><span
@@ -267,7 +279,7 @@
                                                         </div>
                                                         <div class="amountRows">
                                                             <strong><span>
-                                                                    @if ($pizzaItem['crustType']['price'] != 0)
+                                                                    @if (isset($pizzaItem['crustType']['price']) && $pizzaItem['crustType']['price'] != 0)
                                                                         $ {{ $pizzaItem['crustType']['price'] }}
                                                                     @endif
                                                                 </span></strong>
@@ -275,7 +287,8 @@
                                                     </div>
                                                 @endif
 
-                                                @if (isset($pizzaItem['cheese']) && $pizzaItem['cheese']['cheeseName'] != 'Mozzarella')
+                                                {{-- Display Cheese --}}
+                                                @if (isset($pizzaItem['cheese']) && isset($pizzaItem['cheese']['cheeseName']))
                                                     <div class="product-columns d-flex justify-content-between">
                                                         <div class="proRows">
                                                             <strong>Cheese:</strong><span
@@ -286,7 +299,7 @@
                                                         </div>
                                                         <div class="amountRows">
                                                             <strong><span>
-                                                                    @if ($pizzaItem['cheese']['price'] != 0)
+                                                                    @if (isset($pizzaItem['cheese']['price']) && $pizzaItem['cheese']['price'] != 0)
                                                                         $ {{ $pizzaItem['cheese']['price'] }}
                                                                     @endif
                                                                 </span></strong>
@@ -294,22 +307,21 @@
                                                     </div>
                                                 @endif
 
+                                                {{-- Display Special Bases --}}
                                                 @if (isset($pizzaItem['specialBases']) && isset($pizzaItem['specialBases']['specialbaseName']))
                                                     <div class="product-columns d-flex justify-content-between">
                                                         <div class="proRows">
-                                                            @if (isset($pizzaItem['specialBases']['specialbaseName']))
-                                                                <strong>SpecialBases:</strong><span
-                                                                    style="font-weight: normal;">
-                                                                    {{ $pizzaItem['specialBases']['specialbaseName'] }}
-                                                                </span>
-                                                            @endif
+                                                            <strong>Special Base:</strong><span
+                                                                style="font-weight: normal;">
+                                                                {{ $pizzaItem['specialBases']['specialbaseName'] }}
+                                                            </span>
                                                         </div>
                                                         <div class="quantityRows">
                                                             <strong><span></span></strong>
                                                         </div>
                                                         <div class="amountRows">
                                                             <strong><span>
-                                                                    @if ($pizzaItem['specialBases']['price'] != 0)
+                                                                    @if (isset($pizzaItem['specialBases']['price']) && $pizzaItem['specialBases']['price'] != 0)
                                                                         $ {{ $pizzaItem['specialBases']['price'] }}
                                                                     @endif
                                                                 </span></strong>
@@ -317,7 +329,8 @@
                                                     </div>
                                                 @endif
 
-                                                @if (isset($pizzaItem['spicy']) && $pizzaItem['spicy']['spicy'] != 'Regular')
+                                                {{-- Display Spicy --}}
+                                                @if (isset($pizzaItem['spicy']) && isset($pizzaItem['spicy']['spicy']))
                                                     <div class="product-columns d-flex justify-content-between">
                                                         <div class="proRows">
                                                             <strong>Spicy:</strong><span style="font-weight: normal;">
@@ -329,7 +342,7 @@
                                                         </div>
                                                         <div class="amountRows">
                                                             <strong><span>
-                                                                    @if ($pizzaItem['spicy']['price'] != 0)
+                                                                    @if (isset($pizzaItem['spicy']['price']) && $pizzaItem['spicy']['price'] != 0)
                                                                         $ {{ $pizzaItem['spicy']['price'] }}
                                                                     @endif
                                                                 </span></strong>
@@ -337,7 +350,8 @@
                                                     </div>
                                                 @endif
 
-                                                @if (isset($pizzaItem['sauce']) && $pizzaItem['sauce']['sauce'] != 'Regular')
+                                                {{-- Display Sauce --}}
+                                                @if (isset($pizzaItem['sauce']) && isset($pizzaItem['sauce']['sauce']))
                                                     <div class="product-columns d-flex justify-content-between">
                                                         <div class="proRows">
                                                             <strong>Sauce:</strong><span style="font-weight: normal;">
@@ -349,7 +363,7 @@
                                                         </div>
                                                         <div class="amountRows">
                                                             <strong><span>
-                                                                    @if ($pizzaItem['sauce']['price'] != 0)
+                                                                    @if (isset($pizzaItem['sauce']['price']) && $pizzaItem['sauce']['price'] != 0)
                                                                         $ {{ $pizzaItem['sauce']['price'] }}
                                                                     @endif
                                                                 </span></strong>
@@ -357,10 +371,11 @@
                                                     </div>
                                                 @endif
 
-                                                @if (isset($pizzaItem['cook']) && isset($pizzaItem['cook']['cook']) && $pizzaItem['cook']['cook'] != 'Regular')
+                                                {{-- Display Cook --}}
+                                                @if (isset($pizzaItem['cook']) && isset($pizzaItem['cook']['cook']))
                                                     <div class="product-columns d-flex justify-content-between">
                                                         <div class="proRows">
-                                                            <strong>Cook: </strong><span
+                                                            <strong>Cook:</strong><span
                                                                 style="font-weight: normal;">{{ $pizzaItem['cook']['cook'] }}</span>
                                                         </div>
                                                         <div class="quantityRows">
@@ -368,7 +383,7 @@
                                                         </div>
                                                         <div class="amountRows">
                                                             <strong><span>
-                                                                    @if ($pizzaItem['cook']['price'] != 0)
+                                                                    @if (isset($pizzaItem['cook']['price']) && $pizzaItem['cook']['price'] != 0)
                                                                         $ {{ $pizzaItem['cook']['price'] }}
                                                                     @endif
                                                                 </span></strong>
@@ -376,108 +391,75 @@
                                                     </div>
                                                 @endif
 
-                                                @if (isset($pizzaItem['toppings']['countAsTwoToppings']) && count($pizzaItem['toppings']['countAsTwoToppings']) > 0)
-                                                    <div class="product-columns d-flex justify-content-between">
-                                                        <div class="proRows">
-                                                            <strong>Toppings: </strong>
-                                                        </div>
-                                                        <div class="quantityRows">
-                                                            <strong><span></span></strong>
-                                                        </div>
-                                                        <div class="amountRows">
-                                                            <strong><span></span></strong>
-                                                        </div>
-                                                    </div>
-
-                                                    @foreach ($pizzaItem['toppings']['countAsTwoToppings'] as $topping)
+                                                {{-- Display Toppings --}}
+                                                @if (isset($pizzaItem['toppings']))
+                                                    {{-- Count as One Toppings --}}
+                                                    @if (isset($pizzaItem['toppings']['countAsOneToppings']) && count($pizzaItem['toppings']['countAsOneToppings']) > 0)
                                                         <div class="product-columns d-flex justify-content-between">
                                                             <div class="proRows">
-                                                                <strong>(2) </strong><span
-                                                                    style="font-weight: normal;">{{ $topping['toppingsName'] }}
-                                                                    @if ($topping['toppingsPlacement'] == 'lefthalf')
-                                                                        (L)
-                                                                    @elseif ($topping['toppingsPlacement'] == 'righthalf')
-                                                                        ( R )
-                                                                    @elseif ($topping['toppingsPlacement'] == '1/4')
-                                                                        ( 1/4 )
-                                                                    @endif
-                                                                </span>
+                                                                <strong>Toppings:</strong>
                                                             </div>
                                                             <div class="quantityRows">
                                                                 <strong><span></span></strong>
                                                             </div>
                                                             <div class="amountRows">
-                                                                <strong><span>
-                                                                        @if (isset($topping['amount']) && $topping['amount'] != '0')
-                                                                            $ {{ $topping['amount'] }}
-                                                                        @endif
-                                                                    </span></strong>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-
-                                                    @foreach ($pizzaItem['toppings']['countAsOneToppings'] as $topping)
-                                                        <div class="product-columns d-flex justify-content-between">
-                                                            <div class="proRows">
-                                                                <strong></strong><span
-                                                                    style="font-weight: normal;">{{ $topping['toppingsName'] }}
-                                                                    @php
-                                                                        $placementSymbol = '';
-                                                                        if (
-                                                                            $topping['toppingsPlacement'] == 'lefthalf'
-                                                                        ) {
-                                                                            $placementSymbol = ' ( L )';
-                                                                        } elseif (
-                                                                            $topping['toppingsPlacement'] == 'righthalf'
-                                                                        ) {
-                                                                            $placementSymbol = ' ( R )';
-                                                                        } elseif (
-                                                                            $topping['toppingsPlacement'] == '1/4'
-                                                                        ) {
-                                                                            $placementSymbol = ' ( 1/4 )';
-                                                                        }
-                                                                    @endphp
-                                                                    {{ $placementSymbol }}
-                                                                </span>
-                                                            </div>
-                                                            <div class="quantityRows">
                                                                 <strong><span></span></strong>
                                                             </div>
-                                                            <div class="amountRows">
-                                                                <strong><span>
-                                                                        @if (isset($topping['amount']) && $topping['amount'] != '0')
-                                                                            $ {{ $topping['amount'] }}
-                                                                        @endif
-                                                                    </span></strong>
-                                                            </div>
                                                         </div>
-                                                    @endforeach
 
-                                                    @if ($pizzaItem['toppings']['isAllIndiansTps'] == true)
-                                                        <strong>Indian Style</strong>
-                                                    @else
-                                                        @foreach ($pizzaItem['toppings']['freeToppings'] as $topping)
+                                                        @foreach ($pizzaItem['toppings']['countAsOneToppings'] as $topping)
                                                             <div class="product-columns d-flex justify-content-between">
                                                                 <div class="proRows">
-                                                                    <strong></strong><span
-                                                                        style="font-weight: normal;">{{ $topping['toppingsName'] }}</span>
+                                                                    <span
+                                                                        style="font-weight: normal;">{{ $topping['toppingsName'] }}
+                                                                        @if (isset($topping['toppingsPlacement']) && $topping['toppingsPlacement'] == 'whole')
+                                                                            (W)
+                                                                        @elseif (isset($topping['toppingsPlacement']) && $topping['toppingsPlacement'] == 'lefthalf')
+                                                                            (L)
+                                                                        @elseif (isset($topping['toppingsPlacement']) && $topping['toppingsPlacement'] == 'righthalf')
+                                                                            (R)
+                                                                        @elseif (isset($topping['toppingsPlacement']) && $topping['toppingsPlacement'] == '1/4')
+                                                                            (1/4)
+                                                                        @endif
+                                                                    </span>
                                                                 </div>
                                                                 <div class="quantityRows">
                                                                     <strong><span></span></strong>
                                                                 </div>
                                                                 <div class="amountRows">
-                                                                    <strong><span></span></strong>
+                                                                    <strong><span>
+                                                                            @if (isset($topping['amount']) && $topping['amount'] != '0')
+                                                                                $ {{ $topping['amount'] }}
+                                                                            @endif
+                                                                        </span></strong>
                                                                 </div>
                                                             </div>
                                                         @endforeach
                                                     @endif
+
+                                                    {{-- Display Indian Style + Coriander --}}
+                                                    @if (isset($pizzaItem['toppings']['isAllIndiansTps']) && $pizzaItem['toppings']['isAllIndiansTps'] == true)
+                                                        <div class="product-columns d-flex justify-content-between">
+                                                            <div class="proRows">
+                                                                <strong><span>Indian Style + Coriander</span></strong>
+                                                            </div>
+                                                            <div class="quantityRows">
+                                                                <span></span>
+                                                            </div>
+                                                            <div class="amountRows">
+                                                                <span></span>
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 @endif
                                             @endforeach
                                         @endif
-                                        @if (isset($data['sides']) && count($data['sides']) > 0)
+
+                                        {{-- Display Sides --}}
+                                        @if ((isset($data['sides']) && count($data['sides']) > 0) || (isset($data['side']) && count($data['side']) > 0))
                                             <div class="product-columns d-flex justify-content-between">
                                                 <div class="proRows">
-                                                    <strong>Sides: </strong>
+                                                    <strong>Sides:</strong>
                                                 </div>
                                                 <div class="quantityRows">
                                                     <strong><span></span></strong>
@@ -486,29 +468,39 @@
                                                     <strong><span></span></strong>
                                                 </div>
                                             </div>
-                                            @foreach ($data['sides'] as $sides)
+                                            @php
+                                                $sidesArray = isset($data['sides'])
+                                                    ? $data['sides']
+                                                    : (isset($data['side'])
+                                                        ? $data['side']
+                                                        : []);
+                                            @endphp
+                                            @foreach ($sidesArray as $side)
                                                 <div class="product-columns d-flex justify-content-between">
                                                     <div class="proRows">
-                                                        <strong></strong><span
-                                                            style="font-weight: normal;">{{ $sides['sideName'] }} (
-                                                            {{ $sides['sideSize'] }} )</span>
+                                                        <span style="font-weight: normal;">{{ $side['sideName'] ?? '' }}
+                                                            @if (isset($side['sideSize']))
+                                                                ({{ $side['sideSize'] }})
+                                                            @endif
+                                                        </span>
                                                     </div>
                                                     <div class="quantityRows">
-                                                        <strong><span>{{ $sides['quantity'] }}</span></strong>
+                                                        <strong><span>{{ $side['quantity'] ?? 1 }}</span></strong>
                                                     </div>
                                                     <div class="amountRows">
-                                                        @if (isset($sides['totalPrice']) && $sides['totalPrice'] != '0')
-                                                            <strong><span>$ {{ $sides['totalPrice'] }}</span></strong>
+                                                        @if (isset($side['totalPrice']) && $side['totalPrice'] != '0')
+                                                            <strong><span>$ {{ $side['totalPrice'] }}</span></strong>
                                                         @endif
                                                     </div>
                                                 </div>
                                             @endforeach
                                         @endif
 
+                                        {{-- Display Dips --}}
                                         @if (isset($data['dips']) && count($data['dips']) > 0)
                                             <div class="product-columns d-flex justify-content-between">
-                                                <div class "proRows">
-                                                    <strong>Dips: </strong>
+                                                <div class="proRows">
+                                                    <strong>Dips:</strong>
                                                 </div>
                                                 <div class="quantityRows">
                                                     <strong><span></span></strong>
@@ -520,11 +512,11 @@
                                             @foreach ($data['dips'] as $dips)
                                                 <div class="product-columns d-flex justify-content-between">
                                                     <div class="proRows">
-                                                        <strong></strong><span
-                                                            style="font-weight: normal;">{{ $dips['dipsName'] }}</span>
+                                                        <span
+                                                            style="font-weight: normal;">{{ $dips['dipsName'] ?? '' }}</span>
                                                     </div>
                                                     <div class="quantityRows">
-                                                        <strong><span></span></strong>
+                                                        <strong><span>{{ $dips['quantity'] ?? 1 }}</span></strong>
                                                     </div>
                                                     <div class="amountRows">
                                                         @if (isset($dips['totalPrice']) && $dips['totalPrice'] != '0')
@@ -535,10 +527,11 @@
                                             @endforeach
                                         @endif
 
+                                        {{-- Display Drinks --}}
                                         @if (isset($data['drinks']) && count($data['drinks']) > 0)
                                             <div class="product-columns d-flex justify-content-between">
                                                 <div class="proRows">
-                                                    <strong>Drinks: </strong>
+                                                    <strong>Drinks:</strong>
                                                 </div>
                                                 <div class="quantityRows">
                                                     <strong><span></span></strong>
@@ -550,11 +543,11 @@
                                             @foreach ($data['drinks'] as $drinks)
                                                 <div class="product-columns d-flex justify-content-between">
                                                     <div class="proRows">
-                                                        <strong></strong><span
-                                                            style="font-weight: normal;">{{ $drinks['drinksName'] }}</span>
+                                                        <span
+                                                            style="font-weight: normal;">{{ $drinks['drinksName'] ?? '' }}</span>
                                                     </div>
                                                     <div class="quantityRows">
-                                                        <strong><span></span></strong>
+                                                        <strong><span>{{ $drinks['quantity'] ?? 1 }}</span></strong>
                                                     </div>
                                                     <div class="amountRows">
                                                         @if (isset($drinks['totalPrice']) && $drinks['totalPrice'] != '0')
@@ -565,13 +558,12 @@
                                             @endforeach
                                         @endif
 
-                                        @if (isset($orderlineentries[$i]->comments))
+                                        {{-- Display Comments --}}
+                                        @if (isset($orderlineentries[$i]->comments) && $orderlineentries[$i]->comments != '')
                                             <div class="product-columns d-flex justify-content-between">
                                                 <div class="proRows">
-                                                    @if ($orderlineentries[$i]->comments != '')
-                                                        <strong>Comments:</strong><span
-                                                            style="font-weight: normal;">{{ $orderlineentries[$i]->comments }}</span>
-                                                    @endif
+                                                    <strong>Comments:</strong><span
+                                                        style="font-weight: normal;">{{ $orderlineentries[$i]->comments }}</span>
                                                 </div>
                                                 <div class="quantityRows">
                                                     <span></span>
@@ -584,179 +576,173 @@
                                         @endif
                                     @endif
 
+                                    {{-- Special Pizza Section (unchanged) --}}
                                     @if (in_array($orderlineentries[$i]->productType, $allowedSpecialPizzas))
                                         @if (isset($data['pizza']))
-                                            @foreach ($data['pizza'] as $pizzaItem)
-                                                @if (isset($pizzaItem['signaturePizza']))
-                                                    @php
-                                                        $signaturePizza = $pizzaItem['signaturePizza'];
-                                                    @endphp
+                                            @foreach ($data['pizza'] as $index => $pizzaItem)
+                                                {{-- Display Pizza Name --}}
+                                                @if (isset($pizzaItem['signaturePizzaName']))
                                                     <div class="product-columns d-flex justify-content-between">
                                                         <div class="proRows">
-                                                            <strong>Toppings: </strong>
+                                                            <strong><span>{{ $pizzaItem['signaturePizzaName'] }}</span></strong>
                                                         </div>
-                                                        <div class="quantityRows">
-                                                            <strong><span></span></strong>
+                                                        <div class="quantityRows"><strong><span></span></strong></div>
+                                                        <div class="amountRows"><strong><span></span></strong></div>
+                                                    </div>
+
+                                                    {{-- Display Indian Style if enabled --}}
+                                                    @if (isset($pizzaItem['toppings']['isAllIndiansTps']) && $pizzaItem['toppings']['isAllIndiansTps'] == true)
+                                                        <div class="product-columns d-flex justify-content-between">
+                                                            <div class="proRows">
+                                                                <strong><span>Indian Style + Coriander</span></strong>
+                                                            </div>
+                                                            <div class="quantityRows"><span></span></div>
+                                                            <div class="amountRows"><span></span></div>
                                                         </div>
+                                                    @endif
+                                                @endif
+
+                                                {{-- Display Special Base if not "No Special (base)" --}}
+                                                @if (isset($pizzaItem['specialBases']) &&
+                                                        isset($pizzaItem['specialBases']['specialbaseName']) &&
+                                                        $pizzaItem['specialBases']['specialbaseName'] != 'No Special (base)')
+                                                    <div class="product-columns d-flex justify-content-between">
+                                                        <div class="proRows">
+                                                            <strong>Special Base:</strong><span
+                                                                style="font-weight: normal;">
+                                                                {{ $pizzaItem['specialBases']['specialbaseName'] }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="quantityRows"><strong><span></span></strong></div>
                                                         <div class="amountRows">
-                                                            <strong><span></span></strong>
+                                                            <strong><span>
+                                                                    @if ($pizzaItem['specialBases']['price'] != 0)
+                                                                        $ {{ $pizzaItem['specialBases']['price'] }}
+                                                                    @endif
+                                                                </span></strong>
                                                         </div>
                                                     </div>
-                                                    @if (isset($signaturePizza['toppings']) && count($signaturePizza['toppings']) > 0)
-                                                        @foreach ($signaturePizza['toppings'] as $topping)
+                                                @elseif (isset($pizzaItem['specialBases']) && isset($pizzaItem['specialBases']['specialbaseName']))
+                                                    <div class="product-columns d-flex justify-content-between">
+                                                        <div class="proRows">
+                                                            <strong>Special Base:</strong><span
+                                                                style="font-weight: normal;">
+                                                                {{ $pizzaItem['specialBases']['specialbaseName'] }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="quantityRows"><strong><span></span></strong></div>
+                                                        <div class="amountRows"><strong><span></span></strong></div>
+                                                    </div>
+                                                @endif
+
+                                                {{-- Display Toppings Section --}}
+                                                @if (isset($pizzaItem['toppings']))
+                                                    <div class="product-columns d-flex justify-content-between">
+                                                        <div class="proRows"><strong>Toppings:</strong></div>
+                                                        <div class="quantityRows"><strong><span></span></strong></div>
+                                                        <div class="amountRows"><strong><span></span></strong></div>
+                                                    </div>
+
+                                                    {{-- Count as Two Toppings --}}
+                                                    @if (isset($pizzaItem['toppings']['countAsTwoToppings']) && count($pizzaItem['toppings']['countAsTwoToppings']) > 0)
+                                                        @foreach ($pizzaItem['toppings']['countAsTwoToppings'] as $topping)
                                                             <div class="product-columns d-flex justify-content-between">
                                                                 <div class="proRows">
-                                                                    <span style="font-weight: normal;">
-                                                                        {{ $topping['name'] }}
-                                                                    </span>
-                                                                    <span style="font-weight: normal;">
-                                                                        {{ $topping['count'] >= 2 ? '(' . $topping['count'] . ')' : '' }}
+                                                                    <strong>(2) </strong><span
+                                                                        style="font-weight: normal;">{{ $topping['toppingsName'] }}
+                                                                        @if ($topping['toppingsPlacement'] == 'lefthalf')
+                                                                            (L)
+                                                                        @elseif ($topping['toppingsPlacement'] == 'righthalf')
+                                                                            (R)
+                                                                        @elseif ($topping['toppingsPlacement'] == '1/4')
+                                                                            (1/4)
+                                                                        @endif
                                                                     </span>
                                                                 </div>
-                                                                <div class="quantityRows">
-                                                                    <strong><span></span></strong>
+                                                                <div class="quantityRows"><strong><span></span></strong>
                                                                 </div>
                                                                 <div class="amountRows">
-                                                                    <strong><span></span></strong>
+                                                                    <strong><span>
+                                                                            @if (isset($topping['amount']) && $topping['amount'] != '0')
+                                                                                $ {{ $topping['amount'] }}
+                                                                            @endif
+                                                                        </span></strong>
                                                                 </div>
                                                             </div>
                                                         @endforeach
                                                     @endif
-                                                    @if ($signaturePizza['indianToppings'] == true)
-                                                        <strong>Indian Style + Coriander</strong>
-                                                    @else
-                                                        @if (isset($signaturePizza['freeToppings']) && count($signaturePizza['freeToppings']) > 0)
-                                                            @foreach ($signaturePizza['freeToppings'] as $topping)
+
+                                                    {{-- Count as One Toppings --}}
+                                                    @if (isset($pizzaItem['toppings']['countAsOneToppings']) && count($pizzaItem['toppings']['countAsOneToppings']) > 0)
+                                                        @foreach ($pizzaItem['toppings']['countAsOneToppings'] as $topping)
+                                                            <div class="product-columns d-flex justify-content-between">
+                                                                <div class="proRows">
+                                                                    <span
+                                                                        style="font-weight: normal;">{{ $topping['toppingsName'] }}
+                                                                        @if ($topping['toppingsPlacement'] == 'lefthalf')
+                                                                            (L)
+                                                                        @elseif ($topping['toppingsPlacement'] == 'righthalf')
+                                                                            (R)
+                                                                        @elseif ($topping['toppingsPlacement'] == '1/4')
+                                                                            (1/4)
+                                                                        @endif
+                                                                    </span>
+                                                                </div>
+                                                                <div class="quantityRows"><strong><span></span></strong>
+                                                                </div>
+                                                                <div class="amountRows">
+                                                                    <strong><span>
+                                                                            @if (isset($topping['amount']) && $topping['amount'] != '0')
+                                                                                $ {{ $topping['amount'] }}
+                                                                            @endif
+                                                                        </span></strong>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+
+                                                    {{-- Display Free Toppings if not Indian Style --}}
+                                                    @if (!isset($pizzaItem['toppings']['isAllIndiansTps']) || $pizzaItem['toppings']['isAllIndiansTps'] == false)
+                                                        @if (isset($pizzaItem['toppings']['freeToppings']) && count($pizzaItem['toppings']['freeToppings']) > 0)
+                                                            <div class="product-columns d-flex justify-content-between">
+                                                                <div class="proRows"><strong>Free Toppings:</strong></div>
+                                                                <div class="quantityRows"><strong><span></span></strong>
+                                                                </div>
+                                                                <div class="amountRows"><strong><span></span></strong>
+                                                                </div>
+                                                            </div>
+                                                            @foreach ($pizzaItem['toppings']['freeToppings'] as $topping)
                                                                 <div
                                                                     class="product-columns d-flex justify-content-between">
                                                                     <div class="proRows">
-                                                                        <span style="font-weight: normal;">
-                                                                            {{ $topping['name'] }}
-                                                                        </span>
-                                                                        <span style="font-weight: normal;">
-                                                                            {{ $topping['count'] >= 2 ? '(' . $topping['count'] . ')' : '' }}
-                                                                        </span>
+                                                                        <span
+                                                                            style="font-weight: normal;">{{ $topping['toppingsName'] }}</span>
                                                                     </div>
                                                                     <div class="quantityRows">
-                                                                        <strong><span></span></strong>
-                                                                    </div>
-                                                                    <div class="amountRows">
-                                                                        <strong><span></span></strong>
+                                                                        <strong><span></span></strong></div>
+                                                                    <div class="amountRows"><strong><span></span></strong>
                                                                     </div>
                                                                 </div>
                                                             @endforeach
                                                         @endif
                                                     @endif
                                                 @endif
-                                            @endforeach
-                                        @endif
-                                        @if (isset($data['sides']) && count($data['sides']) > 0)
-                                            <div class="product-columns d-flex justify-content-between">
-                                                <div class="proRows">
-                                                    <strong>Sides: </strong>
-                                                </div>
-                                                <div class="quantityRows">
-                                                    <strong><span></span></strong>
-                                                </div>
-                                                <div class="amountRows">
-                                                    <strong><span></span></strong>
-                                                </div>
-                                            </div>
-                                            @foreach ($data['sides'] as $sides)
-                                                <div class="product-columns d-flex justify-content-between">
-                                                    <div class="proRows">
-                                                        <strong></strong><span
-                                                            style="font-weight: normal;">{{ $sides['sideName'] }} (
-                                                            {{ $sides['sideSize'] }} )</span>
-                                                    </div>
-                                                    <div class="quantityRows">
-                                                        <strong><span>{{ $sides['quantity'] }}</span></strong>
-                                                    </div>
-                                                    <div class="amountRows">
-                                                        @if (isset($sides['totalPrice']) && $sides['totalPrice'] != '0')
-                                                            <strong><span>$ {{ $sides['totalPrice'] }}</span></strong>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
 
-                                        @if (isset($data['dips']) && count($data['dips']) > 0)
-                                            <div class="product-columns d-flex justify-content-between">
-                                                <div class "proRows">
-                                                    <strong>Dips: </strong>
-                                                </div>
-                                                <div class="quantityRows">
-                                                    <strong><span></span></strong>
-                                                </div>
-                                                <div class="amountRows">
-                                                    <strong><span></span></strong>
-                                                </div>
-                                            </div>
-                                            @foreach ($data['dips'] as $dips)
-                                                <div class="product-columns d-flex justify-content-between">
-                                                    <div class="proRows">
-                                                        <strong></strong><span
-                                                            style="font-weight: normal;">{{ $dips['dipsName'] }}</span>
+                                                {{-- Add separator between multiple pizzas --}}
+                                                @if (!$loop->last)
+                                                    <div class="product-columns d-flex justify-content-between">
+                                                        <div class="proRows">
+                                                            <hr>
+                                                        </div>
+                                                        <div class="quantityRows">
+                                                            <hr>
+                                                        </div>
+                                                        <div class="amountRows">
+                                                            <hr>
+                                                        </div>
                                                     </div>
-                                                    <div class="quantityRows">
-                                                        <strong><span></span></strong>
-                                                    </div>
-                                                    <div class="amountRows">
-                                                        @if (isset($dips['totalPrice']) && $dips['totalPrice'] != '0')
-                                                            <strong><span>$ {{ $dips['totalPrice'] }}</span></strong>
-                                                        @endif
-                                                    </div>
-                                                </div>
+                                                @endif
                                             @endforeach
-                                        @endif
-
-                                        @if (isset($data['drinks']) && count($data['drinks']) > 0)
-                                            <div class="product-columns d-flex justify-content-between">
-                                                <div class="proRows">
-                                                    <strong>Drinks: </strong>
-                                                </div>
-                                                <div class="quantityRows">
-                                                    <strong><span></span></strong>
-                                                </div>
-                                                <div class="amountRows">
-                                                    <strong><span></span></strong>
-                                                </div>
-                                            </div>
-                                            @foreach ($data['drinks'] as $drinks)
-                                                <div class="product-columns d-flex justify-content-between">
-                                                    <div class="proRows">
-                                                        <strong></strong><span
-                                                            style="font-weight: normal;">{{ $drinks['drinksName'] }}</span>
-                                                    </div>
-                                                    <div class="quantityRows">
-                                                        <strong><span></span></strong>
-                                                    </div>
-                                                    <div class="amountRows">
-                                                        @if (isset($drinks['totalPrice']) && $drinks['totalPrice'] != '0')
-                                                            <strong><span>$ {{ $drinks['totalPrice'] }}</span></strong>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-
-                                        @if (isset($orderlineentries[$i]->comments))
-                                            <div class="product-columns d-flex justify-content-between">
-                                                <div class="proRows">
-                                                    @if ($orderlineentries[$i]->comments != '')
-                                                        <strong>Comments:</strong><span
-                                                            style="font-weight: normal;">{{ $orderlineentries[$i]->comments }}</span>
-                                                    @endif
-                                                </div>
-                                                <div class="quantityRows">
-                                                    <span></span>
-                                                </div>
-                                                <div class="amountRows">
-                                                    <span></span>
-                                                </div>
-                                            </div>
-                                            <hr>
                                         @endif
                                     @endif
 
@@ -782,8 +768,6 @@
                                     @endif
                                 @endfor
                             @endif
-
-
 
                             <div class="product-columns d-flex justify-content-between">
                                 <div class="proRows">

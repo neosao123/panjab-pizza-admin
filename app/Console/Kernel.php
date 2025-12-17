@@ -11,6 +11,7 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         \App\Console\Commands\SmsSend::class,
+        \App\Console\Commands\ExpireStripeSessions::class,
     ];
     /**
      * Define the application's command schedule.
@@ -22,6 +23,12 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('sms:send-pending')
             ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->runInBackground();
+
+        // Expire Stripe checkout sessions every 5 minutes
+        $schedule->command('stripe:expire-sessions')
+            ->everyMinute()
             ->withoutOverlapping()
             ->runInBackground();
     }

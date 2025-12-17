@@ -357,6 +357,7 @@ class DoorDashService
 
 
 
+
     /**
      * 2. Create Store for a Business
      * POST /businesses/{external_business_id}/stores
@@ -406,7 +407,8 @@ class DoorDashService
             $payload = $params;
             unset($payload['external_business_id']);
 
-            $response = $this->makeBusinessRequest('post', $endpoint, $payload, 'developer');
+            // Fixed: Remove the 4th parameter
+            $response = $this->makeBusinessRequest('post', $endpoint, $payload);
 
             Log::info('DoorDash Create Store Response', [
                 'response' => $response,
@@ -417,7 +419,8 @@ class DoorDashService
         } catch (\Exception $ex) {
             Log::error('DoorDash Create Store Exception', [
                 'error' => $ex->getMessage(),
-                'params' => $params
+                'params' => $params,
+                'trace' => $ex->getTraceAsString()
             ]);
             return [
                 'success' => false,
@@ -455,6 +458,8 @@ class DoorDashService
             }
         }
 
+        // Removed: dd($params['external_business_id']);
+
         try {
             $endpoint = "/businesses/{$params['external_business_id']}/stores/{$params['external_store_id']}";
 
@@ -464,12 +469,8 @@ class DoorDashService
                 $payload['external_store_id']
             );
 
-            $response = $this->makeBusinessRequest(
-                'put',
-                $endpoint,
-                $payload,
-                'developer'
-            );
+            // Fixed: Remove the 4th parameter
+            $response = $this->makeBusinessRequest('patch', $endpoint, $payload);
 
             Log::info('DoorDash Update Store Response', [
                 'response' => $response,
@@ -480,13 +481,58 @@ class DoorDashService
         } catch (\Exception $ex) {
             Log::error('DoorDash Update Store Exception', [
                 'error' => $ex->getMessage(),
-                'params' => $params
+                'params' => $params,
+                'trace' => $ex->getTraceAsString()
             ]);
 
             return [
                 'success' => false,
                 'error' => $ex->getMessage(),
                 'mode' => $this->mode
+            ];
+        }
+    }
+
+
+    /**
+     * Get Store details from DoorDash API
+     *
+     * @param string $externalBusinessId
+     * @param string $externalStoreId
+     * @return array
+     */
+    public function getStore(string $externalBusinessId, string $externalStoreId): array
+    {
+        try {
+            $endpoint = "/businesses/{$externalBusinessId}/stores/{$externalStoreId}";
+
+            Log::info('DoorDash Service - Getting Store', [
+                'endpoint' => $endpoint,
+                'external_business_id' => $externalBusinessId,
+                'external_store_id' => $externalStoreId
+            ]);
+
+            $result = $this->makeBusinessRequest('get', $endpoint);
+
+            Log::info('DoorDash Service - Get Store Result', [
+                'external_business_id' => $externalBusinessId,
+                'external_store_id' => $externalStoreId,
+                'result' => $result
+            ]);
+
+            return $result;
+        } catch (\Exception $e) {
+            Log::error('DoorDash Service - Get Store Exception', [
+                'external_business_id' => $externalBusinessId,
+                'external_store_id' => $externalStoreId,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null
             ];
         }
     }

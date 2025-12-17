@@ -78,21 +78,34 @@ class InvoicesController extends Controller
                 $fromDate = date('Y-m-d', strtotime($r->fromDate));
                 $toDate = date('Y-m-d', strtotime($r->toDate));
                 //if ($toDate > $fromDate) {
-                    $fromdate = $fromDate . " 00:00:00";
-                    $todate = $toDate . " 23:59:59";
+                $fromdate = $fromDate . " 00:00:00";
+                $todate = $toDate . " 23:59:59";
 
-               // }
+                // }
             }
 
+
+            $cashierRole = "";
+
+            if ($r->has('cashierCode') && $r->cashierCode != "") {
+                $cashier = DB::table('usermaster')
+                    ->where('code', $r->cashierCode)
+                    ->select('role')
+                    ->first();
+
+                if ($cashier) {
+                    $cashierRole = $cashier->role;
+                }
+            }
 
 
             $getCount = OrderMaster::join("usermaster as u1", "u1.code", "=", "ordermaster.addID", "left")
                 ->join("usermaster as u2", "u2.code", "=", "ordermaster.deliveryExecutiveCode", "left")
                 ->join("storelocation", "storelocation.code", "=", "ordermaster.storeLocation")
-                ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName")
-                  ->where('ordermaster.created_at', '>=', $fromdate)
-                  ->where('ordermaster.created_at', '<=', $todate);
-            if ($r->has('cashierCode') && $r->cashierCode != "") {
+                ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "u1.role as roleName", "storelocation.storeLocation as storeLocationName")
+                ->where('ordermaster.created_at', '>=', $fromdate)
+                ->where('ordermaster.created_at', '<=', $todate);
+            if ($r->has('cashierCode') && $r->cashierCode != "" && $cashierRole != "R_4") {
                 $getCount->where('ordermaster.addID', $r->cashierCode);
             }
             if ($r->has('orderId') && $r->orderId != "") {
@@ -128,8 +141,8 @@ class InvoicesController extends Controller
                 ->select("ordermaster.*", "u1.username as CashierName", "u2.username as deliveryExecutiveName", "storelocation.storeLocation as storeLocationName")
                 ->where('ordermaster.created_at', '>=', $fromdate)
                 ->where('ordermaster.created_at', '<=', $todate);
-            if ($r->has('cashierCode') && $r->cashierCode != "") {
-                $orderQuery->where('ordermaster.addID', $r->cashierCode);
+            if ($r->has('cashierCode') && $r->cashierCode != "" && $cashierRole != "R_4") {
+                 $orderQuery->where('ordermaster.addID', $r->cashierCode);
             }
             if ($r->has('orderId') && $r->orderId != "") {
                 $orderQuery->where('ordermaster.code', $r->orderId);
@@ -177,7 +190,8 @@ class InvoicesController extends Controller
                         "taxPer" => $item->taxPer ?? "0.00",
                         "taxAmount" => $item->taxAmount ?? "0.00",
                         "grandTotal" => $item->grandTotal ?? "0.00",
-                        "orderTakenBy" => $item->orderTakenBy ?? ""
+                        "orderTakenBy" => $item->orderTakenBy ?? "",
+                        "addId"=>$item->addID??"",
                     ];
                     array_push($orderArray, $data);
                 }

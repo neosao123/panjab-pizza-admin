@@ -36,7 +36,7 @@ use App\Services\DoorDashService;
 use App\Models\SmsTemplate;
 use App\Models\DoorDashStep;
 use App\Classes\Twilio;
-
+use App\Models\Business;
 
 
 class WebhookController extends Controller
@@ -338,26 +338,17 @@ class WebhookController extends Controller
                 return;
             }
 
-            // Check if already has DoorDash delivery ID
-            if (!empty($order->doordash_delivery_id)) {
-                Log::info("DoorDash delivery already exists", [
-                    'order_code' => $orderCode,
-                    'delivery_id' => $order->doordash_delivery_id
-                ]);
-                return;
-            }
-
             // Initialize DoorDash service
             $doorDash = new DoorDashService();
 
             // Accept the quote (if quote was already created)
-            if (!empty($order->doordash_quote_id)) {
+            if (!empty($order->doordash_delivery_id)) {
                 Log::info("Accepting DoorDash quote", [
                     'order_code' => $orderCode,
                     'quote_id' => $order->doordash_quote_id
                 ]);
 
-                $response = $doorDash->acceptQuote($order->doordash_quote_id);
+                $response = $doorDash->acceptQuote($order->doordash_delivery_id);
 
                 if ($response['success']) {
                     // Update order with delivery details
@@ -365,18 +356,19 @@ class WebhookController extends Controller
 
                     OrderMaster::where('code', $orderCode)->update([
                         'doordash_delivery_id' => $deliveryData['external_delivery_id'] ?? null,
-                        'doordash_status' => $deliveryData['delivery_status'] ?? 'QUOTE_ACCEPTED',
+                        'doordash_status' => 'QUOTE_ACCEPTED',
                         'doordash_accept_response' => json_encode($response)
                     ]);
 
                     DoorDashStep::create([
                         'order_id' => $orderCode,
                         'doordash_status' => 'QUOTE_ACCEPTED',
-                        'doordash_delivery_id' => null,
+                        'doordash_delivery_id' =>$deliveryData['external_delivery_id'],
                         'doordash_response' => json_encode($response),
                     ]);
 
                     $this->sendDoorDashTrackingSMS($order, $deliveryData);
+
 
                     Log::info("✅ DoorDash quote accepted successfully", [
                         'order_code' => $orderCode,

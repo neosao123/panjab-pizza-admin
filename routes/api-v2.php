@@ -92,7 +92,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/signature-pizzas', [SignaturePizzaController::class, 'list']);
     Route::get('/signature-pizza/defaults/{code}', [SignaturePizzaController::class, 'show']);
 
-     Route::get('/defaultspecialoffer/{code}', [SignaturePizzaController::class, 'defaultForSpecialOffer']);
+    Route::get('/defaultspecialoffer/{code}', [SignaturePizzaController::class, 'defaultForSpecialOffer']);
 
     Route::get('/pizzas', [PizzasController::class, 'list']);
     Route::get('/pizzas/{code}', [PizzasController::class, 'show']);
@@ -146,6 +146,7 @@ Route::group(['middleware' => 'cors'], function () {
             Route::post('/list',  [CustomerOrderController::class, 'get_order_list']);
             Route::post('/details',  [CustomerOrderController::class, 'get_order_details']);
             Route::post('/getlist',  [CustomerOrderController::class, 'customer_order_list']);
+            Route::get('/cancel/{code}',  [CustomerOrderController::class, 'cancel_order']);
         });
     });
 
@@ -252,5 +253,11 @@ Route::group(['middleware' => 'cors'], function () {
 
         Route::post('/create/business', [DoorDashController::class, 'createBusiness']);
         Route::post('/create/store', [DoorDashController::class, 'createStore']);
+        Route::post('/update/store', [DoorDashController::class, 'updateStore']);
+
+        Route::get(
+            'stores/{external_business_id}/{external_store_id}',
+            [DoorDashController::class, 'getStore']
+        );
     });
 });

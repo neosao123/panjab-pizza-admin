@@ -273,6 +273,7 @@ class StoreLocationController extends Controller
         $currentdate = Carbon::now();
         $code = $r->code;
         $ip = $_SERVER['REMOTE_ADDR'];
+
         $rules = [
             'name' => 'required|min:3|max:150',
             'latitude' => 'required',
@@ -281,6 +282,7 @@ class StoreLocationController extends Controller
             'city' => 'required|min:3|max:50',
             'tax_province_id' => 'required'
         ];
+
         $messages = [
             'name.required' => 'Store Location name is required',
             'name.min' => 'Minimum of 3 characters are required.',
@@ -293,8 +295,9 @@ class StoreLocationController extends Controller
             'city.required' => 'City is required',
             'city.min' => 'Minimum of 3 characters are required.',
             'city.max' => 'Maximum of 50 characters are allowed.',
-            'tax_province_id.required' => 'Provice - Tax is not selected'
+            'tax_province_id.required' => 'Province - Tax is not selected'
         ];
+
         $this->validate($r, $rules, $messages);
 
         // Parse the times
@@ -327,7 +330,6 @@ class StoreLocationController extends Controller
             ]))->with('error', 'Weekend start time and end time cannot be the same');
         }
 
-
         $data = [
             'storeLocation' => ucwords(strtolower($r->name)),
             'city' => ucwords(strtolower($r->city)),
@@ -345,42 +347,103 @@ class StoreLocationController extends Controller
             'editID' => Auth::guard('admin')->user()->code,
             'tax_province_id' => $r->tax_province_id,
             'timezone' => $r->timezone,
-            'pickup_number'=> $r->pickupNumber
+            'pickup_number' => $r->pickupNumber
         ];
 
         $result = $this->model->doEdit($data, $table, $code);
+
         if ($result == true) {
+            /* ================== DOORDASH STORE CREATE OR UPDATE ================== */
 
-
-            /* ================== DOORDASH STORE UPDATE ================== */
-
+            // Get the first business from the table
             $business = Business::orderBy('id', 'asc')->first();
 
             if ($business) {
-
+                // Prepare payload for DoorDash API
                 $apiParams = [
                     'external_business_id' => $business->external_business_id,
-                    'external_store_id'    => $code,
-                    'name'                => $r->name,
-                    'phone_number'        => $r->pickupNumber,
-                    'address'             => $r->storeAddress
+                    'external_store_id' => $code,
+                    'name' => $r->name,
+                    'phone_number' => $r->pickupNumber,
+                    'address' => $r->storeAddress
                 ];
 
-                $ddResponse = $this->doorDashService->updateStore($apiParams);
+                // Check if store exists in DoorDash
+                Log::info('Checking if DoorDash store exists', [
+                    'external_business_id' => $business->external_business_id,
+                    'external_store_id' => $code
+                ]);
 
-                Log::info('DoorDash Store Update Result', [
-                    'store_code' => $code,
-                    'response'   => $ddResponse
+                $getStoreResult = $this->doorDashService->getStore(
+                    $business->external_business_id,
+                    $code
+                );
+
+                $ddResponse = null;
+
+                // If store exists, update it
+                if (isset($getStoreResult['success']) && $getStoreResult['success'] === true) {
+                    Log::info('Store exists in DoorDash, updating...', [
+                        'external_store_id' => $code
+                    ]);
+
+                    $ddResponse = $this->doorDashService->updateStore($apiParams);
+
+                    Log::info('DoorDash Store Update Result', [
+                        'store_code' => $code,
+                        'response' => $ddResponse
+                    ]);
+                } else {
+                    // Store doesn't exist, create it
+                    Log::info('Store does not exist in DoorDash, creating...', [
+                        'external_store_id' => $code
+                    ]);
+
+                    $ddResponse = $this->doorDashService->createStore($apiParams);
+
+                    Log::info('DoorDash Store Create Result', [
+                        'store_code' => $code,
+                        'response' => $ddResponse
+                    ]);
+                }
+
+                // Save DoorDash response to database (optional - if you have this column)
+                try {
+                    DB::table($table)
+                        ->where('code', $code)
+                        ->update([
+                            'doordash_response' => json_encode($ddResponse)
+                        ]);
+                } catch (\Exception $e) {
+                    Log::warning('Could not save DoorDash response to database', [
+                        'error' => $e->getMessage()
+                    ]);
+                }
+
+                // Log if DoorDash sync failed (but don't block the update)
+                if (!isset($ddResponse['success']) || $ddResponse['success'] !== true) {
+                    $errorMessage = $ddResponse['message'] ?? $ddResponse['error'] ?? 'Unknown error';
+
+                    Log::error('DoorDash Store sync failed', [
+                        'external_store_id' => $code,
+                        'error' => $errorMessage,
+                        'full_response' => $ddResponse
+                    ]);
+                }
+            } else {
+                Log::warning('No business found for DoorDash sync', [
+                    'store_code' => $code
                 ]);
             }
 
             //activity log start
-            $data = $currentdate->toDateTimeString() .    "	"    . $ip .    "	"    . Auth::guard('admin')->user()->code .    "	 Store Location " . $code . " is updated.";
+            $data = $currentdate->toDateTimeString() . "	" . $ip . "	" . Auth::guard('admin')->user()->code . "	 Store Location " . $code . " is updated.";
             $this->model->activity_log($data);
             //activity log end
+
             return redirect('storelocation/list')->with('success', 'Store Location updated successfully');
         } else {
-            return back()->with('error', 'Failed to update the special offer');
+            return back()->with('error', 'Failed to update the store location');
         }
     }
 

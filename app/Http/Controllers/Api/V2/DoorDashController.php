@@ -607,4 +607,99 @@ class DoorDashController extends Controller
             ], 500);
         }
     }
+
+
+    /**
+     * update Store for a Business
+     * POST /api/doordash/stores
+     */
+    public function updateStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'external_business_id' => 'required|string',
+            'external_store_id'    => 'required',
+            'name'                 => 'required',
+            'phone_number'         => 'required',
+            'address'              => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            Log::warning('DoorDash Update Store Validation Errors', [
+                'errors' => $validator->errors(),
+                'request' => $request->all()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $result = $this->doorDashService->updateStore($request->all());
+
+
+            return response()->json($result, $result['success'] ? 200 : 400);
+        } catch (\Exception $ex) {
+            Log::error('DoorDash Create Update Exception', [
+                'error' => $ex->getMessage(),
+                'request' => $request->all()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => $ex->getMessage()
+            ], 500);
+        }
+    }
+
+
+    /**
+     * Get Store details for a Business
+     * GET /api/doordash/stores/{external_business_id}/{external_store_id}
+     */
+    public function getStore(string $externalBusinessId, string $externalStoreId)
+    {
+        Log::info('DoorDash Get Store API called', [
+            'external_business_id' => $externalBusinessId,
+            'external_store_id' => $externalStoreId
+        ]);
+
+        try {
+            if (empty($externalBusinessId) || empty($externalStoreId)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Both external_business_id and external_store_id are required'
+                ], 422);
+            }
+
+            $result = $this->doorDashService->getStore($externalBusinessId, $externalStoreId);
+
+            Log::info('DoorDash Get Store Response', [
+                'external_business_id' => $externalBusinessId,
+                'external_store_id' => $externalStoreId,
+                'response' => $result
+            ]);
+
+            return response()->json([
+                'success' => $result['success'],
+                'message' => $result['success']
+                    ? 'Store details retrieved successfully'
+                    : ($result['message'] ?? 'Failed to retrieve store details'),
+                'data' => $result['data'] ?? null,
+                'mode' => $result['mode'] ?? 'unknown'
+            ], $result['success'] ? 200 : 404);
+        } catch (\Throwable $e) {
+            Log::error('DoorDash Get Store Exception', [
+                'external_business_id' => $externalBusinessId,
+                'external_store_id' => $externalStoreId,
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Internal server error while retrieving store details'
+            ], 500);
+        }
+    }
 }

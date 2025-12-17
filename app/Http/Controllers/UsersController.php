@@ -140,8 +140,8 @@ class UsersController extends Controller
             'email' => 'required|unique:usermaster,userEmail',
             'mobilenumber' => 'required|digits:10|unique:usermaster,mobile',
             'profilePhoto' => 'nullable|image|mimes:jpg,png,jpeg',
-            'password' => 'required|min:6|max:16|confirmed',
-            'password_confirmation' => 'required|min:6|max:16',
+            'password' => 'required|min:6|max:8|confirmed',
+            'password_confirmation' => 'required|min:6|max:8',
             'role' => 'required'
         ];
         $messages = [
@@ -259,8 +259,8 @@ class UsersController extends Controller
                 'email' => 'required',
                 'mobilenumber' => 'required|digits:10',
                 'profilePhoto' => 'nullable|image|mimes:jpg,png,jpeg',
-                'password' => 'nullable|min:6|max:16|confirmed',
-                'password_confirmation' => 'nullable|min:6|max:16',
+                'password' => 'nullable|min:6|max:8|confirmed',
+                'password_confirmation' => 'nullable|min:6|max:8',
                 'role' => 'required'
             ];
         } else {
@@ -398,7 +398,7 @@ class UsersController extends Controller
         //activity log start
         $datastring = $currentdate->toDateTimeString() .    "	"    . $ip .    "	"    . Auth::guard('admin')->user()->code .    "	User " . $code  . " is deleted.";
         $this->model->activity_log($datastring);
-        //activity log end 
+        //activity log end
 
         $result = $this->model->doEditWithField($data, $table, 'code', $code);
         if ($result == true) {

@@ -37,6 +37,7 @@ use App\Services\DoorDashService;
 use App\Models\DoorDashStep;
 use App\Models\Business;
 use App\Classes\Twilio;
+use App\Classes\Helper;
 
 class CustomerOrderController extends Controller
 {
@@ -286,7 +287,8 @@ class CustomerOrderController extends Controller
                     "paymentStatus" => "pending",
                     "orderFrom" => "online",
                     "zipCode" => $r->zipCode,
-                    "storeLocation" => $storeCode
+                    "storeLocation" => $storeCode,
+                    "deviceType" => $r->deviceType
                 ];
                 // Developer: Shreyas Mahamuni - Start
                 $orderCode = 1;
@@ -369,8 +371,6 @@ class CustomerOrderController extends Controller
                             if ($twilio->isLive()) {
                                 $sms = $twilio->sendMessage($message, $r->mobileNumber);
                             }
-
-
                         }
 
                         if ($r->deliveryType == "pickup") {
@@ -403,12 +403,13 @@ class CustomerOrderController extends Controller
                             if ($business) {
                                 $businessId = $business->external_business_id;
                             }
+                            $externalDeliveryId = 'DEL_' . $order;
 
                             $quotePayload = [
-                                'external_delivery_id' => $order,
+                                'external_delivery_id' =>  $externalDeliveryId,
                                 //'pickup_address' => $r->storeAddress,
-                                'pickup_address' => "901 Market Street 6th Floor San Francisco, CA 94103",
-                                'pickup_phone_number' => '+12345678900',
+                                'pickup_address' => $store->storeAddress,
+                                'pickup_phone_number' =>  $store->pickup_number,
                                 'dropoff_address' => $r->address,
                                 'dropoff_phone_number' => $r->mobileNumber,
                                 'dropoff_contact_given_name' => $r->customerName,
@@ -417,7 +418,6 @@ class CustomerOrderController extends Controller
                                 'order_value' => (int)round($r->grandTotal * 100), // Convert to cents
                                 'currency' => 'CAD',
                             ];
-
 
                             $doorDashResult = $this->doorDashService->makeRequest('post', '/quotes', $quotePayload);
 
@@ -428,10 +428,10 @@ class CustomerOrderController extends Controller
                                 // Log the error
                                 Log::error('DoorDash quote creation failed', [
                                     'order_code' => $order,
+                                    'doordash_delivery_id' => $externalDeliveryId,
                                     'error' => $doorDashResult['error'] ?? 'Unknown error',
                                     'data' => $doorDashResult['data'] ?? null
                                 ]);
-
 
                                 $errorMessage = '';
 
@@ -448,11 +448,12 @@ class CustomerOrderController extends Controller
                                 DoorDashStep::create([
                                     'order_id' => $order,
                                     'doordash_status' => 'QUOTE_FAILED',
-                                    'doordash_delivery_id' => null,
+                                    'doordash_delivery_id' => $externalDeliveryId,
                                     'doordash_response' => json_encode($doorDashResult),
                                 ]);
 
                                 return response()->json([
+                                    "status" => 400,
                                     "message" => "Failed to create delivery. Order has been cancelled.",
                                     "error" => $errorMessage,
                                     "mode" => $doorDashResult['mode'] ?? 'unknown'
@@ -464,7 +465,9 @@ class CustomerOrderController extends Controller
                                 "doordash_quote_id" => $doorDashResult['data']['external_delivery_id'] ?? null,
                                 "doordash_fee" => isset($doorDashResult['data']['fee']) ? $doorDashResult['data']['fee'] / 100 : null,
                                 "doordash_response" => $doorDashResult,
+                                "doordash_delivery_id" => $doorDashResult['data']['external_delivery_id'] ?? null,
                                 "doordash_status" => 'QUOTE_CREATED',
+                                "doordash_expires_at"=> now()->addMinutes(5)
                             ]);
 
                             DoorDashStep::create([
@@ -475,6 +478,22 @@ class CustomerOrderController extends Controller
                             ]);
                         }
 
+
+                        $deliveryFee = 0.0;
+
+                        if ($r->deliveryType === 'delivery' && isset($doorDashResult['data']['fee'])) {
+                            $deliveryFee = $doorDashResult['data']['fee'] / 100;
+                        }
+
+                        $calculationData = [
+                            "storeCode" => $storeCode,
+                            "deliveryType" => $r->deliveryType,
+                            "discountAmount" => $r->discountType,
+                            "deliveryCharges" => $deliveryFee,
+                        ];
+                        $totalCalculation = new Helper();
+                        $totalCalculationDetails = $totalCalculation->grand_total_calculations($r->subTotal, $calculationData);
+
                         $socketData = [
                             'orderCode' => $order,
                             'orderNumber' =>  $orderCode,
@@ -483,27 +502,22 @@ class CustomerOrderController extends Controller
                             'storeCode' => $storeCode,
                             'deliveryType' => $r->deliveryType,
                             "customerName" => $r->customerName,
-                            'grandTotal'   => $r->deliveryType === 'delivery'
-                                ? $r->grandTotal + (
-                                    isset($doorDashResult['data']['fee'])
-                                    ? $doorDashResult['data']['fee'] / 100
-                                    : 0
-                                )
-                                : $r->grandTotal,
+                            'grandTotal'   => $totalCalculationDetails["grandTotal"],
+                            "pricing" => $totalCalculationDetails,
                             "orderFrom" => "online",
                             "placedBy" => 'client'
                         ];
-
 
                         if (
                             $r->deviceType == "mobile"
                         ) {
                             $stripe = new Stripe;
 
-                            $stripeResult = $stripe->makeStripePayment($r->grandTotal);
+                            $stripeResult = $stripe->makeStripePayment($totalCalculationDetails["grandTotal"]);
                             if ($stripeResult) {
 
-                                $result = OrderMaster::where("code", $order)->update(["stripesessionid" => $stripeResult['id']]);
+                                $result = OrderMaster::where("code", $order)
+                                    ->update(["stripesessionid" => $stripeResult['id'], "payment_expires_at" => now()->addMinutes(3)]);
 
                                 return response()->json([
                                     "message" => "Order place successfully.",
@@ -511,7 +525,8 @@ class CustomerOrderController extends Controller
                                     "receiptNo" => $receiptNo,
                                     "txnId" => $txnId,
                                     "orderDate" => $now,
-                                    "totalAmount" => $r->grandTotal,
+                                    "totalAmount" => $totalCalculationDetails["grandTotal"],
+                                    "pricing" => $totalCalculationDetails,
                                     "stripeResult" => $stripeResult,
                                     "data" => $socketData
                                 ], 200);
@@ -552,7 +567,7 @@ class CustomerOrderController extends Controller
                                     [
                                         'price_data' => [
                                             'currency' => 'cad',
-                                            'unit_amount' => (int)($r->grandTotal * 100),
+                                            'unit_amount' => (int)($totalCalculationDetails["grandTotal"] * 100),
                                             'product_data' => [
                                                 'name' => 'payment'
                                             ],
@@ -567,21 +582,28 @@ class CustomerOrderController extends Controller
                             ]);
                             if ($stripeResult) {
 
-                                $result = OrderMaster::where("code", $order)->update(["stripesessionid" => $stripeResult->id]);
-
-                                return response()->json([
-                                    "message" => "Order place successfully.",
+                                $result = OrderMaster::where("code", $order)->update(["stripesessionid" => $stripeResult->id, "payment_expires_at" => now()->addMinutes(3)]);
+                                $response = [
+                                    "message" => "Order placed successfully.",
                                     "orderCode" => $order,
                                     "receiptNo" => $receiptNo,
                                     "txnId" => $txnId,
                                     "orderDate" => $now,
-                                    "totalAmount" => $r->grandTotal,
+                                    "totalAmount" => $totalCalculationDetails["grandTotal"],
+                                    "pricing" => $totalCalculationDetails,
                                     "stripeResult" => $stripeResult,
                                     "sessionId" => $stripeResult->id,
                                     "publishableKey" => $publishableKey,
                                     "paymentUrl" => $stripeResult->url,
                                     "data" => $socketData
-                                ], 200);
+                                ];
+
+                                // Only include DoorDash data if it's a delivery order
+                                if ($r->deliveryType == "delivery" && $doorDashResult) {
+                                    $response['doordashData'] = $doorDashResult["data"] ?? null;
+                                }
+
+                                return response()->json($response, 200);
                             } else {
                                 return response()->json(["message" => "Failed to place order."], 400);
                             }
@@ -595,6 +617,34 @@ class CustomerOrderController extends Controller
             }
         } catch (\Exception $ex) {
             return response()->json(['message' => $ex->getMessage()], 400);
+        }
+    }
+
+    public function cancel_order(Request $request)
+    {
+        try {
+
+            $order = OrderMaster::where('code', $request->code)->first();
+
+            if (!$order) {
+                return response()->json([
+                    'message' => 'Order not found'
+                ], 400);
+            }
+            OrderLineEntries::where('orderCode', $order->code)->delete();
+            $order->delete();
+            return response()->json([
+                'message' => 'Order cancelled successfully'
+            ], 200);
+
+        } catch (\Exception $ex) {
+            Log::error('Order failed', [
+                'error' => $ex->getMessage()
+            ]);
+
+            return response()->json([
+                'message' => 'Something went wrong'
+            ], 500);
         }
     }
 
