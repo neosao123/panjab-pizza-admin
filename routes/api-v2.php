@@ -92,7 +92,7 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/signature-pizzas', [SignaturePizzaController::class, 'list']);
     Route::get('/signature-pizza/defaults/{code}', [SignaturePizzaController::class, 'show']);
 
-    Route::get('/defaultspecialoffer/{code}', [SignaturePizzaController::class, 'defaultForSpecialOffer']);
+    Route::get('/signature-pizza/defaults/{code}', [SignaturePizzaController::class, 'defaultForSpecialOffer']);
 
     Route::get('/pizzas', [PizzasController::class, 'list']);
     Route::get('/pizzas/{code}', [PizzasController::class, 'show']);

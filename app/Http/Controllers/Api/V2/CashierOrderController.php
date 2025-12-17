@@ -172,7 +172,7 @@ class CashierOrderController extends Controller
             // }
 
             $deliveryExecutive = "";
-            if ($r->deliveryType != "pickup") {
+           /* if ($r->deliveryType != "pickup") {
                 if ($r->has('deliveryExecutive') && $r->deliveryExecutive != "") {
                     $deliveryExecutive = $r->deliveryExecutive;
                 } else {
@@ -181,7 +181,7 @@ class CashierOrderController extends Controller
                         $deliveryExecutive = $delivery->code;
                     }
                 }
-            }
+            }*/
 
             $data = [
                 "customerCode" => $customerCode,
