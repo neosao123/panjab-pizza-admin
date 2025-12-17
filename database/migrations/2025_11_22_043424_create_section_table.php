@@ -14,24 +14,24 @@ return new class extends Migration
         // Create sections table
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            
+
             $table->longText('title');
             $table->longText('subTitle')->nullable();
             $table->tinyInteger('isActive')->default(1);
             $table->timestamps();
-        
+
         });
 
         // Create section_lineentries table
         Schema::create('section_lineentries', function (Blueprint $table) {
             $table->id();
-            
+
             $table->integer('section_id');
             $table->longText('image')->nullable();
             $table->longText('title');
             $table->string('counter');
             $table->timestamps();
-        
+
         });
     }
 
