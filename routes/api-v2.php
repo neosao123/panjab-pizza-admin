@@ -84,16 +84,14 @@ Route::group(['middleware' => 'cors'], function () {
     Route::get('/special-offers', [SpecialOfferController::class, 'list']);
     Route::get('/searchable-special-deal', [SpecialOfferController::class, 'searchableSpecialDeals']);
     Route::get('/special-offers/{code}', [SpecialOfferController::class, 'show']);
-    Route::get('/special-offers-web/{code}', [SpecialOfferController::class, 'showWeb']);
+     Route::get('/special-offers-web/{code}', [SpecialOfferController::class, 'showWeb']);
     // nearest store by lat long
     Route::get('/nearest-store', [CommonController::class, 'nearestStoreByLatLng']);
     Route::get('/search-products', [CommonController::class, 'searchProducts']);
 
     Route::get('/signature-pizzas', [SignaturePizzaController::class, 'list']);
-    Route::get('/signature-pizza/defaults/{code}', [SignaturePizzaController::class, 'show']);
-
-    Route::get('/signature-pizza/defaults/{code}', [SignaturePizzaController::class, 'defaultForSpecialOffer']);
-
+    Route::get('/signature-pizzas/{code}', [SignaturePizzaController::class, 'show']);
+  	Route::get('/signature-pizza/defaults/{code}', [SignaturePizzaController::class, 'defaultForSpecialOffer']);
     Route::get('/pizzas', [PizzasController::class, 'list']);
     Route::get('/pizzas/{code}', [PizzasController::class, 'show']);
 
@@ -126,19 +124,21 @@ Route::group(['middleware' => 'cors'], function () {
         Route::post('/addAddress', [CustomerController::class, 'add_customer_address']);
         Route::post('/updateAddress', [CustomerController::class, 'update_customer_address']);
         Route::post('/deleteAddress', [CustomerController::class, 'delete_customer_address']);
-
-
-
         Route::get('/getstorelocationbycity', [CustomerController::class, 'getStoreLocationByCity']);
         Route::get('/previousorder', [CashierOrderController::class, 'get_previous_order']);
+        
+    //webhook
 
-        //webhook
         Route::post('/payment/callback',  [WebhookController::class, 'webhook']);
+
         Route::get('/payment/success',  [WebhookController::class, 'payment_success']);
+
         Route::get('/payment/cancel',  [WebhookController::class, 'payment_cancel']);
+
         Route::get('/payment/failed',  [WebhookController::class, 'payment_failed']);
 
 
+      
         Route::post('/changepassword', [CustomerController::class, 'change_password']);
         // orders
         Route::group(['prefix' => '/order'], function () {
@@ -148,6 +148,10 @@ Route::group(['middleware' => 'cors'], function () {
             Route::post('/getlist',  [CustomerOrderController::class, 'customer_order_list']);
             Route::get('/cancel/{code}',  [CustomerOrderController::class, 'cancel_order']);
         });
+      
+        
+
+
     });
 
     // in-store (cashier website)
@@ -167,10 +171,11 @@ Route::group(['middleware' => 'cors'], function () {
         Route::group(['prefix' => 'order'], function () {
             Route::post('status-change', [CashierOrderController::class, 'update_order_status']);
             Route::post('place', [CashierOrderController::class, 'order_place']);
+          
+              //dooredash api for order status change
 
-            //dooredash api for order status change
             Route::post('status/update', [CashierOrderController::class, 'change_order_status']);
-
+          
             Route::post('edit', [CashierOrderController::class, 'order_edit']);
             Route::post('details', [CashierOrderController::class, 'get_order_details']);
             Route::post('assignDeliveryExecutive', [CashierOrderController::class, 'delivery_executive_assign']);
@@ -229,9 +234,8 @@ Route::group(['middleware' => 'cors'], function () {
         Route::post('/logout', [AuthController::class, 'user_logout']);
         Route::post('/resetPassword', [AuthController::class, 'user_reset_password']);
     });
-
-
-    //doordash api
+  
+      //doordash api
 
 
 

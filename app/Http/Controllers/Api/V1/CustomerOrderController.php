@@ -108,7 +108,7 @@ class CustomerOrderController extends Controller
 
             if (!empty($store)) {
                 $timezone = $store->timezone;
-                Carbon::setLocale($timezone);
+                Carbon::now()->setTimezone($timezone);
                 date_default_timezone_set($timezone);
             }
             $currentdate = Carbon::now();

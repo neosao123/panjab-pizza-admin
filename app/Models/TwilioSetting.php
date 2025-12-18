@@ -16,6 +16,7 @@ class TwilioSetting extends Model
         'twilio_session_id',
         'twilio_auth_id',
         'twilio_number',
+        'twilio_mode',
         'isActive',
         'isDelete'
     ];

@@ -123,15 +123,15 @@ class CustomerController extends Controller
                 ],
                 'mobileNumber' => [
                     'required',
-                    'digits:10',
-                    'numeric',
-                    Rule::unique('customer')->where(function ($query) {
-                        return $query->where('isDelete', '=', '0');
-                    })
+                    'phone:CA',
+                    Rule::unique('customer')->where(fn($q) => $q->where('isDelete', 0))
                 ],
                 'address' => 'required|min:5',
                 'city'  => 'required|min:2',
-                'zipcode' => 'required|regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\d[A-Z]\d$/i',
+                'zipcode' => [
+                    'required',
+                    'regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\s\d[A-Z]\d$/i'
+                ],
                 'password' => 'required|min:6|max:20',
                 'password_confirmation' => 'min:6|max:20|required',
                 'profilePhoto' => 'nullable|mimes:png,jpg,jpeg,gif',
@@ -148,13 +148,14 @@ class CustomerController extends Controller
                 'lastName.max' => 'Max characters exceeded.',
                 'mobileNumber.required' => 'Mobile number is required.',
                 'mobileNumber.unique' => 'Mobile number is already exist.',
+                'mobileNumber.phone' => 'Enter a valid Canadian mobile number',
                 'password.required' => 'Password is required',
                 'password_confirmation.required' => 'Confirm Password is required',
-                'password.min' => 'Password must be 6 characters long',
+                'password.min' => 'Password must be 6 characters long', 
                 'password.max' => 'Max characters exceeded.',
                 'password.confirmed' => 'Password does not match',
                 'zipcode.required' => 'Postal Code is required',
-                'zipcode.regex' => 'Enter valid postal code.',
+                'zipcode.regex' => 'Enter a valid Canadian postal code',
                 'address.required' => 'Address is required.',
                 'address.min' => 'Minimum of 5 characters are required.',
                 'city.required' => 'City is required.',
@@ -249,9 +250,8 @@ class CustomerController extends Controller
                     })
                 ],
                 'mobileNumber' => [
-                    'required',
-                    'digits:10',
-                    'numeric',
+                   'required',
+                   'phone:CA',
                     Rule::unique('customer')->where(function ($query) use ($customerCode) {
                         return $query->where('code', "!=", $customerCode)
                             ->where('isDelete', '=', '0');
@@ -306,7 +306,7 @@ class CustomerController extends Controller
                 'customerCode' => 'required',
                 'address' => 'required|min:2|max:100',
                 'city' => 'required|min:2|max:100',
-                'zipcode' => 'required|regex:/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/',
+                'zipcode' => 'required|regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\s\d[A-Z]\d$/i',
             ]);
             if ($validator->fails()) {
                 $response = [
@@ -349,7 +349,7 @@ class CustomerController extends Controller
                 'street' => 'required|min:2|max:100',
                 'city' => 'required|min:2|max:100',
                 'landmark' => 'required|min:2|max:100',
-                'zipcode' => 'required|regex:/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/',
+                'zipcode' => 'required|regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\s\d[A-Z]\d$/i',
             ]);
             if ($validator->fails()) {
                 $response = [
@@ -418,18 +418,18 @@ class CustomerController extends Controller
             ]);
             if ($validator->fails()) {
                 $response = [
-                    "status"=>"300",
+                    "status" => "300",
                     "message" => $validator->errors()->first()
                 ];
                 return response()->json($response, 500);
             }
             $customer = Customer::where('mobileNumber', $r->mobileNumber)
-                       ->where("isActive",1)
-                       ->where("isDelete",0)
-                       ->first();
+                ->where("isActive", 1)
+                ->where("isDelete", 0)
+                ->first();
             if ($customer) {
                 $token = $this->model->randomCharacters(5);
-                $customer->resetToken=$token;
+                $customer->resetToken = $token;
                 $customer->save();
 
                 CustomerOtp::where('mobile', $r->mobileNumber)->delete();
@@ -437,7 +437,7 @@ class CustomerController extends Controller
                 $otp = $this->generateOTP($r->mobileNumber);
 
                 if ($otp === false) {
-                    return response()->json(["status"=>"300","message" => "Failed to generate OTP. Please try again."], 200);
+                    return response()->json(["status" => "300", "message" => "Failed to generate OTP. Please try again."], 200);
                 }
 
                 $smsTemplate = SmsTemplate::where("id", 6)->first();
@@ -455,33 +455,33 @@ class CustomerController extends Controller
 
                     if ($sms === false) {
                         return response()->json([
-                            "status"=>"300",
+                            "status" => "300",
                             "message" => "Failed to send OTP. Please try again later."
                         ], 200);
                     }
 
                     return response()->json([
-                        "status"=>"200",
+                        "status" => "200",
                         "message" => "OTP sent successfully",
                         "mobileNumber" => $r->mobileNumber,
-                        "resetToken"=>$token
+                        "resetToken" => $token
                     ], 200);
                 }
 
                 if (env('SMS_MODE') === "TEST") {
                     return response()->json([
-                         "status"=>"200",
+                        "status" => "200",
                         "message" => "OTP sent successfully " . $otp,
                         "mobileNumber" => $r->mobileNumber,
                         "otp" => $otp,
-                        "resetToken"=>$token
+                        "resetToken" => $token
                     ], 200);
                 }
             } else {
-                return response()->json(["status"=>"300",'message' => 'No users were found with the mobile number provided!'], 200);
+                return response()->json(["status" => "300", 'message' => 'No users were found with the mobile number provided!'], 200);
             }
         } catch (\Exception $ex) {
-            return response()->json(["status"=>"300",'message' => $ex->getMessage()], 400);
+            return response()->json(["status" => "300", 'message' => $ex->getMessage()], 400);
         }
     }
 
@@ -534,18 +534,18 @@ class CustomerController extends Controller
 
             if ($validator->fails()) {
                 return response()->json([
-                    "status"=>"300",
+                    "status" => "300",
                     "message" => $validator->errors()->first()
                 ], 500);
             }
 
             $customer = Customer::where('mobileNumber', $r->mobileNumber)
-                       ->where("isActive",1)
-                       ->where("isDelete",0)
-                       ->first();
+                ->where("isActive", 1)
+                ->where("isDelete", 0)
+                ->first();
 
             if (empty($customer)) {
-                return response()->json(["status"=>"300",'message' => 'No users were found with the mobile number provided!'], 200);
+                return response()->json(["status" => "300", 'message' => 'No users were found with the mobile number provided!'], 200);
             }
 
             // Delete existing OTP
@@ -555,7 +555,7 @@ class CustomerController extends Controller
             $otp = $this->generateOTP($r->mobileNumber);
 
             if ($otp === false) {
-                return response()->json(["status"=>"300","message" => "Failed to generate OTP. Please try again."], 200);
+                return response()->json(["status" => "300", "message" => "Failed to generate OTP. Please try again."], 200);
             }
 
             $smsTemplate = SmsTemplate::where("id", 6)->first();
@@ -577,7 +577,7 @@ class CustomerController extends Controller
 
                 if ($send === false) {
                     return response()->json([
-                         "status"=>"300",
+                        "status" => "300",
                         "message" => "Failed to send OTP SMS. Please try again."
                     ], 200);
                 }
@@ -587,7 +587,7 @@ class CustomerController extends Controller
             if (env('SMS_MODE') === "TEST") {
                 // Do NOT send SMS in test mode
                 $responseData = [
-                     "status"=>"200",
+                    "status" => "200",
                     "message" => "OTP sent successfully. " . $otp,
                     "mobileNumber" => $r->mobileNumber,
                     "otp" => $otp
@@ -595,7 +595,7 @@ class CustomerController extends Controller
             } else {
                 // LIVE mode
                 $responseData = [
-                     "status"=>"200",
+                    "status" => "200",
                     "message" => "OTP sent successfully",
                     "mobileNumber" => $r->mobileNumber,
                     "otp" => $otp // return OTP in LIVE? remove if not needed
@@ -609,7 +609,7 @@ class CustomerController extends Controller
     }
 
 
-     // Verify OTP API
+    // Verify OTP API
     public function verify_otp(Request $r)
     {
         try {
@@ -618,7 +618,7 @@ class CustomerController extends Controller
             $rules = [
                 'mobileNumber' => ['required'],
                 'otp' => ['required', 'numeric'],
-                'token'=>'required'
+                'token' => 'required'
             ];
 
             $messages = [
@@ -626,45 +626,44 @@ class CustomerController extends Controller
                 'mobileNumber.numeric' => 'Mobile number is invalid',
                 'otp.required' => 'OTP is required',
                 'otp.numeric' => 'OTP is invalid',
-                'token.required'=>'Token is required.',
+                'token.required' => 'Token is required.',
             ];
 
             $validator = Validator::make($input, $rules, $messages);
 
             if ($validator->fails()) {
                 $response = [
-                    "status"=>"300",
+                    "status" => "300",
                     "message" => $validator->errors()->first()
                 ];
                 return response()->json($response, 500);
             }
 
             $customer = Customer::where('resetToken', $r->token)->first();
-            if(empty($customer))
-            {
-                return response()->json([ "status"=>"300","message" => "Password Reset Link is Expired. Please Forgot Password Again to Continue."], 400);
+            if (empty($customer)) {
+                return response()->json(["status" => "300", "message" => "Password Reset Link is Expired. Please Forgot Password Again to Continue."], 400);
             }
 
             // Verify OTP using the existing function
             $result = $this->checkRegisterOTP($r->otp, $r->mobileNumber);
 
             if ($result === 'expired') {
-                return response()->json(["status"=>"300","message" => "OTP has expired. Please request a new one."], 200);
+                return response()->json(["status" => "300", "message" => "OTP has expired. Please request a new one."], 200);
             }
 
             if ($result === false) {
-                return response()->json(["status"=>"300","message" => "Invalid OTP. Please try again."], 200);
+                return response()->json(["status" => "300", "message" => "Invalid OTP. Please try again."], 200);
             }
 
             // OTP verified successfully
             // You can perform additional actions here like creating session, token, etc.
 
             return response()->json([
-                "status"=>"200",
+                "status" => "200",
                 "message" => "OTP verified successfully",
                 "mobileNumber" => $r->mobileNumber,
                 "verified" => true,
-                "token"=>$customer->resetToken
+                "token" => $customer->resetToken
             ], 200);
         } catch (\Exception $ex) {
             return response()->json(['message' => $ex->getMessage()], 400);
@@ -672,7 +671,7 @@ class CustomerController extends Controller
     }
 
 
- /*   public function verify_customer_token(Request $r)
+    /*   public function verify_customer_token(Request $r)
     {
         try {
             $validator = Validator::make($r->all(), [
@@ -718,7 +717,7 @@ class CustomerController extends Controller
 
             if ($validator->fails()) {
                 $response = [
-                    "status"=>"300",
+                    "status" => "300",
                     "message" => $validator->errors()->first()
                 ];
                 return response()->json($response, 500);
@@ -730,11 +729,11 @@ class CustomerController extends Controller
                 $customer->password = Hash::make($r->password);
                 $customer->resetToken = null;
                 $customer->save();
-                return response()->json(["status"=>"200","message" => "Password updated successful. Please login to continue."], 200);
+                return response()->json(["status" => "200", "message" => "Password updated successful. Please login to continue."], 200);
             }
-            return response()->json(["status"=>"300","message" => "Password update is failed . Please Forgot Password Again to Continue."], 400);
+            return response()->json(["status" => "300", "message" => "Password update is failed . Please Forgot Password Again to Continue."], 400);
         } catch (\Exception $ex) {
-            return response()->json(["status"=>"400",'message' => $ex->getMessage()], 400);
+            return response()->json(["status" => "400", 'message' => $ex->getMessage()], 400);
         }
     }
 

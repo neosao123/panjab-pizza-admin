@@ -236,6 +236,99 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card bg-info">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="m-r-10">
+                            <h1 class="m-b-0"><i class="mdi mdi-food text-white"></i></h1>
+                        </div>
+                        <div>
+                            <h6 class="font-14 text-white m-b-5 op-7">Dips</h6>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="crypto">
+                                <h4 class="text-white font-medium m-b-0">{{$dips}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-right text-white">
+                        <div class="col-12"><a class="text-white" data-id="dbs" href="{{ url('dips/list') }}">View</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card bg-alternate">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="m-r-10">
+                            <h1 class="m-b-0"><i class="mdi mdi-food text-white"></i></h1>
+                        </div>
+                        <div>
+                            <h6 class="font-14 text-white m-b-5 op-7">Drinks</h6>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="crypto">
+                                <h4 class="text-white font-medium m-b-0">{{$drinks}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-right text-white">
+                        <div class="col-12"><a class="text-white" data-id="dbs" href="{{ url('softdrinks/list') }}">View</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card bg-info">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="m-r-10">
+                            <h1 class="m-b-0"><i class="mdi mdi-food text-white"></i></h1>
+                        </div>
+                        <div>
+                            <h6 class="font-14 text-white m-b-5 op-7">Plant Bites</h6>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="crypto">
+                                <h4 class="text-white font-medium m-b-0">{{$plantbites}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-right text-white">
+                        <div class="col-12"><a class="text-white" data-id="dbs" href="{{ url('sides/list') }}">View</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card bg-alternate">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="m-r-10">
+                            <h1 class="m-b-0"><i class="mdi mdi-food text-white"></i></h1>
+                        </div>
+                        <div>
+                            <h6 class="font-14 text-white m-b-5 op-7">Tenders</h6>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="crypto">
+                                <h4 class="text-white font-medium m-b-0">{{$tenders}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-right text-white">
+                        <div class="col-12"><a class="text-white" data-id="dbs" href="{{ url('sides/list') }}">View</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

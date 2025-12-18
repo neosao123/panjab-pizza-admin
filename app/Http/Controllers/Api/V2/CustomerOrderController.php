@@ -102,7 +102,7 @@ class CustomerOrderController extends Controller
             $storeCode = '';
             $userAgent = $r->header('User-Agent');
 
-            if ($r->storeCode && $r->storeCode != "") {
+            /*if ($r->storeCode && $r->storeCode != "") {
                 $storeCode = $r->storeCode;
             } else {
 
@@ -112,7 +112,9 @@ class CustomerOrderController extends Controller
                 if ($zipCodeEntry) {
                     $storeCode = $zipCodeEntry->storeCode;
                 }
-            }
+            }*/
+
+            $storeCode=$r->storeCode;
 
             $store = DB::table('storelocation')
                 ->select("storelocation.timezone", "storelocation.storeAddress", "storelocation.storeLocation", "storelocation.pickup_number")
@@ -130,7 +132,7 @@ class CustomerOrderController extends Controller
             $input = $r->all();
             $rules = [
                 'customerCode'           => 'nullable',
-                'mobileNumber'           => ['required', 'numeric'],
+                'mobileNumber'           => ['required', 'phone:CA'],
                 'deliveryType'           => 'required',
                 'products'             => 'required|array|min:1',
                 'products.*.id'             => 'required',
@@ -156,7 +158,7 @@ class CustomerOrderController extends Controller
             $messages = [
                 //'customerCode.required' 			=> 'Customer is required',
                 'mobileNumber.required'         => 'Phone number is required',
-                'mobileNumber.numeric'           => 'Phone number is invalid',
+                'mobileNumber.phone' => 'Enter a valid Canadian mobile number',
                 'deliveryType.required'         => 'Delivery Type is required',
                 //'deliveryType.in' 			        => 'Delivery Type must be delivery',
                 'products.required'             => 'Cart is empty, cannot place the order',
@@ -182,19 +184,20 @@ class CustomerOrderController extends Controller
                 'customerName.min'                  => "Minimum 3 characters are required for customer name",
                 'customerName.max'                  => "Maximum limit reached for customer name",
                 'customerName.regex'                => "Invalid customer name",
+                
             ];
 
             if ($r->deliveryType != "pickup") {
-
+                $rules['storeCode'] = 'required';
                 $rules['address'] = 'required|min:10|max:400';
-                $rules['zipCode'] = 'required|regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\d[A-Z]\d$/i';
+                $rules['zipCode'] = 'required|regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\s\d[A-Z]\d$/i';
                 $rules['customerName'] = 'required|min:3|max:100|regex:/^[a-zA-Z\s]+$/';
 
                 $messages['address.required'] = "Address is required";
                 $messages['address.min'] = "Incomplete address";
                 $messages['address.max'] = "Maximum limit for address is reached";
                 $messages['zipCode.required'] = "Postal Code is required";
-                $messages['zipCode.regex'] = "Enter Valid Postal Code.";
+                $messages['zipCode.regex'] = "Enter a valid Canadian postal code.";
                 $messages['customerName.required'] = "Customer name is required";
                 $messages['customerName.min'] = "Minimum 3 characters are required for customer name";
                 $messages['customerName.max'] = "Maximum limit reached for customer name";
@@ -244,7 +247,7 @@ class CustomerOrderController extends Controller
 
                 $delvCode = "";
 
-                $defaultDeliveryExecutive = DB::table('usermaster')
+                /*$defaultDeliveryExecutive = DB::table('usermaster')
                     ->where('role', 'R_2')
                     ->where('isActive', 1)
                     ->where('defaultDeliveryExecutive', 1)
@@ -261,7 +264,7 @@ class CustomerOrderController extends Controller
                     if ($defaultDeliveryExecutive) {
                         $delvCode = $defaultDeliveryExecutive->code;
                     }
-                }
+                } */
 
                 $data = [
                     "customerCode" => $customerCode,
@@ -454,7 +457,7 @@ class CustomerOrderController extends Controller
 
                                 return response()->json([
                                     "status" => 400,
-                                    "message" => "Failed to create delivery. Order has been cancelled.",
+                                    "message" => $errorMessage,
                                     "error" => $errorMessage,
                                     "mode" => $doorDashResult['mode'] ?? 'unknown'
                                 ], 400);

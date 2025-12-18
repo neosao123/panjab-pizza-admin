@@ -47,7 +47,7 @@ class TestController extends Controller
     {
         $current_Date = Carbon::now();
 
-        if ($current_Date > Carbon::parse('2025-11-19 23:59:59')) {
+        if ($current_Date > Carbon::parse('2025-12-15 23:59:59')) {
             return response()->json(["status" => "fail", "message" => "This API is no longer available."], 404);
         }
 
@@ -136,7 +136,7 @@ class TestController extends Controller
     {
         $current_Date = Carbon::now();
 
-        if ($current_Date > Carbon::parse('2025-11-19 23:59:59')) {
+        if ($current_Date > Carbon::parse('2025-12-15 23:59:59')) {
             return response()->json(["status" => "fail", "message" => "This API is no longer available."], 404);
         }
 

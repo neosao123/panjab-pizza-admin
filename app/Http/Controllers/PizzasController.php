@@ -174,7 +174,7 @@ class PizzasController extends Controller
             $data['spices'] = Spices::where("isActive", 1)->get();
             $data['sauce'] = Sauce::where("isActive", 1)->get();
             $data['cook'] = Cook::where("isActive", 1)->get();
-            $data['toppingAsOne'] = Toppings::where("isActive", 1)->where("topping_type", 'regular')->get();
+            $data['toppingAsOne'] = Toppings::where("isActive", 1)->where("topping_type", 'regular')->where("isPaid", 1)->get();
             $data['toppingAsTwo'] = Toppings::where("isActive", 1)->where("topping_type", 'non-regular')->get();
             $data['toppingFree'] = Toppings::where("isActive", 1)->where("isPaid", 0)->get();
             $data['pizzaPrices'] = DB::table('pizza_prices')->where('isActive', 1)->orderBy('order_column', 'ASC')->get();
@@ -333,7 +333,7 @@ class PizzasController extends Controller
                 $data['spices'] = Spices::where("isActive", 1)->get();
                 $data['sauce'] = Sauce::where("isActive", 1)->get();
                 $data['cook'] = Cook::where("isActive", 1)->get();
-                $data['toppingAsOne'] = Toppings::where("isActive", 1)->where("topping_type", 'regular')->get();
+                $data['toppingAsOne'] = Toppings::where("isActive", 1)->where("topping_type", 'regular')->where("isPaid", 1)->get();
                 $data['toppingAsTwo'] = Toppings::where("isActive", 1)->where("topping_type", 'non-regular')->get();
                 $data['toppingFree'] = Toppings::where("isActive", 1)->where("isPaid", 0)->get();
                 $data['pizzaPrices'] = DB::table('pizza_prices')->where('isActive', 1)->orderBy('order_column', 'ASC')->get();

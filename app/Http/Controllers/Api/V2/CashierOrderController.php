@@ -70,7 +70,7 @@ class CashierOrderController extends Controller
 
             $rules = [
                 'cashierCode'                 => 'required',
-                'mobileNumber'                 => ['required', 'numeric'],
+                'mobileNumber'                 => ['required', 'phone:CA'],
                 'customerEmail'                => 'nullable|email',
                 'deliveryType'                 => 'required|in:pickup,delivery',
                 'storeLocation'             => 'required',
@@ -97,7 +97,7 @@ class CashierOrderController extends Controller
             $messages = [
                 'cashierCode.required'                 => 'Cashier is missing or not logged in',
                 'mobileNumber.required'             => 'Phone number is required',
-                'mobileNumber.numeric'                 => 'Phone number is invalid',
+                'mobileNumber.phone' => 'Enter a valid Canadian mobile number',
                 'customerEmail.email'              => 'Email is invalid',
                 'deliveryType.required'             => 'Delivery Type is required',
                 'deliveryType.in'                     => 'Delivery Type must be pickup or delivery',
@@ -119,7 +119,7 @@ class CashierOrderController extends Controller
 
             if ($r->deliveryType != "pickup") {
                 $rules['address'] = 'required|min:10|max:400';
-                $rules['zipCode'] = 'required|regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\d[A-Z]\d$/i';
+                $rules['zipCode'] = 'required|regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\s\d[A-Z]\d$/i';
                 //$rules['deliveryExecutive'] = 'required';
                 $rules['customerName'] = 'nullable|min:3|max:100|regex:/^[a-zA-Z\s]+$/';
 
@@ -127,7 +127,7 @@ class CashierOrderController extends Controller
                 $messages['address.min'] = "Incomplete address";
                 $messages['address.max'] = "Maximum limit for address is reached";
                 $messages['zipCode.required'] = "Postal Code is required";
-                $messages['zipCode.regex'] = "Enter Valid Postal Code.";
+                $messages['zipCode.regex'] = "Enter a valid Canadian postal code.";
                 //$messages['deliveryExecutive.required'] = "Delivery Executive is required";
                 //$messages['customerName.required'] = "Customer name is required";
                 $messages['customerName.min'] = "Minimum 3 characters are required for customer name";
@@ -319,7 +319,7 @@ class CashierOrderController extends Controller
                             ]);
 
                             return response()->json([
-                                "message" => "Failed to create delivery. Order has been cancelled.",
+                                "message" => $errorMessage,
                                 "error" => $errorMessage,
                                 "mode" => $doorDashResult['mode'] ?? 'unknown'
                             ], 400);

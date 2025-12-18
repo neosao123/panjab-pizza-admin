@@ -51,7 +51,7 @@ class StoreLocationController extends Controller
         $search = $r->search;
         $role = $r->role;
         $like = array('storelocation.storeLocation' => $search);
-        $condition = array('storelocation.isDelete' => array('=', 0));
+        $condition = array('storelocation.isActive' => array('=', 1));
         $orderBy = array('storelocation' . '.id' => 'DESC');
         if ($role === 'R_4') {
             $condition = array('storelocation.isDelete' => array('=', 0), 'storelocation.isMain' => array('=', 1));
@@ -156,6 +156,7 @@ class StoreLocationController extends Controller
             'storeAddress' => 'required|min:20|max:300',
             'city' => 'required|min:3|max:50',
             'tax_province_id' => 'required',
+            'pickupNumber'=>'required|phone:CA',
         ];
         $messages = [
             'name.required' => 'Store Location name is required.',
@@ -169,7 +170,9 @@ class StoreLocationController extends Controller
             'city.required' => 'City is required',
             'city.min' => 'Minimum of 3 characters are required.',
             'city.max' => 'Maximum of 50 characters are allowed.',
-            'tax_province_id.required' => "Provice - Tax is not selected"
+            'tax_province_id.required' => "Provice - Tax is not selected",
+            'pickupNumber.phone' => 'Enter a valid Canadian mobile number.',
+             'pickupNumber.required'=>'Mobile number is required',
         ];
         $this->validate($r, $rules, $messages);
 
@@ -280,7 +283,8 @@ class StoreLocationController extends Controller
             'longitude' => 'required',
             'storeAddress' => 'required|min:20|max:300',
             'city' => 'required|min:3|max:50',
-            'tax_province_id' => 'required'
+            'tax_province_id' => 'required',
+            'pickupNumber'=>'required|phone:CA',
         ];
 
         $messages = [
@@ -295,7 +299,9 @@ class StoreLocationController extends Controller
             'city.required' => 'City is required',
             'city.min' => 'Minimum of 3 characters are required.',
             'city.max' => 'Maximum of 50 characters are allowed.',
-            'tax_province_id.required' => 'Province - Tax is not selected'
+            'tax_province_id.required' => 'Province - Tax is not selected',
+            'pickupNumber.required'=>'Mobile number is required',
+            'pickupNumber.phone' => 'Enter a valid Canadian mobile number.',
         ];
 
         $this->validate($r, $rules, $messages);

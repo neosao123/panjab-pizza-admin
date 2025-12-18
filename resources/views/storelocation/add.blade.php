@@ -21,7 +21,7 @@
               <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
               <li class="breadcrumb-item"><a href="{{ url('/storelocation/list') }}">Store Location</a></li>
               <li class="breadcrumb-item">Add</li>
-            </ol>
+            </ol> 
           </nav>
         </div>
       </div>

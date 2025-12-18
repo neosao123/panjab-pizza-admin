@@ -62,6 +62,7 @@
                                 <select class="select2 form-control" id="orderSta" name="orderStatus" style="width: 100%;">
                                        <option value="">Select</option>
 									   <option value="placed">Placed</option>
+									   <option value="pending">pending</option>
 									   <option value="picked-up">Picked Up</option>
 									   <option value="delivered">delivered</option>
 									   <option value="shipping">shipping</option>

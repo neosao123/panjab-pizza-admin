@@ -133,47 +133,77 @@ class UsersController extends Controller
         $currentdate = Carbon::now();
         $ip = $_SERVER['REMOTE_ADDR'];
         $rules = [
-            'username' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100|unique:usermaster,username',
+            'username' => [
+                'required',
+                'regex:/^[a-zA-Z\s]+$/',
+                'min:3',
+                'max:100',
+                Rule::unique('usermaster')->where(fn($q) => $q->where('isDelete', 0))
+            ],
+
             'firstname' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
-            'lastname' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
+            'lastname'  => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
             'middlename' => 'nullable|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
-            'email' => 'required|unique:usermaster,userEmail',
-            'mobilenumber' => 'required|digits:10|unique:usermaster,mobile',
+
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('usermaster', 'userEmail')->where(fn($q) => $q->where('isDelete', 0))
+            ],
+
+            'mobilenumber' => [
+                'required',
+                'phone:CA',
+                Rule::unique('usermaster', 'mobile')->where(fn($q) => $q->where('isDelete', 0))
+            ],
+
             'profilePhoto' => 'nullable|image|mimes:jpg,png,jpeg',
+
             'password' => 'required|min:6|max:8|confirmed',
             'password_confirmation' => 'required|min:6|max:8',
+
             'role' => 'required'
         ];
-        $messages = [
-            'username.required' => 'User name is required',
-            'username.regex' => 'Invalid characters like number, special characters are not allowed',
-            'username.min' => 'Minimum of 3 characters are required.',
-            'username.max' => 'Max characters exceeded.',
-            'firstname.required' => 'First name is required',
-            'firstname.regex' => 'Invalid characters like number, special characters are not allowed',
-            'firstname.min' => 'Minimum of 3 characters are required.',
-            'firstname.max' => 'Max characters exceeded.',
-            'lastname.required' => 'Last name is required',
-            'lastname.regex' => 'Invalid characters like number, special characters are not allowed',
-            'lastname.min' => 'Minimum of 3 characters are required.',
-            'lastname.max' => 'Max characters exceeded.',
-            'middlename.regex' => 'Invalid characters like number, special characters are not allowed',
-            'middlename.min' => 'Minimum of 3 characters are required.',
-            'middlename.max' => 'Max characters exceeded.',
-            'mobilenumber.required' => 'Mobile Number is required',
-            'password.required' => 'Password is required',
-            'password.min' => 'Password must be 6 characters long',
-            'password.confirmed' => 'Password does not match',
-            'password_confirmation.required' => 'Confirm Password is required',
-            'password_confirmation.min' => 'Confirm Password must be 6 characters long',
-            'password.max' => 'Max characters exceeded.',
-            'password_confirmation.max' => 'Max characters exceeded.',
-            'email.required' => 'Email is required',
-            'username.unique' => 'Username already exist.',
-            'mobilenumber.unique' => 'Mobile Number already exist.',
-            'email.unique' => 'Email already exist.',
 
+        $messages = [
+            'username.required' => 'User name is required.',
+            'username.regex' => 'User name can contain only letters and spaces.',
+            'username.min' => 'User name must be at least 3 characters.',
+            'username.max' => 'User name must not exceed 100 characters.',
+            'username.unique' => 'User name already exists.',
+
+            'firstname.required' => 'First name is required.',
+            'firstname.regex' => 'First name can contain only letters and spaces.',
+            'firstname.min' => 'First name must be at least 3 characters.',
+            'firstname.max' => 'First name must not exceed 100 characters.',
+
+            'lastname.required' => 'Last name is required.',
+            'lastname.regex' => 'Last name can contain only letters and spaces.',
+            'lastname.min' => 'Last name must be at least 3 characters.',
+            'lastname.max' => 'Last name must not exceed 100 characters.',
+
+            'middlename.regex' => 'Middle name can contain only letters and spaces.',
+            'middlename.min' => 'Middle name must be at least 3 characters.',
+            'middlename.max' => 'Middle name must not exceed 100 characters.',
+
+            'email.required' => 'Email address is required.',
+            'email.email' => 'Enter a valid email address.',
+            'email.unique' => 'Email address already exists.',
+
+            'mobilenumber.required' => 'Mobile number is required.',
+            'mobilenumber.phone' => 'Enter a valid Canadian mobile number.',
+            'mobilenumber.unique' => 'Mobile number already exists.',
+
+            'password.required' => 'Password is required.',
+            'password.min' => 'Password must be at least 6 characters.',
+            'password.max' => 'Password must not exceed 8 characters.',
+            'password.confirmed' => 'Password confirmation does not match.',
+
+            'password_confirmation.required' => 'Confirm password is required.',
+
+            'role.required' => 'Role is required.'
         ];
+
         $this->validate($r, $rules, $messages);
 
         $data = [
@@ -250,14 +280,35 @@ class UsersController extends Controller
     {
         $ip = $_SERVER['REMOTE_ADDR'];
         $currentdate = Carbon::now();
+        $code=$r->code;
         if (!empty($r->password) || !empty($r->password_confirmation)) {
             $rules = [
-                'username' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
+                'username' => [
+                    'required',
+                    'regex:/^[a-zA-Z\s]+$/',
+                    'min:3',
+                    'max:100',
+                    Rule::unique('usermaster', 'username')
+                        ->ignore($code, 'code')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                ],
                 'firstname' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
                 'lastname' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
                 'middlename' => 'nullable|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
-                'email' => 'required',
-                'mobilenumber' => 'required|digits:10',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('usermaster', 'userEmail')
+                        ->ignore($code, 'code')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                ],
+                'mobilenumber' => [
+                    'required',
+                   'phone:CA',
+                    Rule::unique('usermaster', 'mobile')
+                        ->ignore($code, 'code')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                ],
                 'profilePhoto' => 'nullable|image|mimes:jpg,png,jpeg',
                 'password' => 'nullable|min:6|max:8|confirmed',
                 'password_confirmation' => 'nullable|min:6|max:8',
@@ -265,12 +316,32 @@ class UsersController extends Controller
             ];
         } else {
             $rules = [
-                'username' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
+                'username' => [
+                    'required',
+                    'regex:/^[a-zA-Z\s]+$/',
+                    'min:3',
+                    'max:100',
+                    Rule::unique('usermaster', 'username')
+                        ->ignore($code, 'code')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                ],
                 'firstname' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
                 'lastname' => 'required|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
                 'middlename' => 'nullable|regex:/^[a-zA-Z\s]+$/|min:3|max:100',
-                'email' => 'required',
-                'mobilenumber' => 'required|digits:10',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('usermaster', 'userEmail')
+                        ->ignore($code, 'code')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                ],
+                'mobilenumber' => [
+                    'required',
+                    'phone:CA',
+                    Rule::unique('usermaster', 'mobile')
+                        ->ignore($code, 'code')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                ],
                 'profilePhoto' => 'nullable|image|mimes:jpg,png,jpeg',
                 'role' => 'required'
             ];
@@ -302,8 +373,9 @@ class UsersController extends Controller
             'password.max' => 'Max characters exceeded.',
             'password_confirmation.max' => 'Max characters exceeded.',
             'username.unique' => 'Username already exists.',
-            'mobilenumber.unique' => 'Mobile Number already exists.',
             'email.unique' => 'Email already exists.',
+            'mobilenumber.unique' => 'Mobile number already exists.',
+            'mobilenumber.phone' => 'Enter a valid Canadian mobile number.',
 
         ];
 

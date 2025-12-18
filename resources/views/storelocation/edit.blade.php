@@ -10,7 +10,7 @@
         }
     </style>
 @endpush
-@section('content')
+@section('content') 
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">

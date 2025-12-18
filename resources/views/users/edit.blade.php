@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Mobile Number<span style="color:red">*</span></label>
-                        <input type="text" id="mobilenumber" name="mobilenumber" value="{{ $queryresult->mobile }}" maxlength="10" class="form-control" required data-parsley-required-message="Mobile number is required" data-parsley-pattern="^[1-9]\d{9}$" onkeypress="return isNumberKey(event)" data-parsley-pattern-message="Mobile number must be 10 digits.">
+                        <input type="text" id="mobilenumber" name="mobilenumber" value="{{ $queryresult->mobile }}" class="form-control" required data-parsley-required-message="Mobile number is required" onkeypress="return isNumberKey(event)" >
                         <span class="text-danger">
                             @error('mobilenumber')
                             {{ $message }}

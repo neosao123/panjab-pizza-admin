@@ -290,7 +290,7 @@ class CommonController extends Controller
         }
     }
 
-    public function storeLocations(Request $request)
+       public function storeLocations(Request $request)
     {
         try {
             $storeLocationArray = [];
@@ -372,7 +372,7 @@ class CommonController extends Controller
             return response()->json(["status" => 400, 'message' => $ex->getMessage()], 400);
         }
     }
-
+  
     public function toppings()
     {
         try {

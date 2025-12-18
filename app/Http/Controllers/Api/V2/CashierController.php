@@ -196,72 +196,111 @@ class CashierController extends Controller
         try {
             $input = $r->all();
             $cashierCode = $r->cashierCode;
+
+            $messages = [
+                'cashierCode.required' => 'Cashier code is required.',
+
+                'firstName.required' => 'First name is required.',
+                'firstName.min' => 'First name must be at least 3 characters.',
+                'firstName.max' => 'First name must not exceed 100 characters.',
+                'firstName.regex' => 'First name can contain only letters and spaces.',
+
+                'lastName.required' => 'Last name is required.',
+                'lastName.min' => 'Last name must be at least 3 characters.',
+                'lastName.max' => 'Last name must not exceed 100 characters.',
+                'lastName.regex' => 'Last name can contain only letters and spaces.',
+
+                'userEmail.required' => 'Email address is required.',
+                'userEmail.email' => 'Please enter a valid email address.',
+                'userEmail.unique' => 'Email address already exists.',
+
+                'mobile.required' => 'Mobile number is required.',
+                'mobile.regex' => 'Enter a valid Canadian mobile number.',
+                'mobile.unique' => 'Mobile number already exists.',
+
+                'username.required' => 'Username is required.',
+                'username.min' => 'Username must be at least 3 characters.',
+                'username.max' => 'Username must not exceed 30 characters.',
+                'username.regex' => 'Username can contain only letters and spaces.',
+                'username.unique' => 'Username already exists.',
+
+                'profilePhoto.mimes' => 'Profile photo must be png, jpg, jpeg, or gif.',
+            ];
+
             $validator = Validator::make($input, [
                 'cashierCode' => 'required',
+
                 'firstName' => 'required|min:3|max:100|regex:/^[a-zA-Z\s]+$/',
                 'lastName' => 'required|min:3|max:100|regex:/^[a-zA-Z\s]+$/',
+
                 'userEmail' => [
                     'required',
                     'email',
-                    Rule::unique('usermaster')->where(function ($query) use ($cashierCode) {
-                        return $query->where('code', "!=", $cashierCode)->where('isDelete', '=', '0');
-                    })
+                    Rule::unique('usermaster')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                        ->ignore($cashierCode, 'code')
                 ],
+
                 'mobile' => [
                     'required',
-                    'digits:10',
-                    'numeric',
-                    Rule::unique('usermaster')->where(function ($query) use ($cashierCode) {
-                        return $query->where('code', "!=", $cashierCode)->where('isDelete', '=', '0');
-                    })
+                    'regex:/^[2-9]\d{9}$/',
+                    Rule::unique('usermaster')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                        ->ignore($cashierCode, 'code')
                 ],
-                'profilePhoto' => 'nullable|mimes:png,jpg,jpeg,gif',
+
                 'username' => [
                     'required',
                     'min:3',
                     'max:30',
                     'regex:/^[a-zA-Z\s]+$/',
-                    Rule::unique('usermaster')->where(function ($query) use ($cashierCode) {
-                        return $query->where('code', "!=", $cashierCode)
-                            ->where('isDelete', '=', '0');
-                    })
-                ]
+                    Rule::unique('usermaster')
+                        ->where(fn($q) => $q->where('isDelete', 0))
+                        ->ignore($cashierCode, 'code')
+                ],
 
-            ]);
+                'profilePhoto' => 'nullable|mimes:png,jpg,jpeg,gif'
+            ], $messages);
+
             if ($validator->fails()) {
-                $response = [
-                    "message" => $validator->errors()->first()
-                ];
-                return response()->json($response, 500);
+                return response()->json([
+                    'message' => $validator->errors()->first()
+                ], 422);
             }
+
             $cashier = Users::where('code', $cashierCode)->first();
-            if (!empty($cashier)) {
-                if ($r->hasFile('profilePhoto')) {
-                    $filenew = $r->file('profilePhoto');
-                    $imagename = $cashierCode . "_" . time() . "." . $filenew->getClientOriginalExtension();
-                    $filenew->move('uploads/profile', $imagename);
-                    $image_data = ['profilePhoto' => $imagename];
-                    $cashier->profilePhoto = $imagename;
-                }
-                $cashier->username = $r->username;
-                $cashier->firstname = $r->firstName;
-                $cashier->lastname = $r->lastName;
-                $cashier->userEmail = $r->userEmail;
-                $cashier->mobile = $r->mobile;
-                $cashier->save();
-                sleep(1);
-                $getCashierDetails = $this->get_cashier_details($r->cashierCode, "", "", 1);
-                if ($getCashierDetails != false) {
-                    return response()->json(["message" => "Profile details updated successfully", "data" => $getCashierDetails], 200);
-                } else {
-                    return response()->json(["message" => "Data not found"], 200);
-                }
+
+            if (!$cashier) {
+                return response()->json(['message' => 'Invalid user. Please login again.'], 401);
             }
-            return response()->json(['message' => "Invalid user. Please login again"], 200);
+
+            if ($r->hasFile('profilePhoto')) {
+                $file = $r->file('profilePhoto');
+                $imagename = $cashierCode . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move('uploads/profile', $imagename);
+                $cashier->profilePhoto = $imagename;
+            }
+
+            $cashier->username = $r->username;
+            $cashier->firstname = $r->firstName;
+            $cashier->lastname = $r->lastName;
+            $cashier->userEmail = $r->userEmail;
+            $cashier->mobile = $r->mobile;
+            $cashier->save();
+
+            $data = $this->get_cashier_details($cashierCode, "", "", 1);
+
+            return response()->json([
+                'message' => 'Profile details updated successfully',
+                'data' => $data
+            ], 200);
         } catch (\Exception $ex) {
-            return response()->json(['message' => $ex->getMessage()], 400);
+            return response()->json([
+                'message' => 'Something went wrong. Please try again.'
+            ], 500);
         }
     }
+
 
     public function get_cashier_details(String $userCode, String $mobileNumber, String $userName, String $type)
     {
