@@ -142,6 +142,8 @@ class WebhookController extends Controller
                             if (strtolower($result->deliveryType ?? '') === 'delivery') {
                                 $this->handleDoorDashDelivery($result->code);
                             }
+                             // ✅ Send socket notification
+                            $this->sendSocketNotification($result);
                         }
                         // Handle expired session
                         elseif ($eventType == "checkout.session.expired") {
@@ -196,6 +198,9 @@ class WebhookController extends Controller
                             if (strtolower($result->deliveryType ?? '') === 'delivery') {
                                 $this->handleDoorDashDelivery($result->code);
                             }
+
+                             // ✅ Send socket notification
+                            $this->sendSocketNotification($result);
 
                             Log::info("Order updated to paid via payment_intent: " . $paymentIntentId);
                         }
@@ -272,6 +277,10 @@ class WebhookController extends Controller
                                 if (strtolower($result->deliveryType ?? '') === 'delivery') {
                                     $this->handleDoorDashDelivery($result->code);
                                 }
+
+                                 // ✅ Send socket notification
+                                $this->sendSocketNotification($result);
+
                                 Log::info("Order updated to paid via payment_link: " . $paymentLinkId);
                             } else {
                                 Log::info("Payment link updated for order: " . $result->code);
@@ -441,6 +450,54 @@ class WebhookController extends Controller
             Log::error("Failed to send DoorDash tracking SMS", [
                 'order_code' => $order->code,
                 'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+
+    /**
+     * Send socket notification for order tracking
+     *
+     * @param object $order Order details from ordermaster table
+     * @return void
+     */
+    private function sendSocketNotification($order)
+    {
+        try {
+            $socketUrl = env('SOCKET_URL', 'https://pizzatracking.neosao.online');
+
+            $params = [
+                'orderNumber' => $order->id,
+                'phoneNumber' => $order->mobileNumber,
+                'status' => 'placed',
+                'storeCode' => $order->storeLocation ?? '',
+                'deliveryType' => strtolower($order->deliveryType)
+            ];
+
+            $url = $socketUrl . '/order/forward?' . http_build_query($params);
+
+            Log::info("Sending socket notification", [
+                'url' => $url,
+                'params' => $params
+            ]);
+
+            $response = Http::timeout(10)->get($url);
+
+            if ($response->successful()) {
+                Log::info("Socket notification sent successfully", [
+                    'order_code' => $order->code,
+                    'response' => $response->body()
+                ]);
+            } else {
+                Log::warning("Socket notification failed", [
+                    'order_code' => $order->code,
+                    'status' => $response->status(),
+                    'response' => $response->body()
+                ]);
+            }
+        } catch (\Exception $e) {
+            Log::error("Socket notification error: " . $e->getMessage(), [
+                'order_code' => $order->code ?? 'unknown'
             ]);
         }
     }
