@@ -260,7 +260,7 @@ class SoftDrinkController extends Controller
             ],
             'price' => 'required|numeric|min:0.01',
             'drinksCount' => 'required|numeric|min:1',
-            'type' => 'required|in:pop,bottle',
+            'type' => 'required|in:pop,bottle,juice',
             'description' => 'nullable',
         ];
 

@@ -11,7 +11,7 @@
       border: 0;
     }
 
-  
+
     </style>
     <link rel="stylesheet" href="{{ asset('theme/css/parsely.css') }}">
     <link href="{{ asset('theme/css/select2.min.css') }}" rel="stylesheet">
@@ -110,6 +110,7 @@
                                     <option value="">Select</option>
                                     <option value="pop" @if ($queryresult->type == 'pop') selected @endif>Pop</option>
                                     <option value="bottle" @if ($queryresult->type == 'bottle') selected @endif>Bottle</option>
+                                    <option value="juice" @if ($queryresult->type == 'juice') selected @endif>Juice</option>
                                 </select>
                                 <span class="text-danger">
                                     @error('type')
