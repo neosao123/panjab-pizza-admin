@@ -162,7 +162,10 @@ class CommonController extends Controller
             //if (Cache::has($cacheKey)) {
             //$softdrinks = Cache::get($cacheKey);
             //} else {
-            $softdrinks = Softdrinks::where('isActive', 1)->orderBy("id", "DESC")->get();
+            $softdrinks = Softdrinks::where('isActive', 1)
+                       ->orderByRaw("CASE WHEN drinksType = 'juice' THEN 0 ELSE 1 END")
+                       ->orderBy("id", "DESC")
+                       ->get();
             // Cache::put($cacheKey, $softdrinks, 600);
             //}
             if ($softdrinks && count($softdrinks) > 0) {
@@ -1419,6 +1422,7 @@ class CommonController extends Controller
                     "image" => $path,
                     "ratings" => $item->ratings,
                     "type" => ucwords("new"),
+                    "productType" => "sides",
                     "description"=>$item->description
                 ];
             }
