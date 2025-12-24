@@ -169,7 +169,7 @@ class CommonController extends Controller
                 foreach ($softdrinks as $item) {
 
                     $typeDrinks = [];
-                    if ($item->code == "SFD_5") {
+                    if ($item->drinksType == "juice") {
                         $getTypeDrinks = DB::table("juice")
                             ->select("juice.*")
                             ->where("juice.isActive", 1)
@@ -180,9 +180,7 @@ class CommonController extends Controller
                                 array_push($typeDrinks, $items->juice);
                             }
                         }
-                    } else if ($item->code == "SFD_1") {
-                        $typeDrinks = ['Coke'];
-                    } else {
+                    }  else {
                         $getTypeDrinks = DB::table("typedrinks")
                             ->select("typedrinks.*")
                             ->where("typedrinks.isActive", 1)
@@ -225,7 +223,7 @@ class CommonController extends Controller
                 foreach ($softdrinks as $item) {
 
                     $typeDrinks = [];
-                    if ($item->code == "SFD_5") {
+                    if ($item->drinksType == "juice") {
                         $getTypeDrinks = DB::table("juice")
                             ->select("juice.*")
                             ->where("juice.isActive", 1)
@@ -236,8 +234,6 @@ class CommonController extends Controller
                                 array_push($typeDrinks, $items->juice);
                             }
                         }
-                    } else if ($item->code == "SFD_1") {
-                        $typeDrinks = ['Coke'];
                     } else {
                         $getTypeDrinks = DB::table("typedrinks")
                             ->select("typedrinks.*")
@@ -290,7 +286,7 @@ class CommonController extends Controller
         }
     }
 
-       public function storeLocations(Request $request)
+    public function storeLocations(Request $request)
     {
         try {
             $storeLocationArray = [];
@@ -372,7 +368,7 @@ class CommonController extends Controller
             return response()->json(["status" => 400, 'message' => $ex->getMessage()], 400);
         }
     }
-  
+
     public function toppings()
     {
         try {
@@ -512,7 +508,7 @@ class CommonController extends Controller
                     $path = url("uploads/sides/" . $item->image);
                 }
 
-               
+
                 $combinationArray = [];
                 $sidelineEntries = SidelineEntries::where("isActive", 1)
                     ->orderBy("id", "DESC")
@@ -530,7 +526,7 @@ class CommonController extends Controller
                     }
                 }
 
-              
+
                 $sideToppingsArray = [];
                 if ($item->hasToppings == 1 && $item->nooftoppings > 0) {
                     $sideToppings = DB::table('sides_toppings')->where('isActive', 1)->get();
@@ -543,7 +539,7 @@ class CommonController extends Controller
                     }
                 }
 
-                
+
                 $data = [
                     "sideCode" => $item->code,
                     "sideName" => $item->sidename,
@@ -765,7 +761,7 @@ class CommonController extends Controller
             if ($softdrinks && count($softdrinks) > 0) {
                 foreach ($softdrinks as $item) {
                     $typeDrinks = [];
-                    if ($item->code == "SFD_5") {
+                     if ($item->drinksType == "juice") {
                         $getTypeDrinks = DB::table("juice")
                             ->select("juice.*")
                             ->where("juice.isActive", 1)

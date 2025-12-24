@@ -116,7 +116,7 @@
                                 <option value="">Select</option>
                                 <option value="pop" {{ old('type') == 'pop' ? 'selected' : '' }}>Pop</option>
                                 <option value="bottle" {{ old('type') == 'bottle' ? 'selected' : '' }}>Bottle</option>
-                                 <option value="juice" {{ old('type') == 'juice' ? 'selected' : '' }}>Juice</option>
+                                <option value="juice" {{ old('type') == 'juice' ? 'selected' : '' }}>Juice</option>
                             </select>
                             <span class="text-danger">
                                 @error('drinksType')
