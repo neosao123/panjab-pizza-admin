@@ -17,7 +17,9 @@
           </nav>
         </div>
       </div>
-    
+      <div class="col-7 align-self-center">
+        <a href="{{ url('sections/add') }}" class="btn btn-info btn-sm float-right">Add New</a>
+      </div>
     </div>
   </div>
   <div class="container-fluid">
