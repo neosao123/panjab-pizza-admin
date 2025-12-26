@@ -95,6 +95,21 @@ class CustomerOrderController extends Controller
         }
     }
 
+    private function create_new_order_code()
+    {
+        $orderCode = 5500;
+        $countOfOrders = DB::table('ordermaster')->count();
+        if ($countOfOrders > 0) {
+            $orderCode = $orderCode + $countOfOrders + 1;
+        }
+
+        // check this order code exists
+        $exists = DB::table('ordermaster')->where('orderCode', $orderCode)->first();
+        if ($exists) {
+            $this->create_new_order_code();
+        }
+        return $orderCode;
+    }
 
     public function order_place(Request $r)
     {
@@ -114,7 +129,7 @@ class CustomerOrderController extends Controller
                 }
             }*/
 
-            $storeCode=$r->storeCode;
+            $storeCode = $r->storeCode;
 
             $store = DB::table('storelocation')
                 ->select("storelocation.timezone", "storelocation.storeAddress", "storelocation.storeLocation", "storelocation.pickup_number")
@@ -184,7 +199,7 @@ class CustomerOrderController extends Controller
                 'customerName.min'                  => "Minimum 3 characters are required for customer name",
                 'customerName.max'                  => "Maximum limit reached for customer name",
                 'customerName.regex'                => "Invalid customer name",
-                
+
             ];
 
             if ($r->deliveryType != "pickup") {
@@ -294,7 +309,9 @@ class CustomerOrderController extends Controller
                     "deviceType" => $r->deviceType
                 ];
                 // Developer: Shreyas Mahamuni - Start
-                $orderCode = 1;
+
+                $orderCode = 5500;
+                /*
                 $curDate = date('Y-m-d H:i:00');
                 if ($curDate < date("Y-m-d 04:30:00")) {
                     $prevDate = date("Y-m-d 04:30:00", strtotime("- 1 day"));
@@ -311,6 +328,10 @@ class CustomerOrderController extends Controller
                         $orderCode = $records + 1;
                     }
                 }
+                */
+
+                $orderCode = $this->create_new_order_code();
+
                 // Developer: Shreyas Mahamuni - End
                 $order = $this->model->addNew($data, "ordermaster", 'ORD');
                 if ($order) {
@@ -352,52 +373,6 @@ class CustomerOrderController extends Controller
                         //   "grandTotal" => $r->grandTotal,
                         //   "orderFrom" => "online"
                         // ]);
-
-
-                        //sending sms
-
-                        if ($r->deliveryType == "delivery") {
-                            $smsTemplate = SmsTemplate::where("id", 4)->first();
-
-                            // Get current time and add 20 minutes for estimated delivery
-                            $deliveryTime = now()->addMinutes(20)->format('h:i A');
-
-                            // Replace placeholders in template with actual values
-                            $message = str_replace(
-                                ['{order_number}', '{delivery_time}'],
-                                [$order, $deliveryTime],
-                                $smsTemplate->template
-                            );
-
-                            $twilio = new Twilio;
-
-                            if ($twilio->isLive()) {
-                                $sms = $twilio->sendMessage($message, $r->mobileNumber);
-                            }
-                        }
-
-                        if ($r->deliveryType == "pickup") {
-                            $smsTemplate = SmsTemplate::where("id", 3)->first(); // pickup template
-
-                            // Pickup time = now + 15 minutes (change if needed)
-                            $pickupTime = now()->addMinutes(20)->format('h:i A');
-
-                            // Example store address
-                            $storeAddress = $store->storeAddress; // replace or fetch from DB
-
-                            // Replace placeholders
-                            $message = str_replace(
-                                ['{order_number}', '{pickup_time}', '{store_address}'],
-                                [$order, $pickupTime, $storeAddress],
-                                $smsTemplate->template
-                            );
-
-                            $twilio = new Twilio;
-
-                            if ($twilio->isLive()) {
-                                $sms = $twilio->sendMessage($message, $r->mobileNumber);
-                            }
-                        }
 
                         //create doordash api
                         if ($r->deliveryType == "delivery") {
@@ -469,8 +444,9 @@ class CustomerOrderController extends Controller
                                 "doordash_fee" => isset($doorDashResult['data']['fee']) ? $doorDashResult['data']['fee'] / 100 : null,
                                 "doordash_response" => $doorDashResult,
                                 "doordash_delivery_id" => $doorDashResult['data']['external_delivery_id'] ?? null,
+                                "deliveryCharges" => isset($doorDashResult['data']['fee']) ? $doorDashResult['data']['fee'] / 100 : null,
                                 "doordash_status" => 'QUOTE_CREATED',
-                                "doordash_expires_at"=> now()->addMinutes(5)
+                                "doordash_expires_at" => now()->addMinutes(5)
                             ]);
 
                             DoorDashStep::create([
@@ -511,6 +487,18 @@ class CustomerOrderController extends Controller
                             "placedBy" => 'client'
                         ];
 
+                        // Store DoorDash quote data in order
+                        OrderMaster::where("code", $order)->update([
+                            "subTotal" => $totalCalculationDetails["subTotal"],
+                            "discountAmount" => $totalCalculationDetails["discountAmount"],
+                            "taxPer" => $totalCalculationDetails["taxPer"],
+                            "grandTotal" => $totalCalculationDetails["grandTotal"],
+                            "taxAmount" => $totalCalculationDetails["taxAmount"],
+                            "extraDeliveryCharges" => $totalCalculationDetails["extraDeliveryCharges"],
+                            "grandTotal" => $totalCalculationDetails["grandTotal"]
+                        ]);
+
+
                         if (
                             $r->deviceType == "mobile"
                         ) {
@@ -522,6 +510,9 @@ class CustomerOrderController extends Controller
                                 $result = OrderMaster::where("code", $order)
                                     ->update(["stripesessionid" => $stripeResult['id'], "payment_expires_at" => now()->addMinutes(3)]);
 
+                                // $storeAddress = $store->storeAddress ?? "";
+
+                                // $this->sendSms($r->deliveryType, $r->mobileNumber, $order, $storeAddress);
                                 return response()->json([
                                     "message" => "Order place successfully.",
                                     "orderCode" => $order,
@@ -558,6 +549,11 @@ class CustomerOrderController extends Controller
                                 ? $paymentSettings->live_client_id
                                 : $paymentSettings->test_client_id;
 
+                            // Set live url or test url for webhook
+                            $callbackUrl = $mode === 'LIVE'
+                                ? $paymentSettings->live_callback_url
+                                : $paymentSettings->test_callback_url;
+
                             if (empty($secretKey)) {
                                 throw new \Exception("Stripe {$mode} secret key is not configured");
                             }
@@ -580,8 +576,8 @@ class CustomerOrderController extends Controller
                                 ],
                                 'metadata' => ["orderId" => $txnId],
                                 'mode' => 'payment',
-                                'success_url' => env('FRONTEND_URL') . "payment/success",
-                                'cancel_url' =>  env("FRONTEND_URL") . "payment/cancel"
+                                'success_url' => $callbackUrl . "payment/success",
+                                'cancel_url' => $callbackUrl . "payment/cancel"
                             ]);
                             if ($stripeResult) {
 
@@ -605,6 +601,12 @@ class CustomerOrderController extends Controller
                                 if ($r->deliveryType == "delivery" && $doorDashResult) {
                                     $response['doordashData'] = $doorDashResult["data"] ?? null;
                                 }
+
+                                // Only include DoorDash data if it's a delivery order
+                                if ($r->deliveryType == "delivery" && $doorDashResult) {
+                                    $response['doordashData'] = $doorDashResult["data"] ?? null;
+                                }
+                                //$this->sendSms($r->deliveryType, $r->mobileNumber, $order, $storeAddress);
 
                                 return response()->json($response, 200);
                             } else {
@@ -639,7 +641,6 @@ class CustomerOrderController extends Controller
             return response()->json([
                 'message' => 'Order cancelled successfully'
             ], 200);
-
         } catch (\Exception $ex) {
             Log::error('Order failed', [
                 'error' => $ex->getMessage()
@@ -860,18 +861,17 @@ class CustomerOrderController extends Controller
                 "zipCode" => $r->zipCode,
                 "storeLocation" => $storeCode
             ];
-            $getOrderCode = OrderMaster::whereDate("created_at", $date)->count();
-            if ($getOrderCode == 0) {
-                $orderCode = 1;
-            } else {
-                $orderCode = $getOrderCode + 1;
-            }
+
+            $orderCode = $this->create_new_order_code();
+
             $order = $this->model->addNew($data, "ordermaster", 'ORD');
             if ($order) {
                 $str = explode('_', $order);
                 $id = $str[1];
                 $txnId = "SPO" . date('Ymd') . $id;
                 $receiptNo = date('Ymd') . $id;
+
+
                 $result = OrderMaster::where("code", $order)->update(["txnId" => $txnId, "orderCode" => $orderCode]);
                 if ($result == true) {
                     foreach ($r->products as $item) {
@@ -1290,7 +1290,7 @@ class CustomerOrderController extends Controller
                 $data["orderDate"] =  date('d-m-Y h:i A', strtotime($getOrder->orderDate)) ?? "";
                 $data["clientType"] = $getOrder->clientType ?? "";
                 $data["subTotal"] = $getOrder->subTotal ?? "0.00";
-                $data["discountmount"] = $getOrder->discountAmount ?? "0.00";
+                $data["discountAmount"] = $getOrder->discountAmount ?? "0.00";
                 $data["discountPer"] = $getOrder->discountPer ?? "0.00";
                 $data["taxAmount"] = $getOrder->taxAmount ?? "0.00";
                 $data["taxPer"] = $getOrder->taxPer ?? "0.00";

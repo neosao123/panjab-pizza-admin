@@ -61,7 +61,6 @@ return new class extends Migration
             $table->longText('doordash_accept_response')->nullable();
             $table->longText('doordash_delivery_id')->nullable();
             $table->string('deviceType')->nullable();
-            $table->string('deviceType')->nullable();
             $table->timestamp('payment_expires_at')->nullable();
             $table->timestamp('doordash_expires_at')->nullable();
         });
