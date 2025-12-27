@@ -47,6 +47,390 @@ class CashierOrderController extends Controller
         $this->doorDashService = $doorDashService;
     }
 
+    private function create_new_order_code()
+    {
+        $orderCode = 5500;
+        $countOfOrders = DB::table('ordermaster')->count();
+        if ($countOfOrders > 0) {
+            $orderCode = $orderCode + $countOfOrders + 1;
+        }
+
+        // check this order code exists
+        $exists = DB::table('ordermaster')->where('orderCode', $orderCode)->first();
+        if ($exists) {
+            $this->create_new_order_code();
+        }
+        return $orderCode;
+    }
+
+    public function order_place_doordash(Request $r)
+    {
+        try {
+
+            $storeLocation = $r->storeLocation;
+            $store = DB::table('storelocation')
+                ->select("storelocation.timezone", "storelocation.storeAddress", "storelocation.storeLocation", "storelocation.pickup_number")
+                ->where('code', $storeLocation)
+                ->first();
+
+            if (!empty($store)) {
+                $timezone = $store->timezone;
+                Carbon::now()->setTimezone($timezone);
+                date_default_timezone_set($timezone);
+            }
+            $paymentLinkData = null;
+            $currentdate = Carbon::now();
+            $now =  $currentdate->toDateTimeString();
+
+            $input = $r->all();
+
+            $rules = [
+                'cashierCode'               => 'required',
+                'mobileNumber'              => ['required', 'phone:CA'],
+                'customerEmail'             => 'nullable|email',
+                'deliveryType'              => 'required|in:pickup,delivery',
+                'storeLocation'             => 'required',
+                'products'                  => 'required|array|min:1',
+                'products.*.id'             => 'required',
+                'products.*.productCode'    => 'required',
+                'products.*.productName'    => 'required',
+                'products.*.productType'    => 'required',
+                'products.*.quantity'       => 'required',
+                'products.*.price'          => 'required',
+                'products.*.amount'         => 'required',
+                'subTotal'                     => 'required',
+                'discountAmount'             => 'nullable',
+                'taxPer'                     => 'nullable',
+                'taxAmount'                 => 'nullable',
+                'deliveryCharges'             => 'nullable',
+                'extraDeliveryCharges'         => 'nullable',
+                'grandTotal'                 => 'required',
+                'deliveryExecutive'         => 'nullable',
+                'orderTakenBy'                => 'nullable',
+            ];
+
+            $messages = [
+                'cashierCode.required'                 => 'Cashier is missing or not logged in',
+                'mobileNumber.required'             => 'Phone number is required',
+                'mobileNumber.phone' => 'Enter a valid Canadian mobile number',
+                'customerEmail.email'              => 'Email is invalid',
+                'deliveryType.required'             => 'Delivery Type is required',
+                'deliveryType.in'                     => 'Delivery Type must be pickup or delivery',
+                'storeLocation.required'             => 'Store location is required',
+                'products.required'                 => 'Cart is empty, cannot place the order',
+                'products.array'                     => 'Cart is Invalid',
+                'products.min'                         => 'Cart must have at-least one product/item',
+                'subTotal.required'                 => 'Subtotal is missing',
+                'grandTotal.required'                 => 'Grand total is missing',
+                'products.*.id.required'            => 'Item/Product Id is missing',
+                'products.*.productCode.required'   => 'Item/Product Product Code is missing',
+                'products.*.productName.required'   => 'Item/Product Product Name is missing',
+                'products.*.productType.required'   => 'Item/Product Product Type is missing',
+                //'products.*.config.required'        => 'Item/Product Configuration is missing',
+                'products.*.quantity.required'      => 'Item/Product Qunatity is missing',
+                'products.*.price.required'         => 'Item/Product Price is missing',
+                'products.*.amount.required'        => 'Item/Product Amount is missing',
+            ];
+
+            if ($r->deliveryType != "pickup") {
+                $rules['address'] = 'required|min:10|max:400';
+                $rules['zipCode'] = 'required|regex:/^[ABCEGHJKLMNPRSTVXY]\d[A-Z]\s\d[A-Z]\d$/i';
+                //$rules['deliveryExecutive'] = 'required';
+                $rules['customerName'] = 'nullable|min:3|max:100|regex:/^[a-zA-Z\s]+$/';
+
+                $messages['address.required'] = "Address is required";
+                $messages['address.min'] = "Incomplete address";
+                $messages['address.max'] = "Maximum limit for address is reached";
+                $messages['zipCode.required'] = "Postal Code is required";
+                $messages['zipCode.regex'] = "Enter a valid Canadian postal code.";
+                //$messages['deliveryExecutive.required'] = "Delivery Executive is required";
+                //$messages['customerName.required'] = "Customer name is required";
+                $messages['customerName.min'] = "Minimum 3 characters are required for customer name";
+                $messages['customerName.max'] = "Maximum limit reached for customer name";
+                $messages['customerName.regex'] = "Invalid customer name";
+            } else {
+                $rules['customerName'] = 'nullable|min:3|max:100|regex:/^[a-zA-Z\s]+$/';
+
+                $messages['customerName.min'] = "Minimum 3 characters are required for customer name";
+                $messages['customerName.max'] = "Maximum limit reached for customer name";
+                $messages['customerName.regex'] = "Invalid customer name";
+            }
+
+            $validator = Validator::make($input, $rules, $messages);
+
+            if ($validator->fails()) {
+                $response = [
+                    "message" => $validator->errors()->first()
+                ];
+                return response()->json($response, 500);
+            }
+
+            $customerCode = "";
+            $customer = Customer::where('mobileNumber', $r->mobileNumber)->first();
+            if ($customer) {
+                $customerCode = $customer->code;
+            }
+            // } else {
+            //     $customerData = [
+            //         "fullName" => $r->customerName,
+            //         "mobileNumber" => $r->mobileNumber,
+            //         "isActive" => 1,
+            //         "isDelete" => 0,
+            //         "created_at" => $now,
+            //     ];
+            //     $customer = $this->model->addNew($customerData, "customer", 'CST');
+            //     if ($customer) {
+            //         $customerCode = $customer;
+            //     } else {
+            //         return response()->json(["message" => "Failed to place order while creating customer's data."], 400);
+            //     }
+            // }
+
+            $deliveryExecutive = "";
+            /* if ($r->deliveryType != "pickup") {
+                if ($r->has('deliveryExecutive') && $r->deliveryExecutive != "") {
+                    $deliveryExecutive = $r->deliveryExecutive;
+                } else {
+                    $delivery = DB::table('usermaster')->where('defaultDeliveryExecutive', 1)->first();
+                    if ($delivery) {
+                        $deliveryExecutive = $delivery->code;
+                    }
+                }
+            }*/
+
+            $data = [
+                "customerCode" => $customerCode,
+                "customerName" => $r->customerName,
+                "customerEmail" => $r->customerEmail,
+                "mobileNumber" => $r->mobileNumber,
+                "address" => $r->address,
+                "deliveryType" => $r->deliveryType,
+                "storeLocation" => $r->storeLocation,
+                "created_at" => $now,
+                "orderDate" => $now,
+                "addID" => $r->cashierCode,
+                "clientType" => 'cashier',
+                "subTotal" => $r->subTotal,
+                "discountAmount" => $r->discountAmount,
+                "discountPer" => $r->discountPer,
+                "taxAmount" => $r->taxAmount,
+                "taxPer" => $r->taxPer,
+                "grandTotal" => $r->grandTotal,
+                "deliveryCharges" => $r->deliveryCharges,
+                "deliveryExecutiveCode" => $deliveryExecutive,
+                "extraDeliveryCharges" => $r->extraDeliveryCharges,
+                "transactionDate" => $now,
+                "orderStatus" => "placed",
+                "orderFrom" => "store",
+                "zipCode" => $r->zipCode,
+                "orderTakenBy" => $r->orderTakenBy,
+                //"transactionResponse"=>"",
+            ];
+
+            if ($r->deliverType == "pickup") {
+                $data["paymentStatus"] = "paid";
+            } else {
+                $data["paymentStatus"] = "pending";
+            }
+
+
+
+            $orderCode = 5500;
+            /*
+            $curDate = date('Y-m-d H:i:00');
+            if ($curDate < date("Y-m-d 04:30:00")) {
+                $prevDate = date("Y-m-d 04:30:00", strtotime("- 1 day"));
+                $endDate = date("Y-m-d 04:29:59");
+                $records = DB::table("ordermaster")->whereBetween('created_at', [$prevDate, $endDate])->count();
+                if ($records > 0) {
+                    $orderCode = $records + 1;
+                }
+            } else {
+                $prevDate = date("Y-m-d 04:30:00");
+                $endDate = date("Y-m-d 04:29:59", strtotime("+ 1 day"));
+                $records = DB::table("ordermaster")->whereBetween('created_at', [$prevDate, $endDate])->count();
+                if ($records > 0) {
+                    $orderCode = $records + 1;
+                }
+            }
+            */
+
+            $orderCode = $this->create_new_order_code();
+
+            $order = $this->model->addNew($data, "ordermaster", 'ORD');
+            if ($order) {
+                $str = explode('_', $order);
+                $id = $str[1];
+                $txnId = "SPO" . date('Ymd') . $id;
+                $result = OrderMaster::where("code", $order)->update(["txnId" => $txnId, "orderCode" => $orderCode]);
+                if ($result == true) {
+                    foreach ($r->products as $item) {
+                        $orderLine = new OrderLineEntries;
+                        $orderLine->code = Str::uuid();
+                        $orderLine->pid = $item["id"];
+                        $orderLine->orderCode = $order;
+                        $orderLine->productCode = $item["productCode"];
+                        $orderLine->productName = $item["productName"];
+                        $orderLine->productType = $item["productType"];
+                        $orderLine->config = isset($item["config"]) ? json_encode($item["config"]) : null;
+                        $orderLine->quantity = $item["quantity"];
+                        $orderLine->price = $item["price"];
+                        $orderLine->amount = $item["amount"];
+                        $orderLine->pizzaSize = $item["pizzaSize"];
+                        $orderLine->comments = $item["comments"] ?? "";
+                        $orderLine->created_at = $now;
+                        $orderLine->pizzaPrice = $item['pizzaPrice'] ?? "0.00";
+                        $orderLine->save();
+                    }
+                    // Only call DoorDash and Payment Link for DELIVERY orders
+                    if ($r->deliveryType == "delivery") {
+                        $businessId = "";
+                        $business = Business::first();
+                        if ($business) {
+                            $businessId = $business->external_business_id;
+                        }
+                        $externalDeliveryId = 'DEL_' . $order;
+                        $quotePayload = [
+                            'external_delivery_id' => $externalDeliveryId,
+                            //'pickup_address' => $r->storeAddress,
+                            'pickup_address' => $store->storeAddress,
+                            'pickup_phone_number' =>  $store->pickup_number,
+                            'dropoff_address' => $r->address,
+                            'dropoff_phone_number' => $r->mobileNumber,
+                            'dropoff_contact_given_name' => $r->customerName,
+                            "pickup_external_business_id" => $businessId,
+                            "pickup_external_store_id" => $storeLocation,
+                            'order_value' => (int)round($r->grandTotal * 100), // Convert to cents
+                            'currency' => 'CAD',
+                        ];
+
+                        $doorDashResult = $this->doorDashService->makeRequest('post', '/quotes', $quotePayload);
+
+                        Log::info('DoorDash Create Quote response', $doorDashResult);
+
+                        // Check if DoorDash request was successful
+                        if (!isset($doorDashResult['success']) || $doorDashResult['success'] !== true) {
+                            // Log the error
+                            Log::error('DoorDash quote creation failed', [
+                                'order_code' => $order,
+                                'doordash_delivery_id' => $externalDeliveryId,
+                                'error' => $doorDashResult['error'] ?? 'Unknown error',
+                                'data' => $doorDashResult['data'] ?? null
+                            ]);
+
+
+                            $errorMessage = '';
+
+                            if (
+                                isset($doorDashResult['data']['field_errors'][0]['error'])
+                            ) {
+                                $errorMessage = $doorDashResult['data']['field_errors'][0]['error'];
+                            } elseif (
+                                isset($doorDashResult['data']['message'])
+                            ) {
+                                $errorMessage = $doorDashResult['data']['message'];
+                            }
+
+                            DoorDashStep::create([
+                                'order_id' => $order,
+                                'doordash_status' => 'QUOTE_FAILED',
+                                'doordash_delivery_id' => $externalDeliveryId,
+                                'doordash_response' => json_encode($doorDashResult),
+                            ]);
+
+                            return response()->json([
+                                "message" => $errorMessage,
+                                "error" => $errorMessage,
+                                "mode" => $doorDashResult['mode'] ?? 'unknown'
+                            ], 400);
+                        }
+
+                        // Store DoorDash quote data in order
+                        OrderMaster::where("code", $order)->update([
+                            "doordash_quote_id" => $doorDashResult['data']['external_delivery_id'] ?? null,
+                            "doordash_fee" => isset($doorDashResult['data']['fee']) ? $doorDashResult['data']['fee'] / 100 : null,
+                            "doordash_response" => $doorDashResult,
+                            "doordash_delivery_id" => $doorDashResult['data']['external_delivery_id'] ?? null,
+                            "doordash_status" => 'QUOTE_CREATED',
+                            "deliveryCharges" => isset($doorDashResult['data']['fee']) ? $doorDashResult['data']['fee'] / 100 : null,
+                            "doordash_expires_at" => now()->addMinutes(5)
+                        ]);
+
+                        DoorDashStep::create([
+                            'order_id' => $order,
+                            'doordash_status' => 'QUOTE_CREATED',
+                            'doordash_delivery_id' => $doorDashResult['data']['external_delivery_id'] ?? null,
+                            'doordash_response' => json_encode($doorDashResult),
+                        ]);
+                    }
+
+
+                    $deliveryFee = 0.0;
+
+                    if ($r->deliveryType === 'delivery' && isset($doorDashResult['data']['fee'])) {
+                        $deliveryFee = $doorDashResult['data']['fee'] / 100;
+                    }
+
+                    $calculationData = [
+                        "storeCode" => $storeLocation,
+                        "deliveryType" => $r->deliveryType,
+                        "discountAmount" => $r->discountAmount,
+                        "deliveryCharges" => $deliveryFee,
+                    ];
+                    $totalCalculation = new Helper();
+                    $totalCalculationDetails = $totalCalculation->grand_total_calculations($r->subTotal, $calculationData);
+
+                    $socketData = [
+                        'orderCode'    => $order,
+                        'orderNumber'  => $orderCode,
+                        'phoneNumber'  => $r->mobileNumber,
+                        'status'       => 'placed',
+                        'storeCode'    => $r->storeLocation,
+                        'deliveryType' => $r->deliveryType,
+                        'customerName' => $r->customerName,
+                        'grandTotal'   => $totalCalculationDetails["grandTotal"],
+                        "pricing" => $totalCalculationDetails,
+                        'orderFrom'    => 'store',
+                        'placedBy'     => 'cashier',
+                        'txnId' => $txnId
+                    ];
+
+                    // Store DoorDash quote data in order
+                    OrderMaster::where("code", $order)->update([
+                        "subTotal" => $totalCalculationDetails["subTotal"],
+                        "discountAmount" => $totalCalculationDetails["discountAmount"],
+                        "taxPer" => $totalCalculationDetails["taxPer"],
+                        "grandTotal" => $totalCalculationDetails["grandTotal"],
+                        "taxAmount" => $totalCalculationDetails["taxAmount"],
+                        "extraDeliveryCharges" => $totalCalculationDetails["extraDeliveryCharges"],
+                        "grandTotal" => $totalCalculationDetails["grandTotal"]
+                    ]);
+
+                    $response = [
+                        "message" => "Order placed successfully.",
+                        "orderCode" => $order,
+                        "code" => $orderCode,
+                        "data" => $socketData
+                    ];
+
+                    // Only include DoorDash data if it's a delivery order
+                    if ($r->deliveryType == "delivery" && $doorDashResult) {
+                        $response['data']['doordashData'] = $doorDashResult["data"] ?? null;
+                    }
+
+                    return response()->json($response, 200);
+
+                    //return response()->json(["message" => "Order placed successfully.", "orderCode" => $order, "code" => $orderCode, "data" => $socketData], 200);
+                }
+                return response()->json(["message" => "Failed to place order."], 400);
+            }
+            return response()->json(["message" => "Failed to place order."], 400);
+        } catch (\Exception $ex) {
+            return response()->json(['message' => $ex->getMessage()], 400);
+        }
+    }
+
+
     public function order_place(Request $r)
     {
         try {
@@ -172,7 +556,7 @@ class CashierOrderController extends Controller
             // }
 
             $deliveryExecutive = "";
-           /* if ($r->deliveryType != "pickup") {
+            /* if ($r->deliveryType != "pickup") {
                 if ($r->has('deliveryExecutive') && $r->deliveryExecutive != "") {
                     $deliveryExecutive = $r->deliveryExecutive;
                 } else {
@@ -218,7 +602,8 @@ class CashierOrderController extends Controller
                 $data["paymentStatus"] = "pending";
             }
 
-            $orderCode = 1;
+            /*
+            $orderCode = 5500;
             $curDate = date('Y-m-d H:i:00');
             if ($curDate < date("Y-m-d 04:30:00")) {
                 $prevDate = date("Y-m-d 04:30:00", strtotime("- 1 day"));
@@ -235,6 +620,9 @@ class CashierOrderController extends Controller
                     $orderCode = $records + 1;
                 }
             }
+            */
+
+            $orderCode = $this->create_new_order_code();
 
             $order = $this->model->addNew($data, "ordermaster", 'ORD');
             if ($order) {
@@ -244,7 +632,6 @@ class CashierOrderController extends Controller
                 $result = OrderMaster::where("code", $order)->update(["txnId" => $txnId, "orderCode" => $orderCode]);
                 if ($result == true) {
                     foreach ($r->products as $item) {
-
                         $orderLine = new OrderLineEntries;
                         $orderLine->code = Str::uuid();
                         $orderLine->pid = $item["id"];
@@ -332,7 +719,8 @@ class CashierOrderController extends Controller
                             "doordash_response" => $doorDashResult,
                             "doordash_delivery_id" => $doorDashResult['data']['external_delivery_id'] ?? null,
                             "doordash_status" => 'QUOTE_CREATED',
-                            "doordash_expires_at"=> now()->addMinutes(5)
+                            "deliveryCharges" => isset($doorDashResult['data']['fee']) ? $doorDashResult['data']['fee'] / 100 : null,
+                            "doordash_expires_at" => now()->addMinutes(5)
                         ]);
 
                         DoorDashStep::create([
@@ -353,7 +741,7 @@ class CashierOrderController extends Controller
                     $calculationData = [
                         "storeCode" => $storeLocation,
                         "deliveryType" => $r->deliveryType,
-                        "discountAmount" => $r->discountType,
+                        "discountAmount" => $r->discountAmount,
                         "deliveryCharges" => $deliveryFee,
                     ];
                     $totalCalculation = new Helper();
@@ -374,47 +762,16 @@ class CashierOrderController extends Controller
                         'txnId' => $txnId
                     ];
 
-                    if ($r->deliveryType == "delivery") {
-                        $smsTemplate = SmsTemplate::where("id", 2)->first();
-
-                        // Get current time and add 20 minutes for estimated delivery
-                        $deliveryTime = now()->addMinutes(20)->format('h:i A');
-
-                        // Replace placeholders in template with actual values
-                        $message = str_replace(
-                            ['{order_number}', '{address}', '{delivery_time}'],
-                            [$order, $r->address, $deliveryTime],
-                            $smsTemplate->template
-                        );
-
-                        $twilio = new Twilio;
-
-                        if ($twilio->isLive()) {
-                            $sms = $twilio->sendMessage($message, $r->mobileNumber);
-                        }
-                    }
-
-                    if ($r->deliveryType == "pickup") {
-                        $smsTemplate = SmsTemplate::where("id", 1)->first(); // pickup template
-
-                        // Pickup time = now + 15 minutes (change if needed)
-                        $pickupTime = now()->addMinutes(20)->format('h:i A');
-
-                        // Example store address
-                        $storeAddress = $store->storeAddress; // replace or fetch from DB
-
-                        // Replace placeholders
-                        $message = str_replace(
-                            ['{order_number}', '{pickup_time}'],
-                            [$order, $pickupTime],
-                            $smsTemplate->template
-                        );
-                        $twilio = new Twilio;
-
-                        if ($twilio->isLive()) {
-                            $sms = $twilio->sendMessage($message, $r->mobileNumber);
-                        }
-                    }
+                    // Store DoorDash quote data in order
+                    OrderMaster::where("code", $order)->update([
+                        "subTotal" => $totalCalculationDetails["subTotal"],
+                        "discountAmount" => $totalCalculationDetails["discountAmount"],
+                        "taxPer" => $totalCalculationDetails["taxPer"],
+                        "grandTotal" => $totalCalculationDetails["grandTotal"],
+                        "taxAmount" => $totalCalculationDetails["taxAmount"],
+                        "extraDeliveryCharges" => $totalCalculationDetails["extraDeliveryCharges"],
+                        "grandTotal" => $totalCalculationDetails["grandTotal"]
+                    ]);
 
                     $response = [
                         "message" => "Order placed successfully.",
@@ -425,11 +782,15 @@ class CashierOrderController extends Controller
 
                     // Only include DoorDash data if it's a delivery order
                     if ($r->deliveryType == "delivery" && $doorDashResult) {
-                        $response['doordashData'] = $doorDashResult["data"] ?? null;
+                        $response['data']['doordashData'] = $doorDashResult["data"] ?? null;
                     }
 
+                    $orderDetails = OrderMaster::where("code", $order)->first();
+                    if (!empty($orderDetails)) {
+                        $sendSms = new Helper();
+                        $smsResult = $sendSms->sendSms($orderDetails->clientType, $orderDetails->deliveryType,  $orderDetails->mobileNumber,  $orderCode,  $orderDetails->storeLocation,  $orderDetails->address);
+                    }
                     return response()->json($response, 200);
-
                     //return response()->json(["message" => "Order placed successfully.", "orderCode" => $order, "code" => $orderCode, "data" => $socketData], 200);
                 }
                 return response()->json(["message" => "Failed to place order."], 400);
@@ -444,12 +805,10 @@ class CashierOrderController extends Controller
 
     public function change_order_status(Request $r)
     {
-       try {
+        try {
             $validator = Validator::make($r->all(), [
                 'orderCode'   => 'required',
-                'status'      => 'required|in:accept,cancelled',
-                'grandTotal'  => 'required',
-                'txnId'       => 'required'
+                'status'      => 'required|in:accept,cancelled'
             ]);
 
             if ($validator->fails()) {
@@ -474,8 +833,8 @@ class CashierOrderController extends Controller
                     $stripe = new Stripe();
 
                     $paymentLink = $stripe->createPaymentLink(
-                        $r->grandTotal,
-                        $r->txnId,
+                        $order->grandTotal,
+                        $order->txnId,
                         'Order Payment - ' . $orderCode
                     );
 
@@ -490,7 +849,7 @@ class CashierOrderController extends Controller
                         'payment_link'    => $paymentLink['payment_url'],
                         'payment_link_id' => $paymentLink['payment_link_id'],
                         'stripesessionid' => $paymentLink['payment_link_id'],
-                        "payment_expires_at"=>now()->addMinutes(3)
+                        "payment_expires_at" => now()->addMinutes(3)
                     ]);
 
                     if ($order->mobileNumber) {
@@ -568,7 +927,7 @@ class CashierOrderController extends Controller
                     }
                 }
 
-               OrderMaster::where('id', $order->id)->update([
+                OrderMaster::where('id', $order->id)->update([
                     'orderStatus' => 'cancelled'
                 ]);
 
@@ -905,14 +1264,17 @@ class CashierOrderController extends Controller
                 }
             }
 
-
             if ($r->has('orderStatus') && $r->orderStatus != "") {
                 $orderQuery->where("ordermaster.orderStatus", $r->orderStatus);
             } else {
-                $orderQuery->whereNotIn("ordermaster.orderStatus", ["delivered", "cancelled"]);
-            }
+                $orderQuery->where("ordermaster.orderStatus", "placed");
 
-            $getOrder = $orderQuery->orderBy('ordermaster.id', 'DESC')->get();
+                //$orderQuery->whereNotIn("ordermaster.orderStatus", ["delivered", "cancelled"]);
+            }
+           $getOrder = $orderQuery->orderBy('ordermaster.id', 'DESC')->get();
+
+
+           //$getOrder = $orderQuery->where('paymentStatus','paid')->orderBy('ordermaster.id', 'DESC')->get();
             if ($getOrder && count($getOrder) > 0) {
                 $orderArray = [];
 
@@ -1165,7 +1527,7 @@ class CashierOrderController extends Controller
                 $data["created_at"] = date('d-m-Y h:i A', strtotime($getOrder->created_at)) ?? "";
                 $data["clientType"] = $getOrder->clientType ?? "";
                 $data["subTotal"] = $getOrder->subTotal ?? "0.00";
-                $data["discountmount"] = $getOrder->discountAmount ?? "0.00";
+                $data["discountAmount"] = $getOrder->discountAmount ?? "0.00";
                 $data["discountPer"] = $getOrder->discountPer ?? "0.00";
                 $data["taxAmount"] = $getOrder->taxAmount ?? "0.00";
                 $data["taxPer"] = $getOrder->taxPer ?? "0.00";

@@ -171,6 +171,7 @@ class SoftDrinkController extends Controller
                 })
             ],
             'softdrinkImage' => 'nullable|image|mimes:jpg,png,jpeg',
+            'type' => 'required|in:pop,bottle,juice',
             'price' => 'nullable',
             'drinksCount' => 'required',
             'description' => 'nullable',
@@ -185,6 +186,7 @@ class SoftDrinkController extends Controller
         $data = [
             'softdrinks' => ucwords(strtolower($r->softdrinks)),
             'type' => $r->type,
+            'drinksType' => $r->type,
             'price' => $r->price,
             'drinksCount' => $r->drinksCount,
             'description' => $r->description,
@@ -260,7 +262,7 @@ class SoftDrinkController extends Controller
             ],
             'price' => 'required|numeric|min:0.01',
             'drinksCount' => 'required|numeric|min:1',
-            'type' => 'required|in:pop,bottle',
+            'type' => 'required|in:pop,bottle,juice',
             'description' => 'nullable',
         ];
 
