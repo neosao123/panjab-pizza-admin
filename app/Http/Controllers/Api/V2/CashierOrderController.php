@@ -85,17 +85,16 @@ class CashierOrderController extends Controller
             $input = $r->all();
 
             $rules = [
-                'cashierCode'                 => 'required',
-                'mobileNumber'                 => ['required', 'phone:CA'],
-                'customerEmail'                => 'nullable|email',
-                'deliveryType'                 => 'required|in:pickup,delivery',
+                'cashierCode'               => 'required',
+                'mobileNumber'              => ['required', 'phone:CA'],
+                'customerEmail'             => 'nullable|email',
+                'deliveryType'              => 'required|in:pickup,delivery',
                 'storeLocation'             => 'required',
-                'products'                     => 'required|array|min:1',
+                'products'                  => 'required|array|min:1',
                 'products.*.id'             => 'required',
                 'products.*.productCode'    => 'required',
                 'products.*.productName'    => 'required',
                 'products.*.productType'    => 'required',
-                //'products.*.config'         => 'required',
                 'products.*.quantity'       => 'required',
                 'products.*.price'          => 'required',
                 'products.*.amount'         => 'required',
@@ -266,7 +265,6 @@ class CashierOrderController extends Controller
                 $result = OrderMaster::where("code", $order)->update(["txnId" => $txnId, "orderCode" => $orderCode]);
                 if ($result == true) {
                     foreach ($r->products as $item) {
-
                         $orderLine = new OrderLineEntries;
                         $orderLine->code = Str::uuid();
                         $orderLine->pid = $item["id"];
@@ -604,8 +602,8 @@ class CashierOrderController extends Controller
                 $data["paymentStatus"] = "pending";
             }
 
-            $orderCode = 5500;
             /*
+            $orderCode = 5500;
             $curDate = date('Y-m-d H:i:00');
             if ($curDate < date("Y-m-d 04:30:00")) {
                 $prevDate = date("Y-m-d 04:30:00", strtotime("- 1 day"));
@@ -634,7 +632,6 @@ class CashierOrderController extends Controller
                 $result = OrderMaster::where("code", $order)->update(["txnId" => $txnId, "orderCode" => $orderCode]);
                 if ($result == true) {
                     foreach ($r->products as $item) {
-
                         $orderLine = new OrderLineEntries;
                         $orderLine->code = Str::uuid();
                         $orderLine->pid = $item["id"];
@@ -791,10 +788,9 @@ class CashierOrderController extends Controller
                     $orderDetails = OrderMaster::where("code", $order)->first();
                     if (!empty($orderDetails)) {
                         $sendSms = new Helper();
-                        $smsResult = $sendSms->sendSms($orderDetails->clientType, $orderDetails->deliveryType,  $orderDetails->mobileNumber,  $orderDetails->code,  $orderDetails->storeLocation,  $orderDetails->address);
+                        $smsResult = $sendSms->sendSms($orderDetails->clientType, $orderDetails->deliveryType,  $orderDetails->mobileNumber,  $orderCode,  $orderDetails->storeLocation,  $orderDetails->address);
                     }
                     return response()->json($response, 200);
-
                     //return response()->json(["message" => "Order placed successfully.", "orderCode" => $order, "code" => $orderCode, "data" => $socketData], 200);
                 }
                 return response()->json(["message" => "Failed to place order."], 400);
@@ -1268,14 +1264,17 @@ class CashierOrderController extends Controller
                 }
             }
 
-
             if ($r->has('orderStatus') && $r->orderStatus != "") {
                 $orderQuery->where("ordermaster.orderStatus", $r->orderStatus);
             } else {
-                $orderQuery->whereNotIn("ordermaster.orderStatus", ["delivered", "cancelled"]);
-            }
+                $orderQuery->where("ordermaster.orderStatus", "placed");
 
-            $getOrder = $orderQuery->orderBy('ordermaster.id', 'DESC')->get();
+                //$orderQuery->whereNotIn("ordermaster.orderStatus", ["delivered", "cancelled"]);
+            }
+           $getOrder = $orderQuery->orderBy('ordermaster.id', 'DESC')->get();
+
+
+           //$getOrder = $orderQuery->where('paymentStatus','paid')->orderBy('ordermaster.id', 'DESC')->get();
             if ($getOrder && count($getOrder) > 0) {
                 $orderArray = [];
 

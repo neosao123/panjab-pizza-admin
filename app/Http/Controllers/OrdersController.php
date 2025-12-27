@@ -70,12 +70,17 @@ class OrdersController extends Controller
         $search = $req->input('search.value');
         $tableName = "ordermaster";
         $orderColumns = array("ordermaster.*", "storelocation.storeLocation");
-        $condition = array('ordermaster.code' => array('=', $orders), 'ordermaster.orderFrom' => array('=', $orderfrom), 'ordermaster.orderStatus' => array('=', $orderStatus));
+        $condition = array('ordermaster.code' => array('=', $orders), 'ordermaster.orderFrom' => array('=', $orderfrom));
+        if (!empty($orderStatus)) {
+            $condition['ordermaster.orderStatus'] = array('=', $orderStatus);
+        } else {
+            $condition['ordermaster.orderStatus'] = array('=', 'placed');
+        }
         $orderBy = array('ordermaster' . '.id' => 'DESC');
         $groupBy = array();
         $join = array('storelocation' => array('storelocation.code', 'ordermaster.storeLocation'));
         $joinType = array('storelocation' => 'left');
-        $like = array('ordermaster.zipCode' => $search, 'ordermaster.clientType' => $search, 'ordermaster.code' => $search, 'ordermaster.customerName' => $search, 'ordermaster.mobileNumber' => $search, 'ordermaster.orderFrom' => $search, 'storelocation.storeLocation' => $search, 'ordermaster.grandTotal' => $search);
+        $like = array('ordermaster.orderCode' => $search,'ordermaster.zipCode' => $search, 'ordermaster.clientType' => $search, 'ordermaster.code' => $search, 'ordermaster.customerName' => $search, 'ordermaster.mobileNumber' => $search, 'ordermaster.orderFrom' => $search, 'storelocation.storeLocation' => $search, 'ordermaster.grandTotal' => $search);
         $limit = $req->length;
         $offset = $req->start;
         $extraCondition = "";
@@ -162,6 +167,8 @@ class OrdersController extends Controller
 
             if (!empty($orderStatus)) {
                 $dataCount = $dataCount->where("ordermaster.orderStatus", $orderStatus);
+            }else{
+                $dataCount = $dataCount->where("ordermaster.orderStatus", "placed");
             }
 
             $dataCount = $dataCount->where(function ($query) use ($search) {
